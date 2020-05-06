@@ -26,6 +26,8 @@ class Play extends Phaser.Scene {
         this.blocks.create(game.config.width/2 - 64, game.config.height/2 - 192, 'block');
         this.blocks.create(game.config.width/2 + 64, game.config.height/2 - 192, 'block');
 
+        this.blocks.create(480, 480, 'block');
+
         //player
         this.player = new Player(this, game.config.width/2, game.config.height/2 - 128, 'player', 0);
         this.player.setBounce(0.2);
@@ -73,24 +75,26 @@ class Play extends Phaser.Scene {
         //handle player movement
         if (keyA.isDown) {
             //move left
-            if (Math.cos(this.player.rotation) != 0) {
-                console.log('A x');
+            //figure out whether moving left/right happens in X or Y axis
+            //do not alter velocity in vertical axis
+            if (this.player.gravityState % 2 == 0) {
                 this.player.setVelocityX(Math.cos(this.player.rotation) * playerSpeed * -1);
             }
-            if (Math.sin(this.player.rotation) != 0) {
-                console.log('A y');
+            if (this.player.gravityState % 2 == 1) {
                 this.player.setVelocityY(Math.sin(this.player.rotation) * playerSpeed * -1);
             }
+            
         } else if (keyD.isDown) {
             //move right
-            if (Math.cos(this.player.rotation) != 0) {
-                console.log('B x');
+            //figure out whether moving left/right happens in X or Y axis
+            //do not alter velocity in vertical axis
+            if (this.player.gravityState % 2 == 0) {
                 this.player.setVelocityX(Math.cos(this.player.rotation) * playerSpeed);
             }
-            if (Math.sin(this.player.rotation) != 0) {
-                console.log('B y');
+            if (this.player.gravityState % 2 == 1) {
                 this.player.setVelocityY(Math.sin(this.player.rotation) * playerSpeed);
             }
+
         } else {
             //not moving, check if player is on ground on the correct side of the screen
             if (this.player.gravityState == 0) { //bottom
@@ -134,8 +138,6 @@ class Play extends Phaser.Scene {
                 }
             }
         }
-
-        
     }
 
     updateGravity() {
