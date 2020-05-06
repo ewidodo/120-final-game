@@ -43,18 +43,17 @@ class Play extends Phaser.Scene {
         keyE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
 
         //camera & gravity
-        rotation = 0;
+        rotationValue = 0;
         this.rotating = false;
-        this.cameras.main.setRotation(rotation);
+        this.cameras.main.setRotation(rotationValue);
+        this.cameras.main.startFollow(this.player);
         this.switching = false;
     }
 
     update() {
         //switching gravity towards right
         if (Phaser.Input.Keyboard.JustDown(keyE) && !this.switching) {
-            rotation += Math.PI / 2;
-            this.cameras.main.setRotation(rotation);
-            this.player.setRotation(rotation * -1);
+            rotationValue += Math.PI / 2;
             this.player.gravityState++;
             this.player.gravityState %= 4;
             this.updateGravity();
@@ -62,9 +61,7 @@ class Play extends Phaser.Scene {
 
         //switching gravity towards left
         if (Phaser.Input.Keyboard.JustDown(keyQ) && !this.switching) {
-            rotation -= Math.PI / 2;
-            this.cameras.main.setRotation(rotation);
-            this.player.setRotation(rotation * -1);
+            rotationValue -= Math.PI / 2;
             this.player.gravityState--;
             if (this.player.gravityState < 0) {
                 this.player.gravityState = 3;
@@ -83,7 +80,8 @@ class Play extends Phaser.Scene {
             if (this.player.gravityState % 2 == 1) {
                 this.player.setVelocityY(Math.sin(this.player.rotation) * playerSpeed * -1);
             }
-            
+            this.player.flipX = true;
+
         } else if (keyD.isDown) {
             //move right
             //figure out whether moving left/right happens in X or Y axis
@@ -94,6 +92,7 @@ class Play extends Phaser.Scene {
             if (this.player.gravityState % 2 == 1) {
                 this.player.setVelocityY(Math.sin(this.player.rotation) * playerSpeed);
             }
+            this.player.flipX = false;
 
         } else {
             //not moving, check if player is on ground on the correct side of the screen
@@ -102,9 +101,8 @@ class Play extends Phaser.Scene {
                     //on ground and not moving
                     this.player.setVelocityX(0);
                     this.player.setVelocityY(0);
-                    this.player.onGround = true;
                 } else {
-                    this.player.onGround = false;
+
                 }
             }
             if (this.player.gravityState == 1) { //right
@@ -112,9 +110,8 @@ class Play extends Phaser.Scene {
                     //on ground and not moving
                     this.player.setVelocityX(0);
                     this.player.setVelocityY(0);
-                    this.player.onGround = true;
                 } else {
-                    this.player.onGround = false;
+
                 }
             }
             if (this.player.gravityState == 2) { // top
@@ -122,9 +119,8 @@ class Play extends Phaser.Scene {
                     //on ground and not moving
                     this.player.setVelocityX(0);
                     this.player.setVelocityY(0);
-                    this.player.onGround = true;
                 } else {
-                    this.player.onGround = false;
+
                 }
             }
             if (this.player.gravityState == 3) { //left
@@ -132,22 +128,38 @@ class Play extends Phaser.Scene {
                     //on ground and not moving
                     this.player.setVelocityX(0);
                     this.player.setVelocityY(0);
-                    this.player.onGround = true;
                 } else {
-                    this.player.onGround = false;
+
                 }
             }
         }
     }
 
     updateGravity() {
-        this.physics.world.gravity.x = Math.sin(rotation) * gravityStrength;
-        this.physics.world.gravity.y = Math.cos(rotation) * gravityStrength;
+        this.physics.world.gravity.x = Math.sin(rotationValue) * gravityStrength;
+        this.physics.world.gravity.y = Math.cos(rotationValue) * gravityStrength;
+
+        this.tweens.add({
+            targets: this.cameras.main,
+            rotation: rotationValue,
+            duration: 350,
+            ease: 'Power',
+            repeat: 0,
+            yoyo: false,
+        });
+        this.tweens.add({
+            targets: this.player,
+            rotation: rotationValue * -1,
+            duration: 350,
+            ease: 'Power',
+            repeat: 0,
+            yoyo: false,
+        });
 
         //prevent player from switching too frequently
         this.switching = true;
         this.time.addEvent({
-            delay: 750,
+            delay: 700,
             callback: () => {
                 this.switching = false;
             }
