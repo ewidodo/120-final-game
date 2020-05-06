@@ -34,3 +34,4 @@ let game = new Phaser.Game(config);
 let keyA, keyD, keyQ, keyE;
 let rotation;
 let gravityStrength = 500;
+let playerSpeed = 100;
