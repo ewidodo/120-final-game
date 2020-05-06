@@ -33,3 +33,4 @@ let game = new Phaser.Game(config);
 //keyboard reservations + vars
 let keyA, keyD, keyQ, keyE;
 let rotation;
+let gravityStrength = 500;
