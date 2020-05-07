@@ -1,6 +1,6 @@
-class Play extends Phaser.Scene {
+class test extends Phaser.Scene {
     constructor() {
-        super("playScene");
+        super("testScene");
     }
 
     preload() {
@@ -10,23 +10,47 @@ class Play extends Phaser.Scene {
     }
 
     create() {
+
+        //build walls       
+        this.wall1 = this.physics.add.sprite(0,0,'block').setOrigin(0,0).setScale(1,16);
+            this.wall1.body.setImmovable(true);
+            this.wall1.body.setAllowGravity(false);
+
+        this.wall2 = this.physics.add.sprite(game.config.width-64,0,'block').setOrigin(0,0).setScale(1,16);
+            this.wall2.body.setImmovable(true);
+            this.wall2.body.setAllowGravity(false);
+
+        this.wall3 = this.physics.add.sprite(0,game.config.height-64,'block').setOrigin(0,0).setScale(16,1);
+            this.wall3.body.setImmovable(true);
+            this.wall3.body.setAllowGravity(false);
+
+        this.wall4 = this.physics.add.sprite(0,0,'block').setOrigin(0,0).setScale(16,1);
+            this.wall4.body.setImmovable(true);
+            this.wall4.body.setAllowGravity(false);
+        
+       
         //build level
         this.blocks = this.physics.add.staticGroup();
-        this.blocks.create(game.config.width/2, game.config.height/2, 'block2');
-        this.blocks.create(game.config.width/2 - 64, game.config.height/2, 'block');
-        this.blocks.create(game.config.width/2 + 64, game.config.height/2, 'block');
+        //middle
+        this.blocks.create(game.config.width/2, game.config.height/2, 'block2').setOrigin(0.5);
+        //this.blocks.getChildren().body.setCircle(64)
 
-        this.blocks.create(game.config.width/2 + 128, game.config.height/2 - 64, 'block')
-        this.blocks.create(game.config.width/2 + 128, game.config.height/2 - 128, 'block')
+        //this.blocks.create(32, 32, 'block')//.setOrigin(0,0);
+        //this.blocks.create(game.config.width - 32, 32, 'block')//.setOrigin(0,0);
+        //this.wallBlocks.create(game.config.width - 64, 0, 'block');
+        //this.wallBlocks.create(game.config.width - 64, 0, 'block');
 
-        this.blocks.create(game.config.width/2 - 128, game.config.height/2 - 64, 'block')
-        this.blocks.create(game.config.width/2 - 128, game.config.height/2 - 128, 'block')
+        // this.blocks.create(game.config.width/2 + 128, game.config.height/2 - 64, 'block')
+        // this.blocks.create(game.config.width/2 + 128, game.config.height/2 - 128, 'block')
 
-        this.blocks.create(game.config.width/2, game.config.height/2 - 192, 'block');
-        this.blocks.create(game.config.width/2 - 64, game.config.height/2 - 192, 'block');
-        this.blocks.create(game.config.width/2 + 64, game.config.height/2 - 192, 'block');
+        // this.blocks.create(game.config.width/2 - 128, game.config.height/2 - 64, 'block')
+        // this.blocks.create(game.config.width/2 - 128, game.config.height/2 - 128, 'block')
 
-        this.blocks.create(480, 480, 'block');
+        // this.blocks.create(game.config.width/2, game.config.height/2 - 192, 'block');
+        // this.blocks.create(game.config.width/2 - 64, game.config.height/2 - 192, 'block');
+        // this.blocks.create(game.config.width/2 + 64, game.config.height/2 - 192, 'block');
+
+        
 
         //player
         this.player = new Player(this, game.config.width/2, game.config.height/2 - 128, 'player', 0);
@@ -35,11 +59,15 @@ class Play extends Phaser.Scene {
 
         //physics
         this.physics.add.collider(this.player, this.blocks);
+        this.physics.add.collider(this.player, this.wall1);
+        this.physics.add.collider(this.player, this.wall2);
+        this.physics.add.collider(this.player, this.wall3);
+        this.physics.add.collider(this.player, this.wall4);
+        
 
         //keyboard input
         keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
-        keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         keyQ = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
         keyE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
 
@@ -101,37 +129,43 @@ class Play extends Phaser.Scene {
             this.player.flipX = false;
 
         } else {
-            //not moving, set relative horizontal movement to 0
-            if (this.player.gravityState % 2 == 0) {
-                this.player.setVelocityX(0);
-            }
-            if (this.player.gravityState % 2 == 1) {
-                this.player.setVelocityY(0);
-            }
-        }
+            //not moving, check if player is on ground on the correct side of the screen
+            if (this.player.gravityState == 0) { //bottom
+                if (this.player.body.touching.down) {
+                    //on ground and not moving
+                    this.player.setVelocityX(0);
+                    this.player.setVelocityY(0);
+                } else {
 
-        //jumping
-        if (Phaser.Input.Keyboard.JustDown(keyW) && !this.player.isJumping && !this.switching) {
-            this.player.isJumping = true;
-            if (this.player.gravityState % 2 == 0) {
-                this.player.setVelocityY(Math.cos(rotationValue) * jumpSpeed);
+                }
             }
-            if (this.player.gravityState % 2 == 1) {
-                this.player.setVelocityX(Math.sin(rotationValue) * jumpSpeed);
-            }
-        }
+            if (this.player.gravityState == 1) { //right
+                if (this.player.body.touching.right) {
+                    //on ground and not moving
+                    this.player.setVelocityX(0);
+                    this.player.setVelocityY(0);
+                } else {
 
-        if (this.player.gravityState == 0 && this.player.body.touching.down) { //bottom
-            this.player.isJumping = false;
-        }
-        if (this.player.gravityState == 1 && this.player.body.touching.right) { //right
-            this.player.isJumping = false;
-        }
-        if (this.player.gravityState == 2 && this.player.body.touching.up) { // top
-            this.player.isJumping = false;
-        }
-        if (this.player.gravityState == 3 && this.player.body.touching.left) { //left
-            this.player.isJumping = false;
+                }
+            }
+            if (this.player.gravityState == 2) { // top
+                if (this.player.body.touching.up) {
+                    //on ground and not moving
+                    this.player.setVelocityX(0);
+                    this.player.setVelocityY(0);
+                } else {
+
+                }
+            }
+            if (this.player.gravityState == 3) { //left
+                if (this.player.body.touching.left) {
+                    //on ground and not moving
+                    this.player.setVelocityX(0);
+                    this.player.setVelocityY(0);
+                } else {
+
+                }
+            }
         }
     }
 

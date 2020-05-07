@@ -1,7 +1,7 @@
 let config = {
     type: Phaser.CANVAS,
-    width: 1920,
-    height: 1080,
+    width: 1024,
+    height: 1024,
     scale: {
         autoCenter: Phaser.Scale.CENTER_BOTH
     },
@@ -10,7 +10,7 @@ let config = {
     physics: {
         default: 'arcade',
         arcade: {
-            debug: false,
+            debug: true,
             gravity: {
                 x: 0,
                 y: 600,
@@ -25,7 +25,7 @@ let config = {
         target: 60,
         forceSetTimeOut: true
     },
-    scene: [Menu, Play],
+    scene: [test, Menu, Play],
 };
 
 let game = new Phaser.Game(config);
