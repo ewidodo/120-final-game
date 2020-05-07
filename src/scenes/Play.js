@@ -39,6 +39,7 @@ class Play extends Phaser.Scene {
         //keyboard input
         keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+        keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         keyQ = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
         keyE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
 
@@ -100,43 +101,39 @@ class Play extends Phaser.Scene {
             this.player.flipX = false;
 
         } else {
-            //not moving, check if player is on ground on the correct side of the screen
-            if (this.player.gravityState == 0) { //bottom
-                if (this.player.body.touching.down) {
-                    //on ground and not moving
-                    this.player.setVelocityX(0);
-                    this.player.setVelocityY(0);
-                } else {
-
-                }
+            //not moving, set relative horizontal movement to 0
+            if (this.player.gravityState % 2 == 0) {
+                this.player.setVelocityX(0);
             }
-            if (this.player.gravityState == 1) { //right
-                if (this.player.body.touching.right) {
-                    //on ground and not moving
-                    this.player.setVelocityX(0);
-                    this.player.setVelocityY(0);
-                } else {
-
-                }
+            if (this.player.gravityState % 2 == 1) {
+                this.player.setVelocityY(0);
             }
-            if (this.player.gravityState == 2) { // top
-                if (this.player.body.touching.up) {
-                    //on ground and not moving
-                    this.player.setVelocityX(0);
-                    this.player.setVelocityY(0);
-                } else {
+        }
 
-                }
+        //jumping
+        if (Phaser.Input.Keyboard.JustDown(keyW) && !this.player.isJumping && !this.switching) {
+            this.player.isJumping = true;
+            if (this.player.gravityState % 2 == 1) {
+                this.player.setVelocityX(Math.sin(rotationValue) * jumpSpeed);
+                console.log(this.player.body.velocity.x);
             }
-            if (this.player.gravityState == 3) { //left
-                if (this.player.body.touching.left) {
-                    //on ground and not moving
-                    this.player.setVelocityX(0);
-                    this.player.setVelocityY(0);
-                } else {
+            if (this.player.gravityState % 2 == 0) {
+                this.player.setVelocityY(Math.cos(rotationValue) * jumpSpeed);
+                console.log(this.player.body.velocity.y);
+            }
+        }
 
-                }
-            }
+        if (this.player.gravityState == 0 && this.player.body.touching.down) { //bottom
+            this.player.isJumping = false;
+        }
+        if (this.player.gravityState == 1 && this.player.body.touching.right) { //right
+            this.player.isJumping = false;
+        }
+        if (this.player.gravityState == 2 && this.player.body.touching.up) { // top
+            this.player.isJumping = false;
+        }
+        if (this.player.gravityState == 3 && this.player.body.touching.left) { //left
+            this.player.isJumping = false;
         }
     }
 
