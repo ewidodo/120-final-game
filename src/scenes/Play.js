@@ -44,9 +44,10 @@ class Play extends Phaser.Scene {
 
         //camera & gravity
         rotationValue = 0;
-        this.rotating = false;
+        playerRotationValue = 0;
         this.cameras.main.setRotation(rotationValue);
         this.cameras.main.startFollow(this.player);
+        this.player.setRotation(playerRotationValue);
         this.switching = false;
     }
 
@@ -54,6 +55,8 @@ class Play extends Phaser.Scene {
         //switching gravity towards right
         if (Phaser.Input.Keyboard.JustDown(keyE) && !this.switching) {
             rotationValue += Math.PI / 2;
+            console.log(playerRotationValue);
+            playerRotationValue -= Math.PI / 2;
             this.player.gravityState++;
             this.player.gravityState %= 4;
             this.updateGravity();
@@ -62,6 +65,8 @@ class Play extends Phaser.Scene {
         //switching gravity towards left
         if (Phaser.Input.Keyboard.JustDown(keyQ) && !this.switching) {
             rotationValue -= Math.PI / 2;
+            console.log(playerRotationValue);
+            playerRotationValue += Math.PI / 2;
             this.player.gravityState--;
             if (this.player.gravityState < 0) {
                 this.player.gravityState = 3;
@@ -147,14 +152,23 @@ class Play extends Phaser.Scene {
             repeat: 0,
             yoyo: false,
         });
+
+        playerRotationValue %= Math.PI * 2;
+        console.log(playerRotationValue);
+
         this.tweens.add({
             targets: this.player,
-            rotation: rotationValue * -1,
+            rotation: playerRotationValue,
             duration: 350,
             ease: 'Power',
             repeat: 0,
             yoyo: false,
         });
+
+        if (playerRotationValue > 0) {
+            playerRotationValue -= Math.PI * 2;
+        }
+        console.log(playerRotationValue);
 
         //prevent player from switching too frequently
         this.switching = true;
