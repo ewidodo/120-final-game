@@ -113,13 +113,11 @@ class Play extends Phaser.Scene {
         //jumping
         if (Phaser.Input.Keyboard.JustDown(keyW) && !this.player.isJumping && !this.switching) {
             this.player.isJumping = true;
-            if (this.player.gravityState % 2 == 1) {
-                this.player.setVelocityX(Math.sin(rotationValue) * jumpSpeed);
-                console.log(this.player.body.velocity.x);
-            }
             if (this.player.gravityState % 2 == 0) {
                 this.player.setVelocityY(Math.cos(rotationValue) * jumpSpeed);
-                console.log(this.player.body.velocity.y);
+            }
+            if (this.player.gravityState % 2 == 1) {
+                this.player.setVelocityX(Math.sin(rotationValue) * jumpSpeed);
             }
         }
 
