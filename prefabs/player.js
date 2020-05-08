@@ -9,6 +9,65 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     }
 
     update() {
+        //handle player movement
+        if (keyA.isDown) {
+            //move left
+            //figure out whether moving left/right happens in X or Y axis
+            //do not alter velocity in vertical axis
+            if (this.gravityState % 2 == 0) {
+                this.setVelocityX(Math.cos(this.rotation) * playerSpeed * -1);
+            }
+            if (this.gravityState % 2 == 1) {
+                this.setVelocityY(Math.sin(this.rotation) * playerSpeed * -1);
+            }
+            this.flipX = true;
 
+        } else if (keyD.isDown) {
+            //move right
+            //figure out whether moving left/right happens in X or Y axis
+            //do not alter velocity in vertical axis
+            if (this.gravityState % 2 == 0) {
+                this.setVelocityX(Math.cos(this.rotation) * playerSpeed);
+            }
+            if (this.gravityState % 2 == 1) {
+                this.setVelocityY(Math.sin(this.rotation) * playerSpeed);
+            }
+            this.flipX = false;
+
+        } else {
+            //not moving, set relative horizontal movement to 0
+            if (this.gravityState % 2 == 0) {
+                this.setVelocityX(0);
+            }
+            if (this.gravityState % 2 == 1) {
+                this.setVelocityY(0);
+            }
+        }
+
+        //jumping
+        if (Phaser.Input.Keyboard.JustDown(keyW) && !this.isJumping && !this.scene.switching) {
+            this.isJumping = true;
+            if (this.gravityState % 2 == 0) {
+                this.setVelocityY(Math.cos(rotationValue) * jumpSpeed);
+            }
+            if (this.gravityState % 2 == 1) {
+                this.setVelocityX(Math.sin(rotationValue) * jumpSpeed);
+            }
+        }
+
+        
+
+        if (this.gravityState == 0 && this.body.touching.down) { //bottom
+            this.isJumping = false;
+        }
+        if (this.gravityState == 1 && this.body.touching.right) { //right
+            this.isJumping = false;
+        }
+        if (this.gravityState == 2 && this.body.touching.up) { // top
+            this.isJumping = false;
+        }
+        if (this.gravityState == 3 && this.body.touching.left) { //left
+            this.isJumping = false;
+        }
     }
 }

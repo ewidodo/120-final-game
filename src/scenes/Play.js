@@ -75,64 +75,7 @@ class Play extends Phaser.Scene {
             this.updateGravity();
         }
 
-        //handle player movement
-        if (keyA.isDown) {
-            //move left
-            //figure out whether moving left/right happens in X or Y axis
-            //do not alter velocity in vertical axis
-            if (this.player.gravityState % 2 == 0) {
-                this.player.setVelocityX(Math.cos(this.player.rotation) * playerSpeed * -1);
-            }
-            if (this.player.gravityState % 2 == 1) {
-                this.player.setVelocityY(Math.sin(this.player.rotation) * playerSpeed * -1);
-            }
-            this.player.flipX = true;
-
-        } else if (keyD.isDown) {
-            //move right
-            //figure out whether moving left/right happens in X or Y axis
-            //do not alter velocity in vertical axis
-            if (this.player.gravityState % 2 == 0) {
-                this.player.setVelocityX(Math.cos(this.player.rotation) * playerSpeed);
-            }
-            if (this.player.gravityState % 2 == 1) {
-                this.player.setVelocityY(Math.sin(this.player.rotation) * playerSpeed);
-            }
-            this.player.flipX = false;
-
-        } else {
-            //not moving, set relative horizontal movement to 0
-            if (this.player.gravityState % 2 == 0) {
-                this.player.setVelocityX(0);
-            }
-            if (this.player.gravityState % 2 == 1) {
-                this.player.setVelocityY(0);
-            }
-        }
-
-        //jumping
-        if (Phaser.Input.Keyboard.JustDown(keyW) && !this.player.isJumping && !this.switching) {
-            this.player.isJumping = true;
-            if (this.player.gravityState % 2 == 0) {
-                this.player.setVelocityY(Math.cos(rotationValue) * jumpSpeed);
-            }
-            if (this.player.gravityState % 2 == 1) {
-                this.player.setVelocityX(Math.sin(rotationValue) * jumpSpeed);
-            }
-        }
-
-        if (this.player.gravityState == 0 && this.player.body.touching.down) { //bottom
-            this.player.isJumping = false;
-        }
-        if (this.player.gravityState == 1 && this.player.body.touching.right) { //right
-            this.player.isJumping = false;
-        }
-        if (this.player.gravityState == 2 && this.player.body.touching.up) { // top
-            this.player.isJumping = false;
-        }
-        if (this.player.gravityState == 3 && this.player.body.touching.left) { //left
-            this.player.isJumping = false;
-        }
+        this.player.update();
     }
 
     updateGravity() {
