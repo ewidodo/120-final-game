@@ -1,6 +1,6 @@
-class Play extends Phaser.Scene {
+class Test0 extends Phaser.Scene {
     constructor() {
-        super("playScene");
+        super("test0Scene");
     }
 
     preload() {
@@ -75,6 +75,7 @@ class Play extends Phaser.Scene {
             this.updateGravity();
         }
 
+        //update player
         this.player.update();
     }
 
@@ -85,7 +86,7 @@ class Play extends Phaser.Scene {
         this.tweens.add({
             targets: this.cameras.main,
             rotation: rotationValue,
-            duration: 350,
+            duration: rotationSpeed,
             ease: 'Power',
             repeat: 0,
             yoyo: false,
@@ -97,7 +98,7 @@ class Play extends Phaser.Scene {
         this.tweens.add({
             targets: this.player,
             rotation: playerRotationValue,
-            duration: 350,
+            duration: rotationSpeed,
             ease: 'Power',
             repeat: 0,
             yoyo: false,
@@ -111,7 +112,7 @@ class Play extends Phaser.Scene {
         //prevent player from switching too frequently
         this.switching = true;
         this.time.addEvent({
-            delay: 700,
+            delay: rotationSpeed * 2,
             callback: () => {
                 this.switching = false;
             }
