@@ -47,7 +47,7 @@ class Play extends Phaser.Scene {
         rotationValue = 0;
         playerRotationValue = 0;
         this.cameras.main.setRotation(rotationValue);
-        this.cameras.main.startFollow(this.player);
+        //this.cameras.main.startFollow(this.player);
         this.player.setRotation(playerRotationValue);
         this.switching = false;
     }
