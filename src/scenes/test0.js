@@ -1,6 +1,6 @@
-class Play extends Phaser.Scene {
+class Test0 extends Phaser.Scene {
     constructor() {
-        super("playScene");
+        super("test0Scene");
     }
 
     preload() {
@@ -39,6 +39,7 @@ class Play extends Phaser.Scene {
         //keyboard input
         keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+        keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         keyQ = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
         keyE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
 
@@ -74,70 +75,8 @@ class Play extends Phaser.Scene {
             this.updateGravity();
         }
 
-        //handle player movement
-        if (keyA.isDown) {
-            //move left
-            //figure out whether moving left/right happens in X or Y axis
-            //do not alter velocity in vertical axis
-            if (this.player.gravityState % 2 == 0) {
-                this.player.setVelocityX(Math.cos(this.player.rotation) * playerSpeed * -1);
-            }
-            if (this.player.gravityState % 2 == 1) {
-                this.player.setVelocityY(Math.sin(this.player.rotation) * playerSpeed * -1);
-            }
-            this.player.flipX = true;
-
-        } else if (keyD.isDown) {
-            //move right
-            //figure out whether moving left/right happens in X or Y axis
-            //do not alter velocity in vertical axis
-            if (this.player.gravityState % 2 == 0) {
-                this.player.setVelocityX(Math.cos(this.player.rotation) * playerSpeed);
-            }
-            if (this.player.gravityState % 2 == 1) {
-                this.player.setVelocityY(Math.sin(this.player.rotation) * playerSpeed);
-            }
-            this.player.flipX = false;
-
-        } else {
-            //not moving, check if player is on ground on the correct side of the screen
-            if (this.player.gravityState == 0) { //bottom
-                if (this.player.body.touching.down) {
-                    //on ground and not moving
-                    this.player.setVelocityX(0);
-                    this.player.setVelocityY(0);
-                } else {
-
-                }
-            }
-            if (this.player.gravityState == 1) { //right
-                if (this.player.body.touching.right) {
-                    //on ground and not moving
-                    this.player.setVelocityX(0);
-                    this.player.setVelocityY(0);
-                } else {
-
-                }
-            }
-            if (this.player.gravityState == 2) { // top
-                if (this.player.body.touching.up) {
-                    //on ground and not moving
-                    this.player.setVelocityX(0);
-                    this.player.setVelocityY(0);
-                } else {
-
-                }
-            }
-            if (this.player.gravityState == 3) { //left
-                if (this.player.body.touching.left) {
-                    //on ground and not moving
-                    this.player.setVelocityX(0);
-                    this.player.setVelocityY(0);
-                } else {
-
-                }
-            }
-        }
+        //update player
+        this.player.update();
     }
 
     updateGravity() {
@@ -147,7 +86,7 @@ class Play extends Phaser.Scene {
         this.tweens.add({
             targets: this.cameras.main,
             rotation: rotationValue,
-            duration: 350,
+            duration: rotationSpeed,
             ease: 'Power',
             repeat: 0,
             yoyo: false,
@@ -159,7 +98,7 @@ class Play extends Phaser.Scene {
         this.tweens.add({
             targets: this.player,
             rotation: playerRotationValue,
-            duration: 350,
+            duration: rotationSpeed,
             ease: 'Power',
             repeat: 0,
             yoyo: false,
@@ -173,7 +112,7 @@ class Play extends Phaser.Scene {
         //prevent player from switching too frequently
         this.switching = true;
         this.time.addEvent({
-            delay: 700,
+            delay: rotationSpeed * 2,
             callback: () => {
                 this.switching = false;
             }

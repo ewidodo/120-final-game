@@ -13,7 +13,7 @@ let config = {
             debug: true,
             gravity: {
                 x: 0,
-                y: 300,
+                y: 800,
             },
             checkCollision: {
                 left: true,
@@ -25,13 +25,15 @@ let config = {
         target: 60,
         forceSetTimeOut: true
     },
-    scene: [Menu, Play, test],
+    scene: [Menu, Test0, Test],
 };
 
 let game = new Phaser.Game(config);
 
 //keyboard reservations + vars
-let keyA, keyD, keyQ, keyE;
+let keyA, keyD, keyW, keyQ, keyE;
 let rotationValue, playerRotationValue;
-let gravityStrength = 600;
+let gravityStrength = 1000;
 let playerSpeed = 200;
+let jumpSpeed = -500;
+let rotationSpeed = 350;
