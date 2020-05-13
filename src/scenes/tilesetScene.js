@@ -1,6 +1,7 @@
 class Test2 extends Phaser.Scene {
     constructor() {
         super("testScene");
+        this.uiCamera = 0;
     }
 
     preload() {
@@ -77,6 +78,25 @@ class Test2 extends Phaser.Scene {
         //this.cameras.main.startFollow(this.player);
         this.player.setRotation(playerRotationValue);
         this.switching = false;
+
+        //ui
+        this.uiCamera = this.cameras.add(0, 0, game.config.width, game.config.height);
+        this.uiCamera.setScroll(1500, 1500);
+        console.log(this.uiCamera);
+        let scoreConfig = {
+            fontFamily: 'Times New Roman Bold',
+            fontSize: '26px',
+            color: '#000000',
+            align: 'left',
+            padding: {
+                top: 15,
+                bottom: 15,
+                left: 15,
+                right: 15
+            },
+            
+        }
+        this.testText = this.add.text(1628, 1596, "test UI", scoreConfig).setOrigin(0,0);
     }
 
     update() {
@@ -144,7 +164,7 @@ class Test2 extends Phaser.Scene {
                 this.switching = false;
             }
         });
-    }
+    };
 
      resetScene(){
         this.scene.restart();
