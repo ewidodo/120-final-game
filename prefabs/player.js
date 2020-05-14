@@ -6,7 +6,8 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         scene.add.existing(this);
         this.gravityState = 0; //from default view, 0 -> towards bottom, 1 -> towards right, 2 -> towards top, 3 -> towards left
         this.isJumping = false;
-    }
+        this.body.setMaxVelocity(1100,1100);
+        }
 
     update() {
         //handle player movement
@@ -46,18 +47,24 @@ class Player extends Phaser.Physics.Arcade.Sprite {
 
         //jumping
         if (Phaser.Input.Keyboard.JustDown(keyW) && !this.isJumping && !this.scene.switching) {
-            this.isJumping = true;
+            console.log("jump pressed");
+  
             if (this.gravityState % 2 == 0) {
                 this.setVelocityY(Math.cos(rotationValue) * jumpSpeed);
             }
             if (this.gravityState % 2 == 1) {
                 this.setVelocityX(Math.sin(rotationValue) * jumpSpeed);
-            }
+            } 
+            
+            this.scene.time.delayedCall(10, () => {
+                this.isJumping = true;
+            });
         }
 
         
 
         if (this.gravityState == 0 && this.body.blocked.down) { //bottom
+            //console.log("blocked bottom");
             this.isJumping = false;
         }
         if (this.gravityState == 1 && this.body.blocked.right) { //right

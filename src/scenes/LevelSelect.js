@@ -39,26 +39,35 @@ class LevelSelect extends Phaser.Scene {
         this.level3 = this.add.rectangle(320, 64, 64, 64, 0xFFFFFF).setOrigin(0,0);
         this.level4 = this.add.rectangle(448, 64, 64, 64, 0xFFFFFF).setOrigin(0,0);
         this.level5 = this.add.rectangle(576, 64, 64, 64, 0xFFFFFF).setOrigin(0,0);
+        
+
 
         this.level1.setInteractive({useHandCursor: true}).on('pointerdown', () => {
             this.scene.start("intro1");
         });
 
-        this.level2.setInteractive({useHandCursor: true}).on('pointerdown', () => {
+        if(lastLevelCompleted  >= 1){
+             this.level2.setInteractive({useHandCursor: true}).on('pointerdown', () => {
             this.scene.start("intro2");
-        });
+            });
+        }
+       
+        if(lastLevelCompleted  >= 2){
+            this.level3.setInteractive({useHandCursor: true}).on('pointerdown', () => {
+                this.scene.start("intro3");
+            });
+        }
 
-        this.level3.setInteractive({useHandCursor: true}).on('pointerdown', () => {
-            this.scene.start("intro3");
-        });
-
-        this.level4.setInteractive({useHandCursor: true}).on('pointerdown', () => {
-            this.scene.start("intro4");
-        });
-
-        this.level5.setInteractive({useHandCursor: true}).on('pointerdown', () => {
-            this.scene.start("intro5");
-        });
+        if(lastLevelCompleted  >= 3){
+            this.level4.setInteractive({useHandCursor: true}).on('pointerdown', () => {
+                this.scene.start("intro4");
+            });
+        }   
+        if(lastLevelCompleted  >= 4){
+            this.level5.setInteractive({useHandCursor: true}).on('pointerdown', () => {
+                this.scene.start("intro5");
+            });
+        }
     }
 
     update() {
