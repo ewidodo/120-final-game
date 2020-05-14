@@ -25,7 +25,7 @@ let config = {
         target: 60,
         forceSetTimeOut: true
     },
-    scene: [Menu, LevelSelect, Intro1, Intro2],
+    scene: [Menu, LevelSelect, Intro1, Intro2, Intro3, Intro4, Intro5],
 };
 
 let game = new Phaser.Game(config);
@@ -33,7 +33,7 @@ let game = new Phaser.Game(config);
 //keyboard reservations + vars
 let keyA, keyD, keyW, keyLeft, keyRight;
 let rotationValue, playerRotationValue;
-let gravityStrength = 1000;
+let gravityStrength = 1500;
 let playerSpeed = 350;
 let jumpSpeed = -500;
 let rotationSpeed = 350;

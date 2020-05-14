@@ -23,11 +23,11 @@ class Intro2 extends Phaser.Scene {
         this.map.setCollision(4);
         this.tileset = this.map.addTilesetImage('tilesetImage', 'tiles');
 
+        this.layer = this.map.createStaticLayer(0, this.tileset);
+
         //collision events
         this.map.setTileIndexCallback(3, this.resetScene, this);
         this.map.setTileIndexCallback(4, this.nextLevel, this);
-
-        this.layer = this.map.createStaticLayer(0, this.tileset);
 
         //player
         this.player = new Player(this, 128, 160, 'player', 0);
@@ -72,13 +72,15 @@ class Intro2 extends Phaser.Scene {
         this.player.update();
     }
 
-    nextLevel() {
-        lastLevelCompleted = 2;
-        localStorage.setItem('progress', lastLevelCompleted);
-        this.scene.start("levelSelect");
-    }
-
     resetScene(){
         this.scene.restart();
+    }
+
+    nextLevel() {
+        if (lastLevelCompleted < 2) {
+            lastLevelCompleted = 2;
+            localStorage.setItem('progress', lastLevelCompleted);
+        }
+        this.scene.start("intro3");
     }
 }

@@ -22,9 +22,11 @@ class Intro1 extends Phaser.Scene {
         this.map.setCollision(4);
         this.tileset = this.map.addTilesetImage('tilesetImage', 'tiles');
 
+        this.layer = this.map.createStaticLayer(0, this.tileset);
+
+        //collision events
         this.map.setTileIndexCallback(4, this.nextLevel, this);
 
-        this.layer = this.map.createStaticLayer(0, this.tileset);
 
         //player
         this.player = new Player(this, 128, game.config.height - 416, 'player', 0);
@@ -70,8 +72,10 @@ class Intro1 extends Phaser.Scene {
     }
 
     nextLevel() {
-        lastLevelCompleted = 1;
-        localStorage.setItem('progress', lastLevelCompleted);
+        if (lastLevelCompleted < 1) {
+            lastLevelCompleted = 1;
+            localStorage.setItem('progress', lastLevelCompleted);
+        }
         this.scene.start("intro2");
     }
 }
