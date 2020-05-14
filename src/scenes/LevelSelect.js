@@ -18,7 +18,7 @@ class LevelSelect extends Phaser.Scene {
                 bottom: 10,
                 left: 10,
                 right: 10
-            },  
+            },
         };
 
         let lockedConfig = {
@@ -31,7 +31,7 @@ class LevelSelect extends Phaser.Scene {
                 bottom: 10,
                 left: 10,
                 right: 10
-            },  
+            },
         };
 
         this.level1 = this.add.rectangle(64, 64, 64, 64, 0xFFFFFF).setOrigin(0,0);
@@ -45,23 +45,23 @@ class LevelSelect extends Phaser.Scene {
         });
 
         this.level2.setInteractive({useHandCursor: true}).on('pointerdown', () => {
-            this.scene.start("ColinTest");
+            this.scene.start("intro2");
         });
 
         this.level3.setInteractive({useHandCursor: true}).on('pointerdown', () => {
-
+            this.scene.start("intro3");
         });
 
         this.level4.setInteractive({useHandCursor: true}).on('pointerdown', () => {
-
+            this.scene.start("intro4");
         });
 
         this.level5.setInteractive({useHandCursor: true}).on('pointerdown', () => {
-
+            this.scene.start("intro5");
         });
     }
 
     update() {
-        
+
     }
 }
