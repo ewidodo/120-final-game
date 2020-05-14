@@ -11,7 +11,7 @@ class Test2 extends Phaser.Scene {
        
        
        
-        this.load.tilemapCSV('map', './tilemaps/map1.csv');
+        this.load.tilemapCSV('map', './tilemaps/introGrav1.csv');
         this.load.image('tiles', './assets/temptiles.png');
     }
 
@@ -58,6 +58,7 @@ class Test2 extends Phaser.Scene {
         this.player = new Player(this, 900, 100, 'player', 0);
         this.player.setBounce(0.2);
         this.player.setCollideWorldBounds(true);
+        this.player.body.setSize(30,30);
 
         //physics
         this.physics.add.collider(this.player, this.layer);
