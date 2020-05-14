@@ -9,7 +9,14 @@ class Test2 extends Phaser.Scene {
         this.load.image('block', './assets/shit.png');
         this.load.image('block2', './assets/ass.png');
        
+<<<<<<< HEAD
         this.load.tilemapCSV('map', './tilemaps/map1.csv');
+=======
+       
+       
+       
+        this.load.tilemapCSV('map', './tilemaps/introGrav1.csv');
+>>>>>>> 4091620ebc509dddfc82ae5323a4c36666f80235
         this.load.image('tiles', './assets/temptiles.png');
     }
 
@@ -56,6 +63,7 @@ class Test2 extends Phaser.Scene {
         this.player = new Player(this, 900, 100, 'player', 0);
         this.player.setBounce(0.2);
         this.player.setCollideWorldBounds(true);
+        this.player.body.setSize(30,30);
 
         //physics
         this.physics.add.collider(this.player, this.layer);
@@ -65,8 +73,8 @@ class Test2 extends Phaser.Scene {
         keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
         keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
-        keyQ = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
-        keyE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
+        keyLeft = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
+        keyRight = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
 
         //camera & gravity
         rotationValue = 0;
@@ -98,7 +106,7 @@ class Test2 extends Phaser.Scene {
 
     update() {
         //switching gravity towards right
-        if (Phaser.Input.Keyboard.JustDown(keyE) && !this.switching) {
+        if (Phaser.Input.Keyboard.JustDown(keyRight) && !this.switching) {
             rotationValue += Math.PI / 2;
             console.log(playerRotationValue);
             playerRotationValue -= Math.PI / 2;
@@ -108,7 +116,7 @@ class Test2 extends Phaser.Scene {
         }
 
         //switching gravity towards left
-        if (Phaser.Input.Keyboard.JustDown(keyQ) && !this.switching) {
+        if (Phaser.Input.Keyboard.JustDown(keyLeft) && !this.switching) {
             rotationValue -= Math.PI / 2;
             console.log(playerRotationValue);
             playerRotationValue += Math.PI / 2;
