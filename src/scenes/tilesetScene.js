@@ -5,19 +5,7 @@ class Test2 extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('player', './assets/fuck.png');
-        this.load.image('block', './assets/shit.png');
-        this.load.image('block2', './assets/ass.png');
-       
-<<<<<<< HEAD
-        this.load.tilemapCSV('map', './tilemaps/map1.csv');
-=======
-       
-       
-       
-        this.load.tilemapCSV('map', './tilemaps/introGrav1.csv');
->>>>>>> 4091620ebc509dddfc82ae5323a4c36666f80235
-        this.load.image('tiles', './assets/temptiles.png');
+        this.load.tilemapCSV('map', './tilemaps/introCorner.csv');
     }
 
     create() {

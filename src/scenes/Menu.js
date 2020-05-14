@@ -4,7 +4,8 @@ class Menu extends Phaser.Scene {
     }
 
     preload() {
-
+        this.load.image('player', './assets/fuck.png');
+        this.load.image('tiles', './assets/temptiles.png');
     }
 
     create() {
