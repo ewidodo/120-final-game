@@ -57,16 +57,16 @@ class Player extends Phaser.Physics.Arcade.Sprite {
 
         
 
-        if (this.gravityState == 0 && this.body.touching.down) { //bottom
+        if (this.gravityState == 0 && this.body.blocked.down) { //bottom
             this.isJumping = false;
         }
-        if (this.gravityState == 1 && this.body.touching.right) { //right
+        if (this.gravityState == 1 && this.body.blocked.right) { //right
             this.isJumping = false;
         }
-        if (this.gravityState == 2 && this.body.touching.up) { // top
+        if (this.gravityState == 2 && this.body.blocked.up) { // top
             this.isJumping = false;
         }
-        if (this.gravityState == 3 && this.body.touching.left) { //left
+        if (this.gravityState == 3 && this.body.blocked.left) { //left
             this.isJumping = false;
         }
     }
