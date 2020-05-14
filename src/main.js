@@ -13,7 +13,7 @@ let config = {
             debug: true,
             gravity: {
                 x: 0,
-                y: 1500,
+                y: 2000,
             },
             checkCollision: {
                 left: true,
@@ -31,11 +31,11 @@ let config = {
 let game = new Phaser.Game(config);
 
 //keyboard reservations + vars
-let keyA, keyD, keyW, keyLeft, keyRight;
+let keyA, keyD, keyW, keyQ, keyE;
 let rotationValue, playerRotationValue;
-let gravityStrength = 1500;
+let gravityStrength = 2000;
 let playerSpeed = 350;
-let jumpSpeed = -500;
+let jumpSpeed = -600;
 let rotationSpeed = 350;
 
 let lastLevelCompleted = parseInt(localStorage.getItem('progress')) || 0;
