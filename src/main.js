@@ -13,7 +13,7 @@ let config = {
             debug: true,
             gravity: {
                 x: 0,
-                y: 800,
+                y: 1500,
             },
             checkCollision: {
                 left: true,
@@ -25,7 +25,7 @@ let config = {
         target: 60,
         forceSetTimeOut: true
     },
-    scene: [Menu, Test0, Test, Level0],
+    scene: [Menu, LevelSelect, Intro1],
 };
 
 let game = new Phaser.Game(config);
@@ -34,6 +34,8 @@ let game = new Phaser.Game(config);
 let keyA, keyD, keyW, keyQ, keyE;
 let rotationValue, playerRotationValue;
 let gravityStrength = 1000;
-let playerSpeed = 200;
+let playerSpeed = 350;
 let jumpSpeed = -500;
 let rotationSpeed = 350;
+
+let lastLevelCompleted = parseInt(localStorage.getItem('progress')) || 0;

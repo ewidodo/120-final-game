@@ -1,6 +1,7 @@
-class Test extends Phaser.Scene {
+class Test2 extends Phaser.Scene {
     constructor() {
         super("testScene");
+        this.uiCamera = 0;
     }
 
     preload() {
@@ -8,11 +9,8 @@ class Test extends Phaser.Scene {
         this.load.image('block', './assets/shit.png');
         this.load.image('block2', './assets/ass.png');
        
-       
-       
-       
-        this.load.tilemapCSV('map', './tilemaps/testTilemap1.csv');
-        this.load.image('tiles', './assets/factory_tileset.png');
+        this.load.tilemapCSV('map', './tilemaps/map1.csv');
+        this.load.image('tiles', './assets/temptiles.png');
     }
 
     create() {
@@ -36,39 +34,26 @@ class Test extends Phaser.Scene {
         
         this.mapConfig = {
             key: 'map',
-            tileWidth: 16,
-            tileHeight: 16
+            tileWidth: 64,
+            tileHeight: 64
         }
 
         this.map = this.make.tilemap(this.mapConfig);
         this.map.setCollision(0); //0 is tile index, we can set specific tiles to have collision i think.
+        this.map.setCollision(2);
+        this.map.setCollision(3);
         this.tileset = this.map.addTilesetImage('tilesetImage', 'tiles');
 
         this.layer = this.map.createStaticLayer(0, this.tileset);
+
+        //This function calls resetScene when the player collides with a damage tile.
+        //3 is the tile index
+        this.map.setTileIndexCallback(3, this.resetScene, this);
        
-        //build level
-        this.blocks = this.physics.add.staticGroup();
-        //middle
-        this.blocks.create(game.config.width/2, game.config.height/2, 'block2').setOrigin(0.5);
-        //this.blocks.getChildren().body.setCircle(64)
-
-        //this.blocks.create(32, 32, 'block')//.setOrigin(0,0);
-        //this.blocks.create(game.config.width - 32, 32, 'block')//.setOrigin(0,0);
-        //this.wallBlocks.create(game.config.width - 64, 0, 'block');
-        //this.wallBlocks.create(game.config.width - 64, 0, 'block');
-
-        // this.blocks.create(game.config.width/2 + 128, game.config.height/2 - 64, 'block')
-        // this.blocks.create(game.config.width/2 + 128, game.config.height/2 - 128, 'block')
-
-        // this.blocks.create(game.config.width/2 - 128, game.config.height/2 - 64, 'block')
-        // this.blocks.create(game.config.width/2 - 128, game.config.height/2 - 128, 'block')
-
-        // this.blocks.create(game.config.width/2, game.config.height/2 - 192, 'block');
-        // this.blocks.create(game.config.width/2 - 64, game.config.height/2 - 192, 'block');
-        // this.blocks.create(game.config.width/2 + 64, game.config.height/2 - 192, 'block');
+       
 
         //player
-        this.player = new Player(this, game.config.width/2, game.config.height/2 - 128, 'player', 0);
+        this.player = new Player(this, 900, 100, 'player', 0);
         this.player.setBounce(0.2);
         this.player.setCollideWorldBounds(true);
 
@@ -76,12 +61,6 @@ class Test extends Phaser.Scene {
         this.physics.add.collider(this.player, this.layer);
 
         
-        this.physics.add.collider(this.player, this.blocks);
-        this.physics.add.collider(this.player, this.wall1);
-        this.physics.add.collider(this.player, this.wall2);
-        this.physics.add.collider(this.player, this.wall3);
-        this.physics.add.collider(this.player, this.wall4);
-
         //keyboard input
         keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
@@ -96,6 +75,25 @@ class Test extends Phaser.Scene {
         //this.cameras.main.startFollow(this.player);
         this.player.setRotation(playerRotationValue);
         this.switching = false;
+
+        //ui
+        this.uiCamera = this.cameras.add(0, 0, game.config.width, game.config.height);
+        this.uiCamera.setScroll(1500, 1500);
+        console.log(this.uiCamera);
+        let scoreConfig = {
+            fontFamily: 'Times New Roman Bold',
+            fontSize: '26px',
+            color: '#000000',
+            align: 'left',
+            padding: {
+                top: 15,
+                bottom: 15,
+                left: 15,
+                right: 15
+            },
+            
+        }
+        this.testText = this.add.text(1628, 1596, "test UI", scoreConfig).setOrigin(0,0);
     }
 
     update() {
@@ -163,5 +161,9 @@ class Test extends Phaser.Scene {
                 this.switching = false;
             }
         });
+    };
+
+     resetScene(){
+        this.scene.restart();
     }
 }
