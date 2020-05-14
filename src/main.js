@@ -25,7 +25,7 @@ let config = {
         target: 60,
         forceSetTimeOut: true
     },
-    scene: [Menu, Test0, Test],
+    scene: [Menu, Test0, Test, Level0],
 };
 
 let game = new Phaser.Game(config);
