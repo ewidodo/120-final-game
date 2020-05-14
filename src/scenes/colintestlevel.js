@@ -1,50 +1,42 @@
-class Level0 extends Phaser.Scene {
+class ColinTest extends Phaser.Scene {
     constructor() {
-        super("Level0");
+        super("ColinTest");
+        this.uiCamera = 0;
     }
 
     preload() {
         this.load.image('player', './assets/fuck.png');
         this.load.image('block', './assets/shit.png');
         this.load.image('block2', './assets/ass.png');
-       
-       
-       
-       
-        this.load.tilemapCSV('map', './tilemaps/testTilemap1.csv'); //csv file
-        this.load.image('tiles', './assets/factory_tileset.png'); //tileset for that csv (you can have different ones if you want)
+        this.load.image('water', './assets/tempWaterParticle.png');
+
+        this.load.tilemapCSV('map', './tilemaps/intro1.csv');
+        this.load.image('tiles', './assets/temptiles.png');
     }
 
     create() {
 
         this.mapConfig = {
             key: 'map',
-            tileWidth: 16,
-            tileHeight: 16
+            tileWidth: 64,
+            tileHeight: 64
         }
 
         this.map = this.make.tilemap(this.mapConfig);
         this.map.setCollision(0); //0 is tile index, we can set specific tiles to have collision i think.
+        this.map.setCollision(2);
+        this.map.setCollision(4);
         this.tileset = this.map.addTilesetImage('tilesetImage', 'tiles');
 
-        this.layer = this.map.createStaticLayer(0, this.tileset);
-       
-        //build level
-        this.blocks = this.physics.add.staticGroup();
-        
-        //player
-        this.player = new Player(this, game.config.width/2, game.config.height/2 - 128, 'player', 0);
-        this.player.setBounce(0.2);
-        this.player.setCollideWorldBounds(true);
+        this.map.setTileIndexCallback(4, this.nextLevel, this);
 
-        //physics colliders
+        this.layer = this.map.createStaticLayer(0, this.tileset);
+
+        //player
+        this.player = new Player(this, 128, game.config.height - 416, 'player', 0);
+
+        //physics
         this.physics.add.collider(this.player, this.layer);
-        
-        this.physics.add.collider(this.player, this.blocks);
-        this.physics.add.collider(this.player, this.wall1);
-        this.physics.add.collider(this.player, this.wall2);
-        this.physics.add.collider(this.player, this.wall3);
-        this.physics.add.collider(this.player, this.wall4);
 
         //keyboard input
         keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
@@ -60,13 +52,52 @@ class Level0 extends Phaser.Scene {
         //this.cameras.main.startFollow(this.player);
         this.player.setRotation(playerRotationValue);
         this.switching = false;
+        this.isSide = 1; // -1 is walking on walls;
+
+        //ui
+        this.uiCamera = this.cameras.add(0, 0, game.config.width, game.config.height);
+        this.uiCamera.setScroll(1500, 1500);
+        let scoreConfig = {
+            fontFamily: 'Times New Roman Bold',
+            fontSize: '26px',
+            color: '#000000',
+            align: 'left',
+            padding: {
+                top: 15,
+                bottom: 15,
+                left: 15,
+                right: 15
+            },
+            
+        }
+        this.testText = this.add.text(1628, 1596, "test UI", scoreConfig).setOrigin(0,0);
+
+        //particles
+        this.waterParticles = this.add.particles('water');
+        this.waterParticleEmitter = this.waterParticles.createEmitter({
+            //follow: this.player,
+            //frame: ['trailParticle 0.png'],
+            x: game.config.width/2 - 50,
+            y: game.config.height/2 - 50,
+            alpha: { start: 1, end: 1 },
+            scale: { start: 0.2, end: 0 },
+            speedX: { min: 500, max: 500 },
+            speedY: { min: 0, max: 0},
+            frequency: 5,
+            quantity: {min : 10, max: 10},
+            //angle: { min : 0, max : 360},
+            lifespan: 500,
+            gravityX:  this.physics.world.gravity.x,
+            gravityY:  this.physics.world.gravity.y,
+        });
+        this.waterParticleEmitter.start();
     }
 
     update() {
         //switching gravity towards right
         if (Phaser.Input.Keyboard.JustDown(keyE) && !this.switching) {
             rotationValue += Math.PI / 2;
-            console.log(playerRotationValue);
+            //console.log(playerRotationValue);
             playerRotationValue -= Math.PI / 2;
             this.player.gravityState++;
             this.player.gravityState %= 4;
@@ -76,7 +107,7 @@ class Level0 extends Phaser.Scene {
         //switching gravity towards left
         if (Phaser.Input.Keyboard.JustDown(keyQ) && !this.switching) {
             rotationValue -= Math.PI / 2;
-            console.log(playerRotationValue);
+            //console.log(playerRotationValue);
             playerRotationValue += Math.PI / 2;
             this.player.gravityState--;
             if (this.player.gravityState < 0) {
@@ -85,11 +116,23 @@ class Level0 extends Phaser.Scene {
             this.updateGravity();
         }
 
+
         //update player
         this.player.update();
     }
 
+    nextLevel() {
+        lastLevelCompleted = 1;
+        localStorage.setItem('progress', lastLevelCompleted);
+        this.scene.start("levelSelect");
+    }
+
     updateGravity() {
+        if(this.isSide == 1) {
+            this.isSide = -1;
+        } else {
+            this.isSide = 1;
+        }
         this.physics.world.gravity.x = Math.sin(rotationValue) * gravityStrength;
         this.physics.world.gravity.y = Math.cos(rotationValue) * gravityStrength;
 
@@ -103,7 +146,7 @@ class Level0 extends Phaser.Scene {
         });
 
         playerRotationValue %= Math.PI * 2;
-        console.log(playerRotationValue);
+        //console.log(playerRotationValue);
 
         this.tweens.add({
             targets: this.player,
@@ -117,8 +160,9 @@ class Level0 extends Phaser.Scene {
         if (playerRotationValue > 0) {
             playerRotationValue -= Math.PI * 2;
         }
-        console.log(playerRotationValue);
-
+        //console.log(playerRotationValue);
+        console.log(" X :" + this.physics.world.gravity.x);
+        console.log(" Y :" + this.physics.world.gravity.y);
         //prevent player from switching too frequently
         this.switching = true;
         this.time.addEvent({
@@ -127,5 +171,10 @@ class Level0 extends Phaser.Scene {
                 this.switching = false;
             }
         });
-    }
+        this.waterParticleEmitter.setSpeedX(100);
+        
+        this.waterParticleEmitter.gravityY = 1000 * this.isSide ;
+    };
+    
+
 }

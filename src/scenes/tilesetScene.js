@@ -1,4 +1,4 @@
-class Test2 extends Phaser.Scene {
+class tilesetScene extends Phaser.Scene {
     constructor() {
         super("testScene");
         this.uiCamera = 0;

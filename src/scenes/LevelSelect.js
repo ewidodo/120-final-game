@@ -45,7 +45,7 @@ class LevelSelect extends Phaser.Scene {
         });
 
         this.level2.setInteractive({useHandCursor: true}).on('pointerdown', () => {
-
+            this.scene.start("ColinTest");
         });
 
         this.level3.setInteractive({useHandCursor: true}).on('pointerdown', () => {
