@@ -9,9 +9,6 @@ class Test2 extends Phaser.Scene {
         this.load.image('block', './assets/shit.png');
         this.load.image('block2', './assets/ass.png');
        
-       
-       
-       
         this.load.tilemapCSV('map', './tilemaps/map1.csv');
         this.load.image('tiles', './assets/temptiles.png');
     }

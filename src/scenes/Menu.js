@@ -8,7 +8,7 @@ class Menu extends Phaser.Scene {
     }
 
     create() {
-        this.scene.start("testScene");
+        this.scene.start("levelSelect");
     }
 
     update() {
