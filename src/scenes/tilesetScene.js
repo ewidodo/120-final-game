@@ -44,13 +44,14 @@ class Test2 extends Phaser.Scene {
         this.map.setCollision(0); //0 is tile index, we can set specific tiles to have collision i think.
         this.map.setCollision(2);
         this.map.setCollision(3);
+        this.map.setCollision(4);
         this.tileset = this.map.addTilesetImage('tilesetImage', 'tiles');
 
         this.layer = this.map.createStaticLayer(0, this.tileset);
 
         //This function calls resetScene when the player collides with a damage tile.
         //3 is the tile index
-        this.map.setTileIndexCallback(3, this.resetScene, this);
+        this.map.setTileIndexCallback(4, this.resetScene, this);
        
        
 
