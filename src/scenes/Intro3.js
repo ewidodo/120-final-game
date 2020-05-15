@@ -77,6 +77,9 @@ class Intro3 extends Phaser.Scene {
             //switching gravity towards right
             if (Phaser.Input.Keyboard.JustDown(keyE) && !this.switching) {
                 this.sound.play('sfx_button');
+                this.time.delayedCall(10, () => {
+                    this.sound.play('sfx_switch');
+                });
                 rotationValue += Math.PI / 2;
                 console.log(playerRotationValue);
                 playerRotationValue -= Math.PI / 2;
@@ -88,6 +91,9 @@ class Intro3 extends Phaser.Scene {
             //switching gravity towards left
             if (Phaser.Input.Keyboard.JustDown(keyQ) && !this.switching) {
                 this.sound.play('sfx_button');
+                this.time.delayedCall(10, () => {
+                    this.sound.play('sfx_switch');
+                });
                 rotationValue -= Math.PI / 2;
                 console.log(playerRotationValue);
                 playerRotationValue += Math.PI / 2;

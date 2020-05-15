@@ -8,6 +8,8 @@ class Menu extends Phaser.Scene {
         this.load.image('tiles', './assets/temptiles.png');
 
         this.load.audio('sfx_button', './assets/button.wav');
+        this.load.audio('sfx_switch', './assets/switch_temp.wav');
+        this.load.audio('sfx_death', './assets/deth_temp.wav');
     }
 
     create() {

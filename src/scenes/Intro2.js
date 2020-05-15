@@ -79,6 +79,7 @@ class Intro2 extends Phaser.Scene {
     }
 
     resetScene(){
+        //this.sound.play('sfx_death');
         this.scene.restart();
     }
 
