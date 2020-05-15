@@ -1,34 +1,16 @@
-class Test2 extends Phaser.Scene {
+class Intro4 extends Phaser.Scene {
     constructor() {
-        super("testScene");
+        super("intro4");
         this.uiCamera = 0;
     }
 
     preload() {
-        this.load.tilemapCSV('map', './tilemaps/introCorner.csv');
+        this.load.tilemapCSV('introGrav', './tilemaps/introGrav.csv');
     }
 
-    create() {
-
-        //build walls       
-        // this.wall1 = this.physics.add.sprite(0,0,'block').setOrigin(0,0).setScale(1,16);
-        //     this.wall1.body.setImmovable(true);
-        //     this.wall1.body.setAllowGravity(false);
-
-        // this.wall2 = this.physics.add.sprite(game.config.width-64,0,'block').setOrigin(0,0).setScale(1,16);
-        //     this.wall2.body.setImmovable(true);
-        //     this.wall2.body.setAllowGravity(false);
-
-        // this.wall3 = this.physics.add.sprite(0,game.config.height-64,'block').setOrigin(0,0).setScale(16,1);
-        //     this.wall3.body.setImmovable(true);
-        //     this.wall3.body.setAllowGravity(false);
-
-        // this.wall4 = this.physics.add.sprite(0,0,'block').setOrigin(0,0).setScale(16,1);
-        //     this.wall4.body.setImmovable(true);
-        //     this.wall4.body.setAllowGravity(false);
-        
+    create() {     
         this.mapConfig = {
-            key: 'map',
+            key: 'introGrav',
             tileWidth: 64,
             tileHeight: 64
         }
@@ -42,17 +24,12 @@ class Test2 extends Phaser.Scene {
 
         this.layer = this.map.createStaticLayer(0, this.tileset);
 
-        //This function calls resetScene when the player collides with a damage tile.
-        //3 is the tile index
-        this.map.setTileIndexCallback(4, this.resetScene, this);
-       
-       
+        //collision events
+        this.map.setTileIndexCallback(3, this.resetScene, this);
+        this.map.setTileIndexCallback(4, this.nextLevel, this);
 
         //player
-        this.player = new Player(this, 900, 100, 'player', 0);
-        this.player.setBounce(0.2);
-        this.player.setCollideWorldBounds(true);
-        this.player.body.setSize(30,30);
+        this.player = new Player(this, 96, 160, 'player', 0);
 
         //physics
         this.physics.add.collider(this.player, this.layer);
@@ -62,21 +39,20 @@ class Test2 extends Phaser.Scene {
         keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
         keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
-        keyLeft = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
-        keyRight = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
+        keyQ = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
+        keyE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
+        keyESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
 
         //camera & gravity
         rotationValue = 0;
         playerRotationValue = 0;
         this.cameras.main.setRotation(rotationValue);
-        //this.cameras.main.startFollow(this.player);
         this.player.setRotation(playerRotationValue);
         this.switching = false;
 
         //ui
         this.uiCamera = this.cameras.add(0, 0, game.config.width, game.config.height);
         this.uiCamera.setScroll(1500, 1500);
-        console.log(this.uiCamera);
         let scoreConfig = {
             fontFamily: 'Times New Roman Bold',
             fontSize: '26px',
@@ -95,7 +71,7 @@ class Test2 extends Phaser.Scene {
 
     update() {
         //switching gravity towards right
-        if (Phaser.Input.Keyboard.JustDown(keyRight) && !this.switching) {
+        if (Phaser.Input.Keyboard.JustDown(keyE) && !this.switching) {
             rotationValue += Math.PI / 2;
             console.log(playerRotationValue);
             playerRotationValue -= Math.PI / 2;
@@ -105,7 +81,7 @@ class Test2 extends Phaser.Scene {
         }
 
         //switching gravity towards left
-        if (Phaser.Input.Keyboard.JustDown(keyLeft) && !this.switching) {
+        if (Phaser.Input.Keyboard.JustDown(keyQ) && !this.switching) {
             rotationValue -= Math.PI / 2;
             console.log(playerRotationValue);
             playerRotationValue += Math.PI / 2;
@@ -118,6 +94,11 @@ class Test2 extends Phaser.Scene {
 
         //update player
         this.player.update();
+
+        //exit level
+        if (Phaser.Input.Keyboard.JustDown(keyESC)) {
+            this.scene.start("levelSelect");
+        }
     }
 
     updateGravity() {
@@ -162,5 +143,13 @@ class Test2 extends Phaser.Scene {
 
      resetScene(){
         this.scene.restart();
+    }
+
+    nextLevel() {
+        if (lastLevelCompleted < 4) {
+            lastLevelCompleted = 4;
+            localStorage.setItem('progress', lastLevelCompleted);
+        }
+        this.scene.start("intro5");
     }
 }

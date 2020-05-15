@@ -22,12 +22,14 @@ class Intro1 extends Phaser.Scene {
         this.map.setCollision(4);
         this.tileset = this.map.addTilesetImage('tilesetImage', 'tiles');
 
-        this.map.setTileIndexCallback(4, this.nextLevel, this);
-
         this.layer = this.map.createStaticLayer(0, this.tileset);
 
+        //collision events
+        this.map.setTileIndexCallback(4, this.nextLevel, this);
+
+
         //player
-        this.player = new Player(this, 128, game.config.height - 416, 'player', 0);
+        this.player = new Player(this, 96, game.config.height - 416, 'player', 0);
 
         //physics
         this.physics.add.collider(this.player, this.layer);
@@ -36,12 +38,12 @@ class Intro1 extends Phaser.Scene {
         keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
         keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+        keyESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
 
         //camera & gravity
         rotationValue = 0;
         playerRotationValue = 0;
         this.cameras.main.setRotation(rotationValue);
-        //this.cameras.main.startFollow(this.player);
         this.player.setRotation(playerRotationValue);
         this.switching = false;
 
@@ -67,11 +69,18 @@ class Intro1 extends Phaser.Scene {
     update() {
         //update player
         this.player.update();
+
+        //exit level
+        if (Phaser.Input.Keyboard.JustDown(keyESC)) {
+            this.scene.start("levelSelect");
+        }
     }
 
     nextLevel() {
-        lastLevelCompleted = 1;
-        localStorage.setItem('progress', lastLevelCompleted);
+        if (lastLevelCompleted < 1) {
+            lastLevelCompleted = 1;
+            localStorage.setItem('progress', lastLevelCompleted);
+        }
         this.scene.start("intro2");
     }
 }
