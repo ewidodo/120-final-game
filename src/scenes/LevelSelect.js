@@ -12,25 +12,24 @@ class LevelSelect extends Phaser.Scene {
             fontFamily: 'Times New Roman Bold',
             fontSize: '22px',
             color: '#000000',
-            align: 'left',
+            align: 'center',
             padding: {
-                top: 10,
-                bottom: 10,
-                left: 10,
-                right: 10
+                top: 20,
+                bottom: 20,
+                left: 27,
+                right: 27,
             },
         };
-
         let lockedConfig = {
             fontFamily: 'Times New Roman Bold',
             fontSize: '22px',
             color: '#BDBDBD',
-            align: 'left',
+            align: 'center',
             padding: {
-                top: 10,
-                bottom: 10,
-                left: 10,
-                right: 10
+                top: 20,
+                bottom: 20,
+                left: 27,
+                right: 27,
             },
         };
 
@@ -40,33 +39,45 @@ class LevelSelect extends Phaser.Scene {
         this.level4 = this.add.rectangle(448, 64, 64, 64, 0xFFFFFF).setOrigin(0,0);
         this.level5 = this.add.rectangle(576, 64, 64, 64, 0xFFFFFF).setOrigin(0,0);
         
-
-
+        this.level1Text = this.add.text(64, 64, "1", unlockedConfig).setOrigin(0, 0);
         this.level1.setInteractive({useHandCursor: true}).on('pointerdown', () => {
             this.scene.start("intro1");
         });
 
         if(lastLevelCompleted  >= 1){
+            this.level2Text = this.add.text(192, 64, "2", unlockedConfig).setOrigin(0, 0);
              this.level2.setInteractive({useHandCursor: true}).on('pointerdown', () => {
             this.scene.start("intro2");
             });
+        } else {
+            this.level2Text = this.add.text(192, 64, "2", lockedConfig).setOrigin(0, 0);
         }
        
         if(lastLevelCompleted  >= 2){
+            this.level3Text = this.add.text(320, 64, "3", unlockedConfig).setOrigin(0, 0);
             this.level3.setInteractive({useHandCursor: true}).on('pointerdown', () => {
                 this.scene.start("intro3");
             });
+        } else {
+            this.level3Text = this.add.text(320, 64, "3", lockedConfig).setOrigin(0, 0);
         }
 
         if(lastLevelCompleted  >= 3){
+            this.level4Text = this.add.text(448, 64, "4", unlockedConfig).setOrigin(0, 0);
             this.level4.setInteractive({useHandCursor: true}).on('pointerdown', () => {
                 this.scene.start("intro4");
             });
-        }   
+        } else {
+            this.level4Text = this.add.text(448, 64, "4", lockedConfig).setOrigin(0, 0);
+        }
+
         if(lastLevelCompleted  >= 4){
+            this.level5Text = this.add.text(576, 64, "5", unlockedConfig).setOrigin(0, 0);
             this.level5.setInteractive({useHandCursor: true}).on('pointerdown', () => {
                 this.scene.start("intro5");
             });
+        } else {
+            this.level5Text = this.add.text(576, 64, "5", lockedConfig).setOrigin(0, 0);
         }
     }
 

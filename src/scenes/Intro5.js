@@ -29,7 +29,7 @@ class Intro5 extends Phaser.Scene {
         this.map.setTileIndexCallback(4, this.nextLevel, this);
 
         //player
-        this.player = new Player(this, 900, 100, 'player', 0);
+        this.player = new Player(this, game.config.width - 96, 160, 'player', 0);
 
         //physics
         this.physics.add.collider(this.player, this.layer);
@@ -41,6 +41,7 @@ class Intro5 extends Phaser.Scene {
         keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         keyQ = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
         keyE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
+        keyESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
 
         //camera & gravity
         rotationValue = 0;
@@ -94,6 +95,11 @@ class Intro5 extends Phaser.Scene {
 
         //update player
         this.player.update();
+
+        //exit level
+        if (Phaser.Input.Keyboard.JustDown(keyESC)) {
+            this.scene.start("levelSelect");
+        }
     }
 
     updateGravity() {

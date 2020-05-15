@@ -28,7 +28,7 @@ class Intro3 extends Phaser.Scene {
 
 
         //player
-        this.player = new Player(this, 128, game.config.height - 360, 'player', 0);
+        this.player = new Player(this, 96, game.config.height - 360, 'player', 0);
         this.button = this.physics.add.sprite(game.config.width / 2, game.config.height - 416, 'button');
 
         //physics
@@ -43,6 +43,7 @@ class Intro3 extends Phaser.Scene {
         keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         keyQ = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
         keyE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
+        keyESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
 
         //camera & gravity
         rotationValue = 0;
@@ -98,6 +99,11 @@ class Intro3 extends Phaser.Scene {
 
         //update player
         this.player.update();
+
+        //exit level
+        if (Phaser.Input.Keyboard.JustDown(keyESC)) {
+            this.scene.start("levelSelect");
+        }
     }
 
     updateGravity() {
