@@ -45,7 +45,6 @@ class Intro2 extends Phaser.Scene {
         rotationValue = 0;
         playerRotationValue = 0;
         this.cameras.main.setRotation(rotationValue);
-        //this.cameras.main.startFollow(this.player);
         this.player.setRotation(playerRotationValue);
         this.switching = false;
 
@@ -65,7 +64,8 @@ class Intro2 extends Phaser.Scene {
             },
             
         }
-        this.testText = this.add.text(1628, 1596, "test UI", scoreConfig).setOrigin(0,0);
+        
+        this.testText = this.add.text(2012, 1628, "Avoid the red tiles", scoreConfig).setOrigin(0.5);
     }
 
     update() {

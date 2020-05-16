@@ -69,7 +69,8 @@ class Intro3 extends Phaser.Scene {
             },
             
         }
-        this.testText = this.add.text(1628, 1596, "test UI", scoreConfig).setOrigin(0,0);
+
+        this.testText = this.add.text(2012, 1628, "", scoreConfig).setOrigin(0.5);
     }
 
     update() {
@@ -157,6 +158,7 @@ class Intro3 extends Phaser.Scene {
     pickup() {
         this.canSwitch = true;
         this.button.destroy();
+        this.testText.setText("Q and E to switch gravity");
     }
 
     nextLevel() {

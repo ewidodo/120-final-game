@@ -67,7 +67,8 @@ class Intro5 extends Phaser.Scene {
             },
 
         }
-        this.testText = this.add.text(1628, 1596, "test UI", scoreConfig).setOrigin(0,0);
+        
+        this.testText = this.add.text(2012, 1628, "", scoreConfig).setOrigin(0.5);
     }
 
     update() {

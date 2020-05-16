@@ -54,7 +54,7 @@ class Intro1 extends Phaser.Scene {
             fontFamily: 'Times New Roman Bold',
             fontSize: '26px',
             color: '#000000',
-            align: 'left',
+            align: 'center',
             padding: {
                 top: 15,
                 bottom: 15,
@@ -63,7 +63,8 @@ class Intro1 extends Phaser.Scene {
             },
             
         }
-        this.testText = this.add.text(1628, 1596, "test UI", scoreConfig).setOrigin(0,0);
+        
+        this.testText = this.add.text(2012, 1628, "A and D to move\nW to jump", scoreConfig).setOrigin(0.5);
     }
 
     update() {
