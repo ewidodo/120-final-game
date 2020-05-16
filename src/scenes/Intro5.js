@@ -67,14 +67,13 @@ class Intro5 extends Phaser.Scene {
             },
 
         }
-        
+
         this.testText = this.add.text(2012, 1628, "", scoreConfig).setOrigin(0.5);
     }
 
     update() {
         //switching gravity towards right
         if (Phaser.Input.Keyboard.JustDown(keyE) && !this.switching) {
-            this.sound.play('sfx_button');
             this.time.delayedCall(10, () => {
                 this.sound.play('sfx_switch');
             });
@@ -88,7 +87,6 @@ class Intro5 extends Phaser.Scene {
 
         //switching gravity towards left
         if (Phaser.Input.Keyboard.JustDown(keyQ) && !this.switching) {
-            this.sound.play('sfx_button');
             this.time.delayedCall(10, () => {
                 this.sound.play('sfx_switch');
             });
@@ -142,6 +140,12 @@ class Intro5 extends Phaser.Scene {
         console.log(playerRotationValue);
 
         //prevent player from switching too frequently
+        this.time.addEvent({
+            delay: rotationSpeed + 100,
+            callback: () => {
+                this.sound.play('sfx_button');
+            }
+        });
         this.switching = true;
         this.time.addEvent({
             delay: rotationSpeed * 2,
