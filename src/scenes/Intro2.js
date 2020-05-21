@@ -52,7 +52,7 @@ class Intro2 extends Phaser.Scene {
         this.uiCamera = this.cameras.add(0, 0, game.config.width, game.config.height);
         this.uiCamera.setScroll(1500, 1500);
 
-        this.dialogue = new Dialogue(this, 2012, 1628, 'player', 0, "That red goop on the ground is some sorta classified slime...\nIt does some weird stuff, so just avoid it.");
+        this.dialogue = new Dialogue(this, 2012, 2396, 'player', 0, "That red goop on the ground is some sorta classified slime...\nIt does some weird stuff, so just avoid it.");
     }
 
     update() {

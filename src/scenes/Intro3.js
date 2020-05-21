@@ -170,12 +170,27 @@ class Intro3 extends Phaser.Scene {
     };
 
     pickup() {
-        this.canSwitch = true;
         this.button.destroy();
-        if(this.dialogue){
-            this.dialogue.destroy();
-        }
-        this.testText.setText("Q to switch gravity left\nE to switch gravity right");     
+        this.dialogue.deleteDialogue();
+        this.dialogue.finished = true;
+        this.time.addEvent({
+            delay: 500,
+            callback: () => {
+                this.testText.setText("Q to switch gravity left\nE to switch gravity right");
+                this.canSwitch = true;
+            }
+        });     
+    }
+
+    switchDialogue(){
+        this.testText.destroy();
+        this.dialogue2 = new Dialogue(this, 2012, 1628, 'player', 0, "WHAT DID YOU DO???\nOh god I hear everything breaking...");
+        this.time.addEvent({
+            delay: 4000,
+            callback: () => {
+                this.dialogue3 = new Dialogue(this, 2012, 1628, 'player', 0, "Look gal, if you want to keep your job, you best get to fixin'\nall this stuff before the chumps find out.");
+            }
+        });
     }
 
     nextLevel() {
@@ -184,16 +199,5 @@ class Intro3 extends Phaser.Scene {
             localStorage.setItem('progress', lastLevelCompleted);
         }
         this.scene.start("intro4");
-    }
-
-    switchDialogue(){
-        this.testText.destroy();
-        this.dialogue = new Dialogue(this, 2012, 1628, 'player', 0, "WHAT DID YOU DO???\nOh god I hear everything breaking...");
-        this.time.addEvent({
-            delay: 4500,
-            callback: () => {
-                this.dialogue = new Dialogue(this, 2012, 1628, 'player', 0, "Look gal, if you want to keep your job, you best get to fixin'\nall this stuff before the chumps find out.");
-            }
-        });
     }
 }

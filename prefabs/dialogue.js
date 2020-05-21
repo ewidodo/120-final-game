@@ -8,6 +8,9 @@ class Dialogue extends Phaser.GameObjects.Sprite {
         //add to existing scene
         scene.add.existing(this);
 
+        //flag if dialogue needs to be removed early
+        this.finished = false;
+
         this.text = text;
         this.outline = this.scene.add.rectangle(x, y, 768, 96, 0x00000).setOrigin(0.5).setScale(0);
         this.box = this.scene.add.rectangle(x, y, 760, 88, 0xFFFFFF).setOrigin(0.5).setScale(0);
@@ -41,7 +44,9 @@ class Dialogue extends Phaser.GameObjects.Sprite {
         this.scene.time.addEvent({
             delay: 3000,
             callback: () => {
-                this.deleteDialogue();
+                if(!this.finished){
+                    this.deleteDialogue();
+                }
             }
         });
     }
