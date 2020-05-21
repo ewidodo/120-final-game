@@ -5,7 +5,7 @@ class Intro5 extends Phaser.Scene {
     }
 
     preload() {
-        this.load.tilemapCSV('introCorner', './tilemaps/introCorner.csv');
+        this.load.tilemapCSV('introCorner', './tilemaps/main4.csv');
     }
 
     create() {
@@ -28,8 +28,8 @@ class Intro5 extends Phaser.Scene {
         this.map.setTileIndexCallback(3, this.resetScene, this);
         this.map.setTileIndexCallback(4, this.nextLevel, this);
 
-        //player
-        this.player = new Player(this, game.config.width - 96, 160, 'player', 0);
+        //player original spawn is game.config.width - 96, 160,
+        this.player = new Player(this, game.config.width/2, 128, 'player', 0);
 
         //physics
         this.physics.add.collider(this.player, this.layer);
