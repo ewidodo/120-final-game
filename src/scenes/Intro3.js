@@ -57,7 +57,14 @@ class Intro3 extends Phaser.Scene {
         this.uiCamera = this.cameras.add(0, 0, game.config.width, game.config.height);
         this.uiCamera.setScroll(1500, 1500);
 
-        this.dialogue = new Dialogue(this, 2012, 1628, 'player', 0, "OK, that's the button you have to pack up.\nPick it up and do NOT press it...");
+        this.dialogue = new Dialogue(this, 2012, 1628, 'player', 0, "OK, that's the button you have to pack up.\nPick it up and do NOT press it...", 2000);
+        this.dialogue1Finished = false;
+        this.time.addEvent({
+            delay: 3800,
+            callback: () => {
+                this.dialogue1Finished = true;
+            }
+        })
         this.firstSwitch = false;
         let instructionConfig = {
             fontFamily: 'Times New Roman Bold',
@@ -171,24 +178,29 @@ class Intro3 extends Phaser.Scene {
 
     pickup() {
         this.button.destroy();
-        this.dialogue.deleteDialogue();
-        this.dialogue.finished = true;
-        this.time.addEvent({
-            delay: 500,
-            callback: () => {
-                this.testText.setText("Q to switch gravity left\nE to switch gravity right");
-                this.canSwitch = true;
-            }
-        });     
+        if (!this.dialogue1Finished){
+            this.dialogue.deleteDialogue();
+            this.dialogue.finished = true;
+            this.time.addEvent({
+                delay: 410,
+                callback: () => {
+                    this.testText.setText("Q to switch gravity left\nE to switch gravity right");
+                    this.canSwitch = true;
+                }
+            });     
+        } else {
+            this.testText.setText("Q to switch gravity left\nE to switch gravity right");
+            this.canSwitch = true;
+        }
     }
 
     switchDialogue(){
         this.testText.destroy();
-        this.dialogue2 = new Dialogue(this, 2012, 1628, 'player', 0, "WHAT DID YOU DO???\nOh god I hear everything breaking...");
+        this.dialogue2 = new Dialogue(this, 2012, 1628, 'player', 0, "WHAT DID YOU DO???\nOh god I hear everything breaking...", 2000);
         this.time.addEvent({
-            delay: 4000,
+            delay: 2700,
             callback: () => {
-                this.dialogue3 = new Dialogue(this, 2012, 1628, 'player', 0, "Look gal, if you want to keep your job, you best get to fixin'\nall this stuff before the chumps find out.");
+                this.dialogue3 = new Dialogue(this, 2012, 1628, 'player', 0, "Look gal, if you want to keep your job, you best get to fixin'\nall this stuff before the chumps find out.", 2500);
             }
         });
     }

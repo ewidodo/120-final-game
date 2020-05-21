@@ -51,7 +51,7 @@ class Intro1 extends Phaser.Scene {
         this.uiCamera = this.cameras.add(0, 0, game.config.width, game.config.height);
         this.uiCamera.setScroll(1500, 1500);
           
-        this.dialogue = new Dialogue(this, 2012, 1628, 'player', 0, "This is a test dialogue box lmao.\nAnyways, Press A and D to move and W to jump.");
+        this.dialogue = new Dialogue(this, 2012, 1628, 'player', 0, "This is a test dialogue box lmao.\nAnyways, Press A and D to move and W to jump.", 2000);
     }
 
     update() {
