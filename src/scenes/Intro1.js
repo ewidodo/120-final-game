@@ -50,21 +50,8 @@ class Intro1 extends Phaser.Scene {
         //ui
         this.uiCamera = this.cameras.add(0, 0, game.config.width, game.config.height);
         this.uiCamera.setScroll(1500, 1500);
-        let scoreConfig = {
-            fontFamily: 'Times New Roman Bold',
-            fontSize: '26px',
-            color: '#000000',
-            align: 'center',
-            padding: {
-                top: 15,
-                bottom: 15,
-                left: 15,
-                right: 15
-            },
-            
-        }
-        
-        this.testText = this.add.text(2012, 1628, "A and D to move\nW to jump", scoreConfig).setOrigin(0.5);
+          
+        this.dialogue = new Dialogue(this, 2012, 1628, 'player', 0, "This is a test dialogue box lmao.\nAnyways, Press A and D to move and W to jump.");
     }
 
     update() {
