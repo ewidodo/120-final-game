@@ -57,15 +57,12 @@ class Intro3 extends Phaser.Scene {
         this.uiCamera = this.cameras.add(0, 0, game.config.width, game.config.height);
         this.uiCamera.setScroll(1500, 1500);
 
-        this.dialogue = new Dialogue(this, 2012, 1628, 'player', 0, "OK, that's the button you have to pack up.\nPick it up and whatever you do, do NOT press it...", 2000);
-        this.dialogue1Finished = false;
-        this.time.addEvent({
-            delay: 2700,
-            callback: () => {
-                this.dialogue1Finished = true;
-            }
-        })
+        this.dialogue = new Dialogue(this, 2012, 1628, 'player', 0, "OK, that's the button you have to pack up.\nPick it up and whatever you do, do NOT press it...", 30);
+        this.dialogue2 = 0;
+        this.dialogue3 = 0;
+        this.dialogue2Started = false;
         this.firstSwitch = false;
+
         let instructionConfig = {
             fontFamily: 'Times New Roman Bold',
             fontSize: '26px',
@@ -77,8 +74,8 @@ class Intro3 extends Phaser.Scene {
                 left: 15,
                 right: 15
             },
-
         }
+
         this.testText = this.add.text(2012, 1628, "", instructionConfig).setOrigin(0.5);
     }
 
@@ -128,6 +125,28 @@ class Intro3 extends Phaser.Scene {
         if (Phaser.Input.Keyboard.JustDown(keyESC)) {
             this.scene.start("levelSelect");
         }
+
+        //chain dialogues and stuff
+        if (this.dialogue.finished) {
+            this.time.addEvent({
+                delay: 500,
+                callback: () => {
+                    this.testText.setText("Q to switch gravity left\nE to switch gravity right");
+                }
+            });
+        }
+
+        if (this.dialogue2Started) {
+            if (this.dialogue2.finished) {
+                this.dialogue2Started = false;
+                this.time.addEvent({
+                    delay: 200,
+                    callback: () => {
+                        this.dialogue3 = new Dialogue(this, 2012, 1628, 'player', 0, "Look gal, if you want to keep your job, you best get to fixin'\nall of this before the big cheese finds out. No dewdropping!", 30);
+                    }
+                });
+            }
+        }
     }
 
     updateGravity() {
@@ -163,7 +182,7 @@ class Intro3 extends Phaser.Scene {
         //prevent player from switching too frequently
         this.switching = true;
         this.time.addEvent({
-            delay: rotationSpeed + 100,
+            delay: rotationSpeed + 75,
             callback: () => {
                 this.sound.play('sfx_button');
             }
@@ -180,9 +199,8 @@ class Intro3 extends Phaser.Scene {
         this.button.destroy();
         if (!this.dialogue1Finished){
             this.dialogue.deleteDialogue();
-            this.dialogue.finished = true;
             this.time.addEvent({
-                delay: 410,
+                delay: 500,
                 callback: () => {
                     this.testText.setText("Q to switch gravity left\nE to switch gravity right");
                     this.canSwitch = true;
@@ -194,15 +212,10 @@ class Intro3 extends Phaser.Scene {
         }
     }
 
-    switchDialogue(){
+    switchDialogue() {
         this.testText.destroy();
-        this.dialogue2 = new Dialogue(this, 2012, 1628, 'player', 0, "WHAT DID YOU DO???\nOh god I hear everything breaking...", 2500);
-        this.time.addEvent({
-            delay: 3200,
-            callback: () => {
-                this.dialogue3 = new Dialogue(this, 2012, 1628, 'player', 0, "Look gal, if you want to keep your job, you best get to fixin'\nall of this before the big cheese finds out. No dewdropping!", 3000);
-            }
-        });
+        this.dialogue2 = new Dialogue(this, 2012, 1628, 'player', 0, "WHAT DID YOU DO???\nOh god I hear everything breaking...", 10);
+        this.dialogue2Started = true;
     }
 
     nextLevel() {
