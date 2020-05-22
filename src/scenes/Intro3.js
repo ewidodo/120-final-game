@@ -56,7 +56,17 @@ class Intro3 extends Phaser.Scene {
         //ui
         this.uiCamera = this.cameras.add(0, 0, game.config.width, game.config.height);
         this.uiCamera.setScroll(1500, 1500);
-        let scoreConfig = {
+
+        this.dialogue = new Dialogue(this, 2012, 1628, 'player', 0, "OK, that's the button you have to pack up.\nPick it up and whatever you do, do NOT press it...", 2000);
+        this.dialogue1Finished = false;
+        this.time.addEvent({
+            delay: 2700,
+            callback: () => {
+                this.dialogue1Finished = true;
+            }
+        })
+        this.firstSwitch = false;
+        let instructionConfig = {
             fontFamily: 'Times New Roman Bold',
             fontSize: '26px',
             color: '#000000',
@@ -67,16 +77,19 @@ class Intro3 extends Phaser.Scene {
                 left: 15,
                 right: 15
             },
-            
-        }
 
-        this.testText = this.add.text(2012, 1628, "", scoreConfig).setOrigin(0.5);
+        }
+        this.testText = this.add.text(2012, 1628, "", instructionConfig).setOrigin(0.5);
     }
 
     update() {
         if (this.canSwitch) {
             //switching gravity towards right
             if (Phaser.Input.Keyboard.JustDown(keyE) && !this.switching) {
+                if (this.firstSwitch == false) {
+                    this.switchDialogue();
+                }
+                this.firstSwitch = true;
                 this.time.delayedCall(10, () => {
                     this.sound.play('sfx_switch');
                 });
@@ -90,6 +103,10 @@ class Intro3 extends Phaser.Scene {
 
             //switching gravity towards left
             if (Phaser.Input.Keyboard.JustDown(keyQ) && !this.switching) {
+                if (this.firstSwitch == false) {
+                    this.switchDialogue();
+                }
+                this.firstSwitch = true;
                 this.time.delayedCall(10, () => {
                     this.sound.play('sfx_switch');
                 });
@@ -160,9 +177,32 @@ class Intro3 extends Phaser.Scene {
     };
 
     pickup() {
-        this.canSwitch = true;
         this.button.destroy();
-        this.testText.setText("Q and E to switch gravity");
+        if (!this.dialogue1Finished){
+            this.dialogue.deleteDialogue();
+            this.dialogue.finished = true;
+            this.time.addEvent({
+                delay: 410,
+                callback: () => {
+                    this.testText.setText("Q to switch gravity left\nE to switch gravity right");
+                    this.canSwitch = true;
+                }
+            });     
+        } else {
+            this.testText.setText("Q to switch gravity left\nE to switch gravity right");
+            this.canSwitch = true;
+        }
+    }
+
+    switchDialogue(){
+        this.testText.destroy();
+        this.dialogue2 = new Dialogue(this, 2012, 1628, 'player', 0, "WHAT DID YOU DO???\nOh god I hear everything breaking...", 2500);
+        this.time.addEvent({
+            delay: 3200,
+            callback: () => {
+                this.dialogue3 = new Dialogue(this, 2012, 1628, 'player', 0, "Look gal, if you want to keep your job, you best get to fixin'\nall of this before the big cheese finds out. No dewdropping!", 3000);
+            }
+        });
     }
 
     nextLevel() {
