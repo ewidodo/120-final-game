@@ -55,7 +55,26 @@ class Intro1 extends Phaser.Scene {
         this.time.addEvent({
             delay: 3200,
             callback: () => {
-                this.dialogue3 = new Dialogue(this, 2012, 1628, 'player', 0, "In case ya forgot how to do the Charleston, you can use\nthe A and D keys to move and the W key to jump.", 3000);
+                this.dialogue2 = new Dialogue(this, 2012, 1628, 'player', 0, "In case ya forgot how to do the Charleston, you can use\nthe A and D keys to move and the W key to jump.", 3000);
+                this.time.addEvent({
+                    delay: 3700,
+                    callback: () => {
+                        let instructionConfig = {
+                            fontFamily: 'Times New Roman Bold',
+                            fontSize: '26px',
+                            color: '#000000',
+                            align: 'center',
+                            padding: {
+                                top: 15,
+                                bottom: 15,
+                                left: 15,
+                                right: 15
+                            },
+                
+                        }
+                        this.testText = this.add.text(2012, 1628, "A and D to move\nW to jump", instructionConfig).setOrigin(0.5);
+                    }
+                });
             }
         });
     }
