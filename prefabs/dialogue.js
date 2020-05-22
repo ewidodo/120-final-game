@@ -48,7 +48,7 @@ class Dialogue extends Phaser.GameObjects.Sprite {
             callback: this.nextLetter,
             args: [this.dialogue, this.text],
             callbackScope: this,
-            repeat: this.text.length + 1,
+            repeat: this.text.length,
         });
     }
 
