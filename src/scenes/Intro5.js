@@ -142,7 +142,7 @@ class Intro5 extends Phaser.Scene {
 
         //prevent player from switching too frequently
         this.time.addEvent({
-            delay: rotationSpeed + 100,
+            delay: rotationSpeed + 75,
             callback: () => {
                 this.sound.play('sfx_button');
             }

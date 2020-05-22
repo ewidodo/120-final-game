@@ -51,16 +51,41 @@ class Intro1 extends Phaser.Scene {
         this.uiCamera = this.cameras.add(0, 0, game.config.width, game.config.height);
         this.uiCamera.setScroll(1500, 1500);
           
-        this.dialogue = new Dialogue(this, 2012, 1628, 'player', 0, "Alright, looks like your next job is just up ahead.", 2500);
-        this.time.addEvent({
-            delay: 3200,
-            callback: () => {
-                this.dialogue2 = new Dialogue(this, 2012, 1628, 'player', 0, "In case ya forgot how to do the Charleston, you can use\nthe A and D keys to move and the W key to jump.", 3000);
+        this.dialogue = new Dialogue(this, 2012, 1628, 'player', 0, "Alright, looks like your next job is just up ahead.", 30);
+
+        this.dialogue1Finished = false;
+        this.dialogue2Finished = false;
+        this.dialogue2Started = false;
+    }
+
+    update() {
+        //update player
+        this.player.update();
+
+        //exit level
+        if (Phaser.Input.Keyboard.JustDown(keyESC)) {
+            this.scene.start("levelSelect");
+        }
+
+        //chain dialogues and stuff
+        if (!this.dialogue1Finished && this.dialogue.finished) {
+            this.dialogue1Finished = true;
+            this.time.addEvent({
+                delay: 200,
+                callback: () => {
+                    this.dialogue2 = new Dialogue(this, 2012, 1628, 'player', 0, "In case ya forgot how to do the Charleston, you can use\nthe A and D keys to move and the W key to jump.", 30);
+                    this.dialogue2Started = true;
+                }
+            });
+        }
+
+        if (this.dialogue2Started) {
+            if (this.dialogue2.finished) {
                 this.time.addEvent({
-                    delay: 3700,
+                    delay: 500,
                     callback: () => {
                         let instructionConfig = {
-                            fontFamily: 'Times New Roman Bold',
+                            fontFamily: 'Times New Roman',
                             fontSize: '26px',
                             color: '#000000',
                             align: 'center',
@@ -76,16 +101,6 @@ class Intro1 extends Phaser.Scene {
                     }
                 });
             }
-        });
-    }
-
-    update() {
-        //update player
-        this.player.update();
-
-        //exit level
-        if (Phaser.Input.Keyboard.JustDown(keyESC)) {
-            this.scene.start("levelSelect");
         }
     }
 

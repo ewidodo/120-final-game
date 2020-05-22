@@ -53,7 +53,7 @@ class Intro4 extends Phaser.Scene {
         //ui
         this.uiCamera = this.cameras.add(0, 0, game.config.width, game.config.height);
         this.uiCamera.setScroll(1500, 1500);
-        this.dialogue = new Dialogue(this, 2012, 2396, 'player', 0, "The warehouse gets real applesaucey up ahead, best if\nyou use the button to proceed.", 2000);
+        this.dialogue = new Dialogue(this, 2012, 2396, 'player', 0, "The warehouse gets real applesaucey up ahead, best if\nyou use the button to proceed.", 30);
     }
 
     update() {
@@ -127,7 +127,7 @@ class Intro4 extends Phaser.Scene {
         //prevent player from switching too frequently
         this.switching = true;
         this.time.addEvent({
-            delay: rotationSpeed + 100,
+            delay: rotationSpeed + 75,
             callback: () => {
                 this.sound.play('sfx_button');
             }
