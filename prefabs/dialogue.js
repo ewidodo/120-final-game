@@ -58,7 +58,6 @@ class Dialogue extends Phaser.GameObjects.Sprite {
         this.scene.tweens.add({
             targets: [this.outline, this.box],
             scale: 0,
-            delay: 100,
             duration: 200,
             ease: 'Power',
             repeat: 0,

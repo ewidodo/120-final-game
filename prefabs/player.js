@@ -47,8 +47,6 @@ class Player extends Phaser.Physics.Arcade.Sprite {
 
         //jumping
         if (Phaser.Input.Keyboard.JustDown(keyW) && !this.isJumping && !this.scene.switching) {
-            console.log("jump pressed");
-  
             if (this.gravityState % 2 == 0) {
                 this.setVelocityY(Math.cos(rotationValue) * jumpSpeed);
             }

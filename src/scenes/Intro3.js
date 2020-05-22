@@ -57,10 +57,10 @@ class Intro3 extends Phaser.Scene {
         this.uiCamera = this.cameras.add(0, 0, game.config.width, game.config.height);
         this.uiCamera.setScroll(1500, 1500);
 
-        this.dialogue = new Dialogue(this, 2012, 1628, 'player', 0, "OK, that's the button you have to pack up.\nPick it up and do NOT press it...", 2000);
+        this.dialogue = new Dialogue(this, 2012, 1628, 'player', 0, "OK, that's the button you have to pack up.\nPick it up and whatever you do, do NOT press it...", 2000);
         this.dialogue1Finished = false;
         this.time.addEvent({
-            delay: 3800,
+            delay: 2700,
             callback: () => {
                 this.dialogue1Finished = true;
             }
@@ -196,11 +196,11 @@ class Intro3 extends Phaser.Scene {
 
     switchDialogue(){
         this.testText.destroy();
-        this.dialogue2 = new Dialogue(this, 2012, 1628, 'player', 0, "WHAT DID YOU DO???\nOh god I hear everything breaking...", 2000);
+        this.dialogue2 = new Dialogue(this, 2012, 1628, 'player', 0, "WHAT DID YOU DO???\nOh god I hear everything breaking...", 2500);
         this.time.addEvent({
-            delay: 2700,
+            delay: 3200,
             callback: () => {
-                this.dialogue3 = new Dialogue(this, 2012, 1628, 'player', 0, "Look gal, if you want to keep your job, you best get to fixin'\nall this stuff before the chumps find out.", 2500);
+                this.dialogue3 = new Dialogue(this, 2012, 1628, 'player', 0, "Look gal, if you want to keep your job, you best get to fixin'\nall of this before the big cheese finds out. No dewdropping!", 3000);
             }
         });
     }
