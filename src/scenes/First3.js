@@ -30,6 +30,7 @@ class First3 extends Phaser.Scene {
 
         //player
         this.player = new Player(this, game.config.width - 96, game.config.height - 96, 'player', 0);
+        this.gameOver = false;
 
         //physics
         this.physics.add.collider(this.player, this.layer);
@@ -159,7 +160,25 @@ class First3 extends Phaser.Scene {
     };
 
      resetScene(){
-        this.scene.restart();
+        if (!this.gameOver) {
+            this.gameOver = true;
+            this.player.setVelocityX(0);
+            this.player.setVelocityY(0);
+            this.sound.play('sfx_death');
+            this.tweens.add({
+                targets: this.player,
+                scale: 0,
+                duration: rotationSpeed,
+                ease: 'Power',
+                repeat: 0,
+                yoyo: false,
+                completeDelay: 100,
+                onComplete: function() {
+                    this.scene.restart();
+                },
+                onCompleteScope: this,
+            });
+        }
     }
 
     nextLevel() {
