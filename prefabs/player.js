@@ -7,6 +7,8 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         this.gravityState = 0; //from default view, 0 -> towards bottom, 1 -> towards right, 2 -> towards top, 3 -> towards left
         this.isJumping = false;
         this.body.setMaxVelocity(975,975);
+
+        
         }
 
     update() {
@@ -45,8 +47,10 @@ class Player extends Phaser.Physics.Arcade.Sprite {
             }
         }
 
-        //jumping
-        if (Phaser.Input.Keyboard.JustDown(keyW) && !this.isJumping && !this.scene.switching) {
+
+        //og code
+         //jumping
+         if (Phaser.Input.Keyboard.JustDown(keyW) && !this.isJumping && !this.scene.switching) {
             if (this.gravityState % 2 == 0) {
                 this.setVelocityY(Math.cos(rotationValue) * jumpSpeed);
             }
@@ -58,6 +62,8 @@ class Player extends Phaser.Physics.Arcade.Sprite {
                 this.isJumping = true;
             });
         }
+
+       
 
         
 
