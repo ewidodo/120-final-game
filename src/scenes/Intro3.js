@@ -127,13 +127,10 @@ class Intro3 extends Phaser.Scene {
         }
 
         //chain dialogues and stuff
-        if (this.dialogue.finished) {
-            this.time.addEvent({
-                delay: 500,
-                callback: () => {
-                    this.testText.setText("Q to switch gravity left\nE to switch gravity right");
-                }
-            });
+        if (!this.dialogue1Finished) {
+            if (this.dialogue.finished) {
+                this.dialogue1Finished = true;
+            }
         }
 
         if (this.dialogue2Started) {

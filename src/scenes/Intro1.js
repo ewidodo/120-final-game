@@ -80,7 +80,8 @@ class Intro1 extends Phaser.Scene {
         }
 
         if (this.dialogue2Started) {
-            if (this.dialogue2.finished) {
+            if (!this.dialogue2Finished && this.dialogue2.finished) {
+                this.dialogue2Finished = true;
                 this.time.addEvent({
                     delay: 500,
                     callback: () => {
