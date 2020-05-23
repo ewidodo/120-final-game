@@ -38,6 +38,9 @@ class LevelSelect extends Phaser.Scene {
         this.level3 = this.add.rectangle(320, 64, 64, 64, 0xFFFFFF).setOrigin(0,0);
         this.level4 = this.add.rectangle(448, 64, 64, 64, 0xFFFFFF).setOrigin(0,0);
         this.level5 = this.add.rectangle(576, 64, 64, 64, 0xFFFFFF).setOrigin(0,0);
+        this.level6 = this.add.rectangle(704, 64, 64, 64, 0xFFFFFF).setOrigin(0,0);
+        this.level7 = this.add.rectangle(832, 64, 64, 64, 0xFFFFFF).setOrigin(0,0);
+        this.level8 = this.add.rectangle(64, 192, 64, 64, 0xFFFFFF).setOrigin(0,0);
         
         this.level1Text = this.add.text(64, 64, "1", unlockedConfig).setOrigin(0, 0);
         this.level1.setInteractive({useHandCursor: true}).on('pointerdown', () => {
@@ -78,6 +81,33 @@ class LevelSelect extends Phaser.Scene {
             });
         } else {
             this.level5Text = this.add.text(576, 64, "5", lockedConfig).setOrigin(0, 0);
+        }
+
+        if(lastLevelCompleted  >= 5){
+            this.level6Text = this.add.text(704, 64, "6", unlockedConfig).setOrigin(0, 0);
+            this.level6.setInteractive({useHandCursor: true}).on('pointerdown', () => {
+                this.scene.start("first1");
+            });
+        } else {
+            this.level6Text = this.add.text(704, 64, "6", lockedConfig).setOrigin(0, 0);
+        }
+
+        if(lastLevelCompleted  >= 6){
+            this.level7Text = this.add.text(832, 64, "7", unlockedConfig).setOrigin(0, 0);
+            this.level7.setInteractive({useHandCursor: true}).on('pointerdown', () => {
+                this.scene.start("first2");
+            });
+        } else {
+            this.level7Text = this.add.text(832, 64, "7", lockedConfig).setOrigin(0, 0);
+        }
+
+        if(lastLevelCompleted  >= 7){
+            this.level8Text = this.add.text(64, 192, "8", unlockedConfig).setOrigin(0, 0);
+            this.level8.setInteractive({useHandCursor: true}).on('pointerdown', () => {
+                this.scene.start("first3");
+            });
+        } else {
+            this.level8Text = this.add.text(64, 192, "8", lockedConfig).setOrigin(0, 0);
         }
     }
 

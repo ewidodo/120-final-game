@@ -1,17 +1,16 @@
-class Intro5 extends Phaser.Scene {
+class First1 extends Phaser.Scene {
     constructor() {
-        super("intro5");
+        super("first1");
         this.uiCamera = 0;
     }
 
     preload() {
-        //og was introcorner
-        this.load.tilemapCSV('introCorner', './tilemaps/introCorners.csv');
+        this.load.tilemapCSV('first1', './tilemaps/first1.csv');
     }
 
     create() {
         this.mapConfig = {
-            key: 'introCorner',
+            key: 'first1',
             tileWidth: 64,
             tileHeight: 64
         }
@@ -29,8 +28,8 @@ class Intro5 extends Phaser.Scene {
         this.map.setTileIndexCallback(3, this.resetScene, this);
         this.map.setTileIndexCallback(4, this.nextLevel, this);
 
-        //player original spawn is game.config.width - 96, 160,
-        this.player = new Player(this, game.config.width/2 + 32, 128, 'player', 0);
+        //player
+        this.player = new Player(this, 96, 224, 'player', 0);
 
         //physics
         this.physics.add.collider(this.player, this.layer);
@@ -56,7 +55,8 @@ class Intro5 extends Phaser.Scene {
         this.uiCamera = this.cameras.add(0, 0, game.config.width, game.config.height);
         this.uiCamera.setScroll(1500, 1500);
         
-        this.dialogue = new Dialogue(this, 2012, 2396, 'player', 0, "Here's the bee's knees, you can switch gravity while in air!\nYou can go around these corners with that neat little trick.", 25);
+        this.dialogue = new Dialogue(this, 2012, 2396, 'player', 0, "Alright gal, first object we're fixin' is a laughing owl.\nThis bird faded back in '14, but that's beside the point.", 25);
+        this.dialogue1Finished = false;
     }
 
     update() {
@@ -94,6 +94,12 @@ class Intro5 extends Phaser.Scene {
         //exit level
         if (Phaser.Input.Keyboard.JustDown(keyESC)) {
             this.scene.start("levelSelect");
+        }
+
+        //chain dialogues and stuff
+        if (!this.dialogue1Finished && this.dialogue.finished) {
+            this.dialogue1Finished = true;
+            this.dialogue2 = new Dialogue(this, 2012, 2396, 'player', 0, "This bird is causing all sorts of hoots to float in the\nair and that ain't swanky, so we gotta calm it down.", 25);
         }
     }
 
@@ -148,10 +154,10 @@ class Intro5 extends Phaser.Scene {
     }
 
     nextLevel() {
-        if (lastLevelCompleted < 5) {
-            lastLevelCompleted = 5;
+        if (lastLevelCompleted < 6) {
+            lastLevelCompleted = 6;
             localStorage.setItem('progress', lastLevelCompleted);
         }
-        this.scene.start("first1");
+        this.scene.start("first2");
     }
 }
