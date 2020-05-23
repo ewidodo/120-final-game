@@ -6,7 +6,7 @@ class Intro5 extends Phaser.Scene {
 
     preload() {
         //og was introcorner
-        this.load.tilemapCSV('introCorner', './tilemaps/introCorners.csv');
+        this.load.tilemapCSV('introCorner', './tilemaps/jamolvl.csv');
     }
 
     create() {
