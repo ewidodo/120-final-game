@@ -76,7 +76,9 @@ class Dialogue extends Phaser.GameObjects.Sprite {
         if (this.counter <= this.text.length) {
             textObject.text = text.substr(0, this.counter);
             this.counter++;
-            this.scene.sound.play('speechfont1');
+            if (this.counter % 2 == 1) {
+                this.scene.sound.play('speechfont1');
+            }
         } else {
             this.scene.sound.play('speechfont1Completed');
             this.scene.time.addEvent({
