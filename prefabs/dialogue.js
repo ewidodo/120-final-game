@@ -82,7 +82,7 @@ class Dialogue extends Phaser.GameObjects.Sprite {
         } else {
             this.scene.sound.play('speechfont1Completed');
             this.scene.time.addEvent({
-                delay: 2000,
+                delay: 5000,
                 callback: () => {
                     if(!this.finished){
                         this.deleteDialogue();
