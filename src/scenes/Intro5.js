@@ -55,21 +55,8 @@ class Intro5 extends Phaser.Scene {
         //ui
         this.uiCamera = this.cameras.add(0, 0, game.config.width, game.config.height);
         this.uiCamera.setScroll(1500, 1500);
-        let scoreConfig = {
-            fontFamily: 'Times New Roman Bold',
-            fontSize: '26px',
-            color: '#000000',
-            align: 'left',
-            padding: {
-                top: 15,
-                bottom: 15,
-                left: 15,
-                right: 15
-            },
-
-        }
-
-        this.testText = this.add.text(2012, 1628, "", scoreConfig).setOrigin(0.5);
+        
+        this.dialogue = new Dialogue(this, 2012, 2396, 'player', 0, "Here's the bee's knees, you can switch gravity while in air!\nYou can go around these corners with that neat little trick.", 25);
     }
 
     update() {
