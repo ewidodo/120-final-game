@@ -58,8 +58,10 @@ class Intro3 extends Phaser.Scene {
         this.uiCamera.setScroll(1500, 1500);
 
         this.dialogue = new Dialogue(this, 2012, 1628, 'player', 0, "OK, that's the button you have to pack up.\nPick it up and whatever you do, do NOT press it...", 30);
+        
         this.dialogue2 = 0;
         this.dialogue3 = 0;
+        this.dialogue1Finished = false;
         this.dialogue2Started = false;
         this.firstSwitch = false;
 
@@ -195,9 +197,10 @@ class Intro3 extends Phaser.Scene {
     pickup() {
         this.button.destroy();
         if (!this.dialogue1Finished){
+            console.log('a');
             this.dialogue.deleteDialogue();
             this.time.addEvent({
-                delay: 500,
+                delay: 400,
                 callback: () => {
                     this.testText.setText("Q to switch gravity left\nE to switch gravity right");
                     this.canSwitch = true;
