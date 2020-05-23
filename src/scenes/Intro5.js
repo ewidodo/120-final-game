@@ -30,7 +30,7 @@ class Intro5 extends Phaser.Scene {
         this.map.setTileIndexCallback(4, this.nextLevel, this);
 
         //player original spawn is game.config.width - 96, 160,
-        this.player = new Player(this, game.config.width/2 + 32, 128, 'player', 0);
+        this.player = new Player(this, game.config.width/2 + 32, 288, 'player', 0);
 
         //physics
         this.physics.add.collider(this.player, this.layer);

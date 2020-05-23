@@ -158,6 +158,6 @@ class First2 extends Phaser.Scene {
             lastLevelCompleted = 7;
             localStorage.setItem('progress', lastLevelCompleted);
         }
-        this.scene.start("levelSelect");
+        this.scene.start("first3");
     }
 }
