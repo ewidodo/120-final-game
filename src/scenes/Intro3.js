@@ -197,7 +197,6 @@ class Intro3 extends Phaser.Scene {
     pickup() {
         this.button.destroy();
         if (!this.dialogue1Finished){
-            console.log('a');
             this.dialogue.deleteDialogue();
             this.time.addEvent({
                 delay: 400,
