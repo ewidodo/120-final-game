@@ -45,7 +45,11 @@ class Intro3 extends Phaser.Scene {
         keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         keyQ = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
         keyE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
+        keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
+        keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
+        
 
         //camera & gravity
         rotationValue = 0;
@@ -86,7 +90,7 @@ class Intro3 extends Phaser.Scene {
     update() {
         if (this.canSwitch) {
             //switching gravity towards right
-            if (Phaser.Input.Keyboard.JustDown(keyE) && !this.switching) {
+            if ((Phaser.Input.Keyboard.JustDown(keyE) || Phaser.Input.Keyboard.JustDown(keyRIGHT)) && !this.switching) {
                 if (this.firstSwitch == false) {
                     this.switchDialogue();
                 }
@@ -103,7 +107,7 @@ class Intro3 extends Phaser.Scene {
             }
 
             //switching gravity towards left
-            if (Phaser.Input.Keyboard.JustDown(keyQ) && !this.switching) {
+            if ((Phaser.Input.Keyboard.JustDown(keyQ) || Phaser.Input.Keyboard.JustDown(keyLEFT)) && !this.switching) {
                 if (this.firstSwitch == false) {
                     this.switchDialogue();
                 }

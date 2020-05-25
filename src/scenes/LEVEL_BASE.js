@@ -27,6 +27,9 @@ class test extends Phaser.Scene {
         keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         keyQ = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
         keyE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
+        keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
+        keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
 
         //camera & gravity
         rotationValue = 0;
@@ -39,7 +42,7 @@ class test extends Phaser.Scene {
 
     update() {
         //switching gravity towards right
-        if (Phaser.Input.Keyboard.JustDown(keyE) && !this.switching) {
+        if ((Phaser.Input.Keyboard.JustDown(keyE) || Phaser.Input.Keyboard.JustDown(keyRIGHT)) && !this.switching) {
             rotationValue += Math.PI / 2;
             console.log(playerRotationValue);
             playerRotationValue -= Math.PI / 2;
@@ -49,7 +52,7 @@ class test extends Phaser.Scene {
         }
 
         //switching gravity towards left
-        if (Phaser.Input.Keyboard.JustDown(keyQ) && !this.switching) {
+        if((Phaser.Input.Keyboard.JustDown(keyQ) || Phaser.Input.Keyboard.JustDown(keyLEFT)) && !this.switching){
             rotationValue -= Math.PI / 2;
             console.log(playerRotationValue);
             playerRotationValue += Math.PI / 2;
