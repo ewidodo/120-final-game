@@ -30,7 +30,9 @@ class Intro2 extends Phaser.Scene {
         this.map.setTileIndexCallback(4, this.nextLevel, this);
 
         //player
-        this.player = new Player(this, 96, 160, 'player', 0);
+        spawnX = 96;
+        spawnY = 224;
+        this.player = new Player(this, spawnX, spawnY, 'player', 0);
         this.gameOver = false;
 
         //physics
@@ -81,7 +83,13 @@ class Intro2 extends Phaser.Scene {
                 yoyo: false,
                 completeDelay: 100,
                 onComplete: function() {
-                    this.scene.restart();
+                    //reset player
+                    this.player.x = spawnX;
+                    this.player.y = spawnY;
+                    this.player.scale = 1;
+
+                    //undo gameOver flag
+                    this.gameOver = false;
                 },
                 onCompleteScope: this,
             });

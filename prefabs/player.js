@@ -47,24 +47,25 @@ class Player extends Phaser.Physics.Arcade.Sprite {
                     this.setVelocityY(0);
                 }
             }
-        }
 
-
-        //og code
-         //jumping
-         if (Phaser.Input.Keyboard.JustDown(keyW) && !this.isJumping && !this.scene.switching) {
-            if (this.gravityState % 2 == 0) {
-                this.setVelocityY(Math.cos(rotationValue) * jumpSpeed);
+            //og code
+             //jumping
+             if (Phaser.Input.Keyboard.JustDown(keyW) && !this.isJumping && !this.scene.switching) {
+                if (this.gravityState % 2 == 0) {
+                    this.setVelocityY(Math.cos(rotationValue) * jumpSpeed);
+                }
+                if (this.gravityState % 2 == 1) {
+                    this.setVelocityX(Math.sin(rotationValue) * jumpSpeed);
+                } 
+                
+                this.scene.time.delayedCall(10, () => {
+                    this.isJumping = true;
+                });
             }
-            if (this.gravityState % 2 == 1) {
-                this.setVelocityX(Math.sin(rotationValue) * jumpSpeed);
-            } 
-            
-            this.scene.time.delayedCall(10, () => {
-                this.isJumping = true;
-            });
         }
 
+
+        
        
 
         

@@ -29,7 +29,9 @@ class First3 extends Phaser.Scene {
         this.map.setTileIndexCallback(4, this.nextLevel, this);
 
         //player
-        this.player = new Player(this, game.config.width - 96, game.config.height - 96, 'player', 0);
+        spawnX = game.config.width - 96;
+        spawnY = game.config.height - 96;
+        this.player = new Player(this, spawnX, spawnY, 'player', 0);
         this.gameOver = false;
 
         //physics
@@ -62,32 +64,34 @@ class First3 extends Phaser.Scene {
     }
 
     update() {
-        //switching gravity towards right
-        if (Phaser.Input.Keyboard.JustDown(keyE) && !this.switching) {
-            this.time.delayedCall(10, () => {
-                this.sound.play('sfx_switch');
-            });
-            rotationValue += Math.PI / 2;
-            console.log(playerRotationValue);
-            playerRotationValue -= Math.PI / 2;
-            this.player.gravityState++;
-            this.player.gravityState %= 4;
-            this.updateGravity();
-        }
-
-        //switching gravity towards left
-        if (Phaser.Input.Keyboard.JustDown(keyQ) && !this.switching) {
-            this.time.delayedCall(10, () => {
-                this.sound.play('sfx_switch');
-            });
-            rotationValue -= Math.PI / 2;
-            console.log(playerRotationValue);
-            playerRotationValue += Math.PI / 2;
-            this.player.gravityState--;
-            if (this.player.gravityState < 0) {
-                this.player.gravityState = 3;
+        if (!this.gameOver){
+            //switching gravity towards right
+            if (Phaser.Input.Keyboard.JustDown(keyE) && !this.switching) {
+                this.time.delayedCall(10, () => {
+                    this.sound.play('sfx_switch');
+                });
+                rotationValue += Math.PI / 2;
+                console.log(playerRotationValue);
+                playerRotationValue -= Math.PI / 2;
+                this.player.gravityState++;
+                this.player.gravityState %= 4;
+                this.updateGravity();
             }
-            this.updateGravity();
+
+            //switching gravity towards left
+            if (Phaser.Input.Keyboard.JustDown(keyQ) && !this.switching) {
+                this.time.delayedCall(10, () => {
+                    this.sound.play('sfx_switch');
+                });
+                rotationValue -= Math.PI / 2;
+                console.log(playerRotationValue);
+                playerRotationValue += Math.PI / 2;
+                this.player.gravityState--;
+                if (this.player.gravityState < 0) {
+                    this.player.gravityState = 3;
+                }
+                this.updateGravity();
+            }
         }
 
         //update player
@@ -164,6 +168,8 @@ class First3 extends Phaser.Scene {
             this.gameOver = true;
             this.player.setVelocityX(0);
             this.player.setVelocityY(0);
+            this.physics.world.gravity.x = 0;
+            this.physics.world.gravity.y = 0;
             this.sound.play('sfx_death');
             this.tweens.add({
                 targets: this.player,
@@ -174,7 +180,22 @@ class First3 extends Phaser.Scene {
                 yoyo: false,
                 completeDelay: 100,
                 onComplete: function() {
-                    this.scene.restart();
+                    //reset rotation + gravity
+                    rotationValue = 0;
+                    playerRotationValue = 0;
+                    this.cameras.main.setRotation(rotationValue);
+                    this.player.setRotation(playerRotationValue);
+                    this.physics.world.gravity.x = Math.sin(rotationValue) * gravityStrength;
+                    this.physics.world.gravity.y = Math.cos(rotationValue) * gravityStrength;
+
+                    //reset player
+                    this.player.x = spawnX;
+                    this.player.y = spawnY;
+                    this.player.scale = 1;
+                    this.player.gravityState = 0;
+
+                    //undo gameOver flag
+                    this.gameOver = false;
                 },
                 onCompleteScope: this,
             });

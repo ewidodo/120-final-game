@@ -29,7 +29,9 @@ class Intro1 extends Phaser.Scene {
 
 
         //player
-        this.player = new Player(this, 96, game.config.height - 416, 'player', 0);
+        spawnX = 96;
+        spawnY = game.config.height - 416;
+        this.player = new Player(this, spawnX, spawnY, 'player', 0);
 
         //physics
         this.physics.add.collider(this.player, this.layer);
