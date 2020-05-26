@@ -29,20 +29,22 @@ class Intro2 extends Phaser.Scene {
         this.map.setTileIndexCallback(3, this.resetScene, this);
         this.map.setTileIndexCallback(4, this.nextLevel, this);
 
-        //player
-        spawnX = 96;
-        spawnY = 224;
-        this.player = new Player(this, spawnX, spawnY, 'player', 0);
-        this.gameOver = false;
-
-        //physics
-        this.physics.add.collider(this.player, this.layer);
-
         //keyboard input
         keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
         keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+        keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
         keyESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
+
+        //player
+        spawnX = 96;
+        spawnY = 224;
+        this.player = new Player(this, spawnX, spawnY, 'player', 0);
+        this.player.setSize(32, 64);
+        this.gameOver = false;
+
+        //physics
+        this.physics.add.collider(this.player, this.layer);
 
         //camera & gravity
         rotationValue = 0;

@@ -27,27 +27,27 @@ class Intro1 extends Phaser.Scene {
         //collision events
         this.map.setTileIndexCallback(4, this.nextLevel, this);
 
+        //keyboard input
+        keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+        keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+        keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+        keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        keyESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
 
         //player
         spawnX = 96;
         spawnY = game.config.height - 416;
         this.player = new Player(this, spawnX, spawnY, 'player', 0);
+        this.player.setSize(32, 64, true);
 
         //physics
         this.physics.add.collider(this.player, this.layer);
-
-        //keyboard input
-        keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
-        keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
-        keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
-        keyESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
 
         //camera & gravity
         rotationValue = 0;
         playerRotationValue = 0;
         this.cameras.main.setRotation(rotationValue);
         this.player.setRotation(playerRotationValue);
-        this.switching = false;
 
         //ui
         this.uiCamera = this.cameras.add(0, 0, game.config.width, game.config.height);

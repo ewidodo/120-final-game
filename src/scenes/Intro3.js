@@ -26,6 +26,16 @@ class Intro3 extends Phaser.Scene {
         //collision events
         this.map.setTileIndexCallback(4, this.nextLevel, this);
 
+        //keyboard input
+        keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+        keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+        keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+        keyQ = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
+        keyE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
+        keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
+        keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
+        keyESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
 
         //player
         spawnX = 96;
@@ -39,19 +49,6 @@ class Intro3 extends Phaser.Scene {
         this.physics.add.collider(this.button, this.layer);
         this.physics.add.overlap(this.player, this.button, this.pickup, null, this);
 
-        
-        //keyboard input
-        keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
-        keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
-        keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
-        keyQ = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
-        keyE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
-        keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-        keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
-        keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
-        keyESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
-        
-
         //camera & gravity
         rotationValue = 0;
         playerRotationValue = 0;
@@ -59,6 +56,7 @@ class Intro3 extends Phaser.Scene {
         this.player.setRotation(playerRotationValue);
         this.switching = false;
         this.canSwitch = false;
+        this.rotator = new RotationManager(this, 0, 0 , 'player', 0);
 
         //ui
         this.uiCamera = this.cameras.add(0, 0, game.config.width, game.config.height);
@@ -94,68 +92,18 @@ class Intro3 extends Phaser.Scene {
             if ((Phaser.Input.Keyboard.JustDown(keyE) || Phaser.Input.Keyboard.JustDown(keyRIGHT)) && !this.switching) {
                 if (this.firstSwitch == false) {
                     this.switchDialogue();
+                    this.firstSwitch = true;
                 }
-                this.firstSwitch = true;
-                this.time.delayedCall(10, () => {
-                    this.sound.play('sfx_switch');
-                });
-                rotationValue += Math.PI / 2;
-                console.log(playerRotationValue);
-                playerRotationValue -= Math.PI / 2;
-                this.player.gravityState++;
-                this.player.gravityState %= 4;
-                if (this.player.gravityState == 0) {
-                    this.player.y -= 32;
-                    this.player.setSize(32, 64, true);
-                }
-                if (this.player.gravityState == 1) {
-                    this.player.x -= 32;
-                    this.player.setSize(64, 32, true);
-                }
-                if (this.player.gravityState == 2) {
-                    this.player.y += 32;
-                    this.player.setSize(32, 64, true);
-                }
-                if (this.player.gravityState == 3) {
-                    this.player.x += 32;
-                    this.player.setSize(64, 32, true);
-                }
-                this.updateGravity();
+                this.rotator.updateGravityRight();
             }
 
             //switching gravity towards left
             if ((Phaser.Input.Keyboard.JustDown(keyQ) || Phaser.Input.Keyboard.JustDown(keyLEFT)) && !this.switching) {
                 if (this.firstSwitch == false) {
                     this.switchDialogue();
-                }
-                this.firstSwitch = true;
-                this.time.delayedCall(10, () => {
-                    this.sound.play('sfx_switch');
-                });
-                rotationValue -= Math.PI / 2;
-                console.log(playerRotationValue);
-                playerRotationValue += Math.PI / 2;
-                this.player.gravityState--;
-                if (this.player.gravityState < 0) {
-                    this.player.gravityState = 3;
-                }
-                if (this.player.gravityState == 0) {
-                    this.player.y -= 32;
-                    this.player.setSize(32, 64, true);
-                }
-                if (this.player.gravityState == 1) {
-                    this.player.x -= 32;
-                    this.player.setSize(64, 32, true);
-                }
-                if (this.player.gravityState == 2) {
-                    this.player.y += 32;
-                    this.player.setSize(32, 64, true);
-                }
-                if (this.player.gravityState == 3) {
-                    this.player.x += 32;
-                    this.player.setSize(64, 32, true);
-                }
-                this.updateGravity();
+                    this.firstSwitch = true;
+                }   
+                this.rotator.updateGravityLeft();
             }
         }
 
@@ -187,52 +135,6 @@ class Intro3 extends Phaser.Scene {
         }
     }
 
-    updateGravity() {
-        this.physics.world.gravity.x = Math.sin(rotationValue) * gravityStrength;
-        this.physics.world.gravity.y = Math.cos(rotationValue) * gravityStrength;
-
-        this.tweens.add({
-            targets: this.cameras.main,
-            rotation: rotationValue,
-            duration: rotationSpeed,
-            ease: 'Power',
-            repeat: 0,
-            yoyo: false,
-        });
-
-        playerRotationValue %= Math.PI * 2;
-        console.log(playerRotationValue);
-
-        this.tweens.add({
-            targets: this.player,
-            rotation: playerRotationValue,
-            duration: rotationSpeed,
-            ease: 'Power',
-            repeat: 0,
-            yoyo: false,
-        });
-
-        if (playerRotationValue > 0) {
-            playerRotationValue -= Math.PI * 2;
-        }
-        console.log(playerRotationValue);
-
-        //prevent player from switching too frequently
-        this.switching = true;
-        this.time.addEvent({
-            delay: rotationSpeed + 75,
-            callback: () => {
-                this.sound.play('sfx_button');
-            }
-        });
-        this.time.addEvent({
-            delay: rotationSpeed * 2,
-            callback: () => {
-                this.switching = false;
-            }
-        });
-    };
-
     pickup() {
         this.button.destroy();
         if (!this.dialogue1Finished){
@@ -240,12 +142,12 @@ class Intro3 extends Phaser.Scene {
             this.time.addEvent({
                 delay: 400,
                 callback: () => {
-                    this.testText.setText("Q to switch gravity left\nE to switch gravity right");
+                    this.testText.setText("Q or ← to rotate left\nE or → to rotate right");
                     this.canSwitch = true;
                 }
             });     
         } else {
-            this.testText.setText("Q to switch gravity left\nE to switch gravity right");
+            this.testText.setText("Q or ← to rotate left\nE or → to rotate right");
             this.canSwitch = true;
         }
     }
