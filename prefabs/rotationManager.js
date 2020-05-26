@@ -108,4 +108,45 @@ class RotationManager extends Phaser.GameObjects.Sprite {
             }
         });
     }
+
+    resetScene() {
+        if (!this.scene.gameOver) {
+            this.scene.gameOver = true;
+            this.scene.player.setVelocityX(0);
+            this.scene.player.setVelocityY(0);
+            this.scene.physics.world.gravity.x = 0;
+            this.scene.physics.world.gravity.y = 0;
+            this.scene.player.setSize(32, 64, true);
+            this.scene.sound.play('sfx_death');
+            this.scene.tweens.add({
+                targets: this.scene.player,
+                scale: 0,
+                duration: rotationSpeed,
+                ease: 'Power',
+                repeat: 0,
+                yoyo: false,
+                completeDelay: 100,
+                onComplete: function() {
+                    //reset rotation + gravity
+                    rotationValue = 0;
+                    playerRotationValue = 0;
+                    this.scene.cameras.main.setRotation(rotationValue);
+                    this.scene.player.setRotation(playerRotationValue);
+                    this.scene.physics.world.gravity.x = Math.sin(rotationValue) * gravityStrength;
+                    this.scene.physics.world.gravity.y = Math.cos(rotationValue) * gravityStrength;
+
+                    //reset player
+                    this.scene.player.x = spawnX;
+                    this.scene.player.y = spawnY;
+                    this.scene.player.scale = 1;
+                    this.scene.player.gravityState = 0;
+                    
+
+                    //undo gameOver flag
+                    this.scene.gameOver = false;
+                },
+                onCompleteScope: this,
+            });
+        }
+    }
 }

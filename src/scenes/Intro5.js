@@ -88,44 +88,7 @@ class Intro5 extends Phaser.Scene {
     }
 
     resetScene(){
-        if (!this.gameOver) {
-            this.gameOver = true;
-            this.player.setVelocityX(0);
-            this.player.setVelocityY(0);
-            this.physics.world.gravity.x = 0;
-            this.physics.world.gravity.y = 0;
-            this.player.setSize(32, 64, true);
-            this.sound.play('sfx_death');
-            this.tweens.add({
-                targets: this.player,
-                scale: 0,
-                duration: rotationSpeed,
-                ease: 'Power',
-                repeat: 0,
-                yoyo: false,
-                completeDelay: 100,
-                onComplete: function() {
-                    //reset rotation + gravity
-                    rotationValue = 0;
-                    playerRotationValue = 0;
-                    this.cameras.main.setRotation(rotationValue);
-                    this.player.setRotation(playerRotationValue);
-                    this.physics.world.gravity.x = Math.sin(rotationValue) * gravityStrength;
-                    this.physics.world.gravity.y = Math.cos(rotationValue) * gravityStrength;
-
-                    //reset player
-                    this.player.x = spawnX;
-                    this.player.y = spawnY;
-                    this.player.scale = 1;
-                    this.player.gravityState = 0;
-                    
-
-                    //undo gameOver flag
-                    this.gameOver = false;
-                },
-                onCompleteScope: this,
-            });
-        }
+        this.rotator.resetScene();
     }
 
     nextLevel() {
