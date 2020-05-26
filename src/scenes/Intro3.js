@@ -31,6 +31,7 @@ class Intro3 extends Phaser.Scene {
         spawnX = 96;
         spawnY = game.config.height - 360;
         this.player = new Player(this, spawnX, spawnY, 'player', 0);
+        this.player.setSize(32, 64, true);
         this.button = this.physics.add.sprite(game.config.width / 2, game.config.height - 416, 'button');
 
         //physics
@@ -99,6 +100,22 @@ class Intro3 extends Phaser.Scene {
                 playerRotationValue -= Math.PI / 2;
                 this.player.gravityState++;
                 this.player.gravityState %= 4;
+                if (this.player.gravityState == 0) {
+                    this.player.y -= 32;
+                    this.player.setSize(32, 64, true);
+                }
+                if (this.player.gravityState == 1) {
+                    this.player.x -= 32;
+                    this.player.setSize(64, 32, true);
+                }
+                if (this.player.gravityState == 2) {
+                    this.player.y += 32;
+                    this.player.setSize(32, 64, true);
+                }
+                if (this.player.gravityState == 3) {
+                    this.player.x += 32;
+                    this.player.setSize(64, 32, true);
+                }
                 this.updateGravity();
             }
 
@@ -117,6 +134,22 @@ class Intro3 extends Phaser.Scene {
                 this.player.gravityState--;
                 if (this.player.gravityState < 0) {
                     this.player.gravityState = 3;
+                }
+                if (this.player.gravityState == 0) {
+                    this.player.y -= 32;
+                    this.player.setSize(32, 64, true);
+                }
+                if (this.player.gravityState == 1) {
+                    this.player.x -= 32;
+                    this.player.setSize(64, 32, true);
+                }
+                if (this.player.gravityState == 2) {
+                    this.player.y += 32;
+                    this.player.setSize(32, 64, true);
+                }
+                if (this.player.gravityState == 3) {
+                    this.player.x += 32;
+                    this.player.setSize(64, 32, true);
                 }
                 this.updateGravity();
             }
