@@ -4,12 +4,7 @@ class Intro1 extends Phaser.Scene {
         this.uiCamera = 0;
     }
 
-    preload() {
-        this.load.tilemapCSV('introJump', './tilemaps/introJump.csv');
-    }
-
     create() {
-
         this.mapConfig = {
             key: 'introJump',
             tileWidth: 64,

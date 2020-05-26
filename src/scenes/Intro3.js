@@ -4,11 +4,6 @@ class Intro3 extends Phaser.Scene {
         this.uiCamera = 0;
     }
 
-    preload() {
-        this.load.image('button', './assets/ass.png');
-        this.load.tilemapCSV('introButton', './tilemaps/introButton.csv');
-    }
-
     create() {
         this.mapConfig = {
             key: 'introButton',

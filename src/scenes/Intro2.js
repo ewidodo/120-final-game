@@ -4,12 +4,7 @@ class Intro2 extends Phaser.Scene {
         this.uiCamera = 0;
     }
 
-    preload() {
-        this.load.tilemapCSV('introObst', './tilemaps/introObst.csv');
-    }
-
     create() {
-
         this.mapConfig = {
             key: 'introObst',
             tileWidth: 64,
@@ -70,7 +65,7 @@ class Intro2 extends Phaser.Scene {
         }
     }
 
-    resetScene(){
+    resetScene() {
         if (!this.gameOver) {
             this.gameOver = true;
             this.player.setVelocityX(0);

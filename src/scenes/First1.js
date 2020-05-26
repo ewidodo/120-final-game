@@ -4,10 +4,6 @@ class First1 extends Phaser.Scene {
         this.uiCamera = 0;
     }
 
-    preload() {
-        this.load.tilemapCSV('first1', './tilemaps/first1.csv');
-    }
-
     create() {
         this.mapConfig = {
             key: 'first1',
@@ -94,7 +90,7 @@ class First1 extends Phaser.Scene {
         }
     }
 
-    resetScene(){
+    resetScene() {
         this.rotator.resetScene();
     }
 

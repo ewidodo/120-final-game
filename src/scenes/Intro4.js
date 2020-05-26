@@ -4,10 +4,6 @@ class Intro4 extends Phaser.Scene {
         this.uiCamera = 0;
     }
 
-    preload() {
-        this.load.tilemapCSV('introGrav', './tilemaps/introGrav.csv');
-    }
-
     create() {     
         this.mapConfig = {
             key: 'introGrav',

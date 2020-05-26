@@ -4,10 +4,6 @@ class First3 extends Phaser.Scene {
         this.uiCamera = 0;
     }
 
-    preload() {
-        this.load.tilemapCSV('first3', './tilemaps/first3.csv');
-    }
-
     create() {
         this.mapConfig = {
             key: 'first3',
@@ -103,7 +99,7 @@ class First3 extends Phaser.Scene {
         }
     }
 
-    resetScene(){
+    resetScene() {
         this.scene.resetScene();
     }
 

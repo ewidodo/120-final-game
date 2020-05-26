@@ -4,11 +4,6 @@ class Intro5 extends Phaser.Scene {
         this.uiCamera = 0;
     }
 
-    preload() {
-        //og was introcorner
-        this.load.tilemapCSV('introCorner', './tilemaps/introCorners.csv');
-    }
-
     create() {
         this.mapConfig = {
             key: 'introCorner',
@@ -87,7 +82,7 @@ class Intro5 extends Phaser.Scene {
         }
     }
 
-    resetScene(){
+    resetScene() {
         this.rotator.resetScene();
     }
 
