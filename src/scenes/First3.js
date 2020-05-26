@@ -44,6 +44,9 @@ class First3 extends Phaser.Scene {
         keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         keyQ = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
         keyE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
+        keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
+        keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
 
         //camera & gravity
@@ -66,7 +69,7 @@ class First3 extends Phaser.Scene {
     update() {
         if (!this.gameOver){
             //switching gravity towards right
-            if (Phaser.Input.Keyboard.JustDown(keyE) && !this.switching) {
+            if ((Phaser.Input.Keyboard.JustDown(keyE) || Phaser.Input.Keyboard.JustDown(keyRIGHT)) && !this.switching) {
                 this.time.delayedCall(10, () => {
                     this.sound.play('sfx_switch');
                 });
@@ -79,7 +82,7 @@ class First3 extends Phaser.Scene {
             }
 
             //switching gravity towards left
-            if (Phaser.Input.Keyboard.JustDown(keyQ) && !this.switching) {
+            if ((Phaser.Input.Keyboard.JustDown(keyQ) || Phaser.Input.Keyboard.JustDown(keyLEFT)) && !this.switching) {
                 this.time.delayedCall(10, () => {
                     this.sound.play('sfx_switch');
                 });
