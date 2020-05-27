@@ -37,7 +37,7 @@ class Intro5 extends Phaser.Scene {
 
         //player
         spawnX = game.config.width/2 + 32;
-        spawnY = 288;
+        spawnY = 160;
         this.player = new Player(this, spawnX, spawnY, 'player', 0);
         this.player.setSize(32, 64, true);
         this.gameOver = false;

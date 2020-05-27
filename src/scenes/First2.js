@@ -25,7 +25,7 @@ class First2 extends Phaser.Scene {
         this.map.setTileIndexCallback(4, this.nextLevel, this);
 
         //player
-        spawnX = game.config.width/2 + 32;
+        spawnX = 96;
         spawnY = 224;
         this.player = new Player(this, spawnX, spawnY, 'player', 0);
         this.player.setSize(32, 64);
