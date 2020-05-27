@@ -57,7 +57,7 @@ class Intro3 extends Phaser.Scene {
         this.uiCamera = this.cameras.add(0, 0, game.config.width, game.config.height);
         this.uiCamera.setScroll(1500, 1500);
 
-        this.dialogue = new Dialogue(this, 2012, 1628, 'player', 0, "OK, that's the button you have to pack up.\nPick it up and whatever you do, do NOT press it...", 25);
+        this.dialogue = new Dialogue(this, 2012, 1628, 'player', 0, "The warehouse gets applesaucey up ahead, so grab that\nbutton, it'll be useful.", 20, 11, 3000);
 
         this.dialogue2 = 0;
         this.dialogue3 = 0;

@@ -17,8 +17,8 @@ class Dialogue extends Phaser.GameObjects.Sprite {
         this.counter = 1;
         this.outline = this.scene.add.rectangle(x, y, 768, 96, 0x00000).setOrigin(0.5).setScale(0);
         this.box = this.scene.add.rectangle(x, y, 760, 88, 0xFFFFFF).setOrigin(0.5).setScale(0);
+        this.state = 1; //1 -> top of screen, 2 -> bottom of screen
 
-        //who is talking
         /*
         LIST FOR WHO IS TALKING
         -----------------------
@@ -28,6 +28,7 @@ class Dialogue extends Phaser.GameObjects.Sprite {
 
         Malarkey normal = 11
         */
+
         if (type == 1) {
             this.who = 'ruth_normal';
         }
@@ -65,7 +66,6 @@ class Dialogue extends Phaser.GameObjects.Sprite {
             align: 'left',
         };
         
-        console.log(this.scene.anims.get(this.who));
         this.face = this.scene.add.sprite(this.x - 324, this.y, this.who).setOrigin(0.5).play(this.who + '_talk');
         this.dialogue = this.scene.add.text(this.x- 260, this.y - 30, "", textDisplay);
         this.letterByLetter = this.scene.time.addEvent({
@@ -117,5 +117,58 @@ class Dialogue extends Phaser.GameObjects.Sprite {
                 }
             });
         }
+    }
+
+    update() {
+        if (!this.finished) {
+            if (this.scene.player.gravityState == 0) {
+                if (this.state == 1 & this.scene.player.y < game.config.height / 3) {
+                    this.shiftBottom();
+                }
+                if (this.state == 2 & this.scene.player.y > game.config.height / 3 * 2) {
+                    this.shiftTop();
+                }
+            }
+            if (this.scene.player.gravityState == 1) {
+                if (this.state == 1 & this.scene.player.x < game.config.height / 3) {
+                    this.shiftBottom();
+                }
+                if (this.state == 2 & this.scene.player.x > game.config.height / 3 * 2) {
+                    this.shiftTop();
+                }
+            }
+            if (this.scene.player.gravityState == 2) {
+                if (this.state == 2 & this.scene.player.y < game.config.height / 3) {
+                    this.shiftTop();
+                }
+                if (this.state == 1 & this.scene.player.y > game.config.height / 3 * 2) {
+                    this.shiftBottom();
+                }
+            }
+            if (this.scene.player.gravityState == 3) {
+                if (this.state == 2 & this.scene.player.x < game.config.height / 3) {
+                    this.shiftTop();
+                }
+                if (this.state == 1 & this.scene.player.x > game.config.height / 3 * 2) {
+                    this.shiftBottom();
+                }
+            }
+        }
+    }
+
+    shiftTop() {
+        this.state = 1;
+        this.outline.y = 1628;
+        this.box.y = 1628;
+        this.face.y = 1628;
+        this.dialogue.y = 1598;
+    }
+
+    shiftBottom() {
+        this.state = 2;
+        this.outline.y = 2396;
+        this.box.y = 2396;
+        this.face.y = 2396;
+        this.dialogue.y = 2366;
     }
 }

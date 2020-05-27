@@ -48,7 +48,7 @@ class Intro1 extends Phaser.Scene {
         this.uiCamera = this.cameras.add(0, 0, game.config.width, game.config.height);
         this.uiCamera.setScroll(1500, 1500);
           
-        this.dialogue = new Dialogue(this, 2012, 1628, 'player', 0, "Alright, this should be an easy job, so no dewdropping now.", 20, 11, 3000);
+        this.dialogue = new Dialogue(this, 2012, 1628, 'player', 0, "Alright, this should be an easy job.\nWe're on the clock here, so no dewdropping now.", 20, 11, 3000);
 
         this.dialogue1Finished = false;
         this.dialogue2Finished = false;
@@ -67,25 +67,29 @@ class Intro1 extends Phaser.Scene {
         }
 
         //chain dialogues and stuff
-        if (!this.dialogue1Finished && this.dialogue.finished) {
-            this.dialogue1Finished = true;
-            this.time.addEvent({
-                delay: 200,
-                callback: () => {
-                    this.dialogue2 = new Dialogue(this, 2012, 1628, 'player', 0, "In case ya forgot how to do the Charleston, you can use\nthe A and D keys to move and the W or Space key to jump.", 20, 11, 4000);
-                    this.dialogue2Started = true;
-                }
-            });
-        }
+       if (!this.dialogue1Finished) {
+           this.dialogue.update();
+           if (this.dialogue.finished) {
+                this.dialogue1Finished = true;
+                this.time.addEvent({
+                    delay: 200,
+                    callback: () => {
+                        this.dialogue2 = new Dialogue(this, 2012, 1628, 'player', 0, "In case ya forgot how to do the Charleston, you can use\nthe A and D keys to move and the W or Space keys to jump.", 20, 11, 4000);
+                        this.dialogue2Started = true;
+                    }
+                });
+           }
+       }
 
         if (this.dialogue2Started) {
+            this.dialogue2.update();
             if (!this.dialogue2Finished && this.dialogue2.finished) {
                 this.dialogue2Started = false;
                 this.dialogue2Finished = true;
                 this.time.addEvent({
                     delay: 200,
                     callback: () => {
-                        this.dialogue3 = new Dialogue(this, 2012, 1628, 'player', 0, "Yeah yeah, I got it.", 25, 3, 2000);
+                        this.dialogue3 = new Dialogue(this, 2012, 1628, 'player', 0, "Yeah yeah, I got it, you egg.", 20, 3, 2000);
                         this.dialogue3Started = true;
                 }
                 });
@@ -93,6 +97,7 @@ class Intro1 extends Phaser.Scene {
         }
 
         if (this.dialogue3Started) {
+            this.dialogue3.update();
             if (!this.dialogue3Finished && this.dialogue3.finished) {
                 this.dialogue3Started = false;
                 this.dialogue3Finished = true;

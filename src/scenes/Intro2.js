@@ -52,7 +52,8 @@ class Intro2 extends Phaser.Scene {
         this.uiCamera = this.cameras.add(0, 0, game.config.width, game.config.height);
         this.uiCamera.setScroll(1500, 1500);
 
-        this.dialogue = new Dialogue(this, 2012, 2396, 'player', 0, "That red dingus you see is some sorta classified slime...\nIt does a whole lotta baloney, so watch your pins.", 25);
+        this.dialogue = new Dialogue(this, 2012, 2396, 'player', 0, "Hey, what's all this red gunk on the floor?", 20, 2, 3000);
+        this.dialogue1Finished = false;
     }
 
     update() {
@@ -62,6 +63,19 @@ class Intro2 extends Phaser.Scene {
         //exit level
         if (Phaser.Input.Keyboard.JustDown(keyESC)) {
             this.scene.start("levelSelect");
+        }
+
+        //chain dialogues and stuff
+        if (!this.dialogue1Finished) {
+            if (this.dialogue.finished) {
+                this.dialogue1Finished = true;
+                this.time.addEvent({
+                    delay: 200,
+                    callback: () => {
+                        this.dialogue2 = new Dialogue(this, 2012, 2396, 'player', 0, "Some sorta top secret slime...\nit does a whole lotta baloney, so watch your pins.", 20, 11, 2000);
+                }
+                });
+            }
         }
     }
 

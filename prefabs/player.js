@@ -64,12 +64,6 @@ class Player extends Phaser.Physics.Arcade.Sprite {
             }
         }
 
-
-        
-       
-
-        
-
         if (this.gravityState == 0 && this.body.blocked.down) { //bottom
             //console.log("blocked bottom");
             this.isJumping = false;
