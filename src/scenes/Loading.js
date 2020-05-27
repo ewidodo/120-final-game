@@ -9,7 +9,11 @@ class Loading extends Phaser.Scene{
         this.load.image('button', './assets/ass.png');
         this.load.image('tiles', './assets/temptiles.png');
 
-        //load spritesheets
+        //load atlases
+        this.load.atlas('ruth_normal', './assets/ruth_normal.png', './assets/dialogue.json');
+        this.load.atlas('ruth_confused', './assets/ruth_confused.png', './assets/dialogue.json');
+        this.load.atlas('ruth_stern', './assets/ruth_stern.png', './assets/dialogue.json');
+        this.load.atlas('malarkey_normal', './assets/malarkey_normal.png', './assets/dialogue.json');
 
         //load audio
         this.load.audio('sfx_button', './assets/button.wav');
@@ -33,6 +37,36 @@ class Loading extends Phaser.Scene{
     }
 
     create() {
+        //define animations
+        this.anims.create({
+            key: 'ruth_normal_talk',
+            frames: this.anims.generateFrameNames('ruth_normal'),
+            frameRate: 8,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'ruth_confused_talk',
+            frames: this.anims.generateFrameNames('ruth_confused'),
+            frameRate: 8,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'ruth_stern_talk',
+            frames: this.anims.generateFrameNames('ruth_stern'),
+            frameRate: 8,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'malarkey_normal_talk',
+            frames: this.anims.generateFrameNames('malarkey_normal'),
+            frameRate: 8,
+            repeat: -1
+        });
+
+        //done loading
         this.scene.start("menuScene");
     }
 }

@@ -1,5 +1,5 @@
 class Dialogue extends Phaser.GameObjects.Sprite {
-    constructor(scene, x, y, texture, frame, text, textSpeed) {
+    constructor(scene, x, y, texture, frame, text, textSpeed, type, finishDelay) {
         super(scene, x, y, texture, frame)
 
         //hide the texture
@@ -10,12 +10,36 @@ class Dialogue extends Phaser.GameObjects.Sprite {
 
         //flag if dialogue needs to be removed early
         this.finished = false;
+        this.finishDelay = finishDelay;
 
         this.text = text;
         this.textSpeed = textSpeed;
         this.counter = 1;
         this.outline = this.scene.add.rectangle(x, y, 768, 96, 0x00000).setOrigin(0.5).setScale(0);
         this.box = this.scene.add.rectangle(x, y, 760, 88, 0xFFFFFF).setOrigin(0.5).setScale(0);
+
+        //who is talking
+        /*
+        LIST FOR WHO IS TALKING
+        -----------------------
+        Ruth normal = 1
+        Ruth confused = 2
+        Ruth stern = 3
+
+        Malarkey normal = 11
+        */
+        if (type == 1) {
+            this.who = 'ruth_normal';
+        }
+        if (type == 2) {
+            this.who = 'ruth_confused';
+        }
+        if (type == 3) {
+            this.who = 'ruth_stern';
+        }
+        if (type == 11) {
+            this.who = 'malarkey_normal';
+        }
 
         this.scene.tweens.add({
             targets: [this.outline, this.box],
@@ -41,7 +65,8 @@ class Dialogue extends Phaser.GameObjects.Sprite {
             align: 'left',
         };
         
-        this.face = this.scene.add.image(this.x - 324, this.y, 'player').setOrigin(0.5);
+        console.log(this.scene.anims.get(this.who));
+        this.face = this.scene.add.sprite(this.x - 324, this.y, this.who).setOrigin(0.5).play(this.who + '_talk');
         this.dialogue = this.scene.add.text(this.x- 260, this.y - 30, "", textDisplay);
         this.letterByLetter = this.scene.time.addEvent({
             delay: this.textSpeed,
@@ -81,8 +106,10 @@ class Dialogue extends Phaser.GameObjects.Sprite {
             }
         } else {
             this.scene.sound.play('speechfont1Completed');
+            this.face.anims.stop();
+            this.face.setFrame('1');
             this.scene.time.addEvent({
-                delay: 4000,
+                delay: this.finishDelay,
                 callback: () => {
                     if(!this.finished){
                         this.deleteDialogue();
