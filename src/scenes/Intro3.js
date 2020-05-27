@@ -66,6 +66,14 @@ class Intro3 extends Phaser.Scene {
         this.dialogue3Started = false;
         this.firstSwitch = false;
 
+        //music
+        if (!bgm_lvl.isPlaying) {
+            bgm_lvl.play();
+        }
+        if (bgm_menu.isPlaying) {
+            bgm_menu.stop();
+        }
+
         let instructionConfig = {
             fontFamily: 'Times New Roman Bold',
             fontSize: '26px',

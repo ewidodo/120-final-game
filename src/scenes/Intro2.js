@@ -55,6 +55,14 @@ class Intro2 extends Phaser.Scene {
         this.dialogue = new Dialogue(this, 2012, 2396, 'player', 0, "Hey, what's all this red gunk on the floor?", 20, 2, 3000);
         this.dialogue1Finished = false;
         this.dialogue2Started = false;
+
+        //music
+        if (!bgm_lvl.isPlaying) {
+            bgm_lvl.play();
+        }
+        if (bgm_menu.isPlaying) {
+            bgm_menu.stop();
+        }
     }
 
     update() {

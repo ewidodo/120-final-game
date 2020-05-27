@@ -61,6 +61,14 @@ class First3 extends Phaser.Scene {
         this.dialogue = new Dialogue(this, 2012, 1628, 'player', 0, "I'll be square, I don't even know how we got\nhalf the junk we got here.", 25);
         this.dialogue1Finished = false;
         this.dialogue2Started = false;
+
+        //music
+        if (!bgm_lvl.isPlaying) {
+            bgm_lvl.play();
+        }
+        if (bgm_menu.isPlaying) {
+            bgm_menu.stop();
+        }
     }
 
     update() {

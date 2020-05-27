@@ -60,6 +60,14 @@ class First2 extends Phaser.Scene {
         
         this.dialogue = new Dialogue(this, 2012, 2396, 'player', 0, "Did I tell you about the time I got into a box job\nwith my cousin Antonio?", 25);
         this.dialogue1Finished = false;
+
+        //music
+        if (!bgm_lvl.isPlaying) {
+            bgm_lvl.play();
+        }
+        if (bgm_menu.isPlaying) {
+            bgm_menu.stop();
+        }
     }
 
     update() {

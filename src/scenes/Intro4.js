@@ -61,6 +61,14 @@ class Intro4 extends Phaser.Scene {
         this.dialogue1Finished = false;
         this.dialogue2Started = false;
         this.dialogue3Started = false;
+
+        //music
+        if (!bgm_lvl.isPlaying) {
+            bgm_lvl.play();
+        }
+        if (bgm_menu.isPlaying) {
+            bgm_menu.stop();
+        }
     }
 
     update() {

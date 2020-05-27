@@ -57,7 +57,15 @@ class Intro5 extends Phaser.Scene {
         this.uiCamera = this.cameras.add(0, 0, game.config.width, game.config.height);
         this.uiCamera.setScroll(1500, 1500);
         
-        this.dialogue = new Dialogue(this, 2012, 2396, 'player', 0, "Here's the bee's knees, you can switch gravity while in air!\nYou can use that little trick to land on walls around corners.", 25);
+        this.dialogue = new Dialogue(this, 2012, 2396, 'player', 0, "Hey, how am I supposed to get through this part?", 25);
+
+        //music
+        if (!bgm_lvl.isPlaying) {
+            bgm_lvl.play();
+        }
+        if (bgm_menu.isPlaying) {
+            bgm_menu.stop();
+        }
     }
 
     update() {

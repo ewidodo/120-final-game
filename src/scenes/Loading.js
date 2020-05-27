@@ -26,6 +26,7 @@ class Loading extends Phaser.Scene{
 
         this.load.audio('bgm_menu', './assets/bgm_menu.mp3');
         this.load.audio('bgm_ingame', './assets/bgm_ingame.mp3');
+        
 
         //load levels
         this.load.tilemapCSV('introJump', './tilemaps/introJump.csv');
@@ -39,6 +40,12 @@ class Loading extends Phaser.Scene{
     }
 
     create() {
+        //set music
+        bgm_menu = this.sound.add('bgm_menu');
+        bgm_menu.loop = true;
+        bgm_lvl = this.sound.add('bgm_ingame');
+        bgm_lvl.loop = true;
+        
         //define animations
         this.anims.create({
             key: 'ruth_normal_talk',
