@@ -76,7 +76,7 @@ class Loading extends Phaser.Scene{
         });
 
         this.anims.create({
-            key: 'malarkey_closed',
+            key: 'malarkey_closed_talk',
             frames: this.anims.generateFrameNames('malarkey_closed'),
             frameRate: 8,
             repeat: -1
