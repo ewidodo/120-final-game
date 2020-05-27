@@ -54,6 +54,7 @@ class Intro2 extends Phaser.Scene {
 
         this.dialogue = new Dialogue(this, 2012, 2396, 'player', 0, "Hey, what's all this red gunk on the floor?", 20, 2, 3000);
         this.dialogue1Finished = false;
+        this.dialogue2Started = false;
     }
 
     update() {
@@ -67,14 +68,23 @@ class Intro2 extends Phaser.Scene {
 
         //chain dialogues and stuff
         if (!this.dialogue1Finished) {
+            this.dialogue.update();
             if (this.dialogue.finished) {
                 this.dialogue1Finished = true;
                 this.time.addEvent({
                     delay: 200,
                     callback: () => {
                         this.dialogue2 = new Dialogue(this, 2012, 2396, 'player', 0, "Some sorta top secret slime...\nit does a whole lotta baloney, so watch your pins.", 20, 11, 2000);
+                        this.dialogue2Started = true;
                 }
                 });
+            }
+        }
+
+        if (this.dialogue2Started) {
+            this.dialogue2.update();
+            if (this.dialogue2.finished) {
+                this.dialogue2Started = false;
             }
         }
     }

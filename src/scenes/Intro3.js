@@ -63,6 +63,7 @@ class Intro3 extends Phaser.Scene {
         this.dialogue3 = 0;
         this.dialogue1Finished = false;
         this.dialogue2Started = false;
+        this.dialogue3Started = false;
         this.firstSwitch = false;
 
         let instructionConfig = {
@@ -112,20 +113,30 @@ class Intro3 extends Phaser.Scene {
 
         //chain dialogues and stuff
         if (!this.dialogue1Finished) {
+            this.dialogue.update();
             if (this.dialogue.finished) {
                 this.dialogue1Finished = true;
             }
         }
 
         if (this.dialogue2Started) {
+            this.dialogue2.update();
             if (this.dialogue2.finished) {
                 this.dialogue2Started = false;
                 this.time.addEvent({
                     delay: 200,
                     callback: () => {
-                        this.dialogue3 = new Dialogue(this, 2012, 1628, 'player', 0, "Look gal, if you want to keep your job, you best get to fixin'\nall of this before the big cheese finds out. No dewdropping!", 25);
+                        this.dialogue3 = new Dialogue(this, 2012, 1628, 'player', 0, "That button switches the gravity of the room you're in.\nShould've said that earlier, but we gotta breeze through.", 25, 11, 3000);
+                        this.dialogue3Started = true;
                     }
                 });
+            }
+        }
+
+        if (this.dialogue3Started) {
+            this.dialogue3.update()
+            if (this.dialogue3.finished) {
+                this.dialogue3Started = false;
             }
         }
     }
@@ -149,7 +160,7 @@ class Intro3 extends Phaser.Scene {
 
     switchDialogue() {
         this.testText.destroy();
-        this.dialogue2 = new Dialogue(this, 2012, 1628, 'player', 0, "WHAT DID YOU DO???\nOh god I hear everything breaking...", 10);
+        this.dialogue2 = new Dialogue(this, 2012, 1628, 'player', 0, "HEY WHAT THE HELL???\nWhat did that just do?!", 10, 4, 2500);
         this.dialogue2Started = true;
     }
 

@@ -17,7 +17,13 @@ class Dialogue extends Phaser.GameObjects.Sprite {
         this.counter = 1;
         this.outline = this.scene.add.rectangle(x, y, 768, 96, 0x00000).setOrigin(0.5).setScale(0);
         this.box = this.scene.add.rectangle(x, y, 760, 88, 0xFFFFFF).setOrigin(0.5).setScale(0);
-        this.state = 1; //1 -> top of screen, 2 -> bottom of screen
+        if (y == 1628) { //1 -> top of screen, 2 -> bottom of screen
+            this.state = 1;
+        } else {
+            this.state = 2;
+        }
+
+        this.active = false;
 
         /*
         LIST FOR WHO IS TALKING
@@ -25,6 +31,7 @@ class Dialogue extends Phaser.GameObjects.Sprite {
         Ruth normal = 1
         Ruth confused = 2
         Ruth stern = 3
+        Ruth angry = 4
 
         Malarkey normal = 11
         */
@@ -37,6 +44,9 @@ class Dialogue extends Phaser.GameObjects.Sprite {
         }
         if (type == 3) {
             this.who = 'ruth_stern';
+        }
+        if (type == 4) {
+            this.who = 'ruth_angry';
         }
         if (type == 11) {
             this.who = 'malarkey_normal';
@@ -59,6 +69,7 @@ class Dialogue extends Phaser.GameObjects.Sprite {
     }
 
     displayText() {
+        this.active = true;
         let textDisplay = {
             fontFamily: 'Times New Roman Bold',
             fontSize: '26px',
@@ -120,7 +131,7 @@ class Dialogue extends Phaser.GameObjects.Sprite {
     }
 
     update() {
-        if (!this.finished) {
+        if (!this.finished && this.active) {
             if (this.scene.player.gravityState == 0) {
                 if (this.state == 1 & this.scene.player.y < game.config.height / 3) {
                     this.shiftBottom();

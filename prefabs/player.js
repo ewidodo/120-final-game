@@ -6,7 +6,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         scene.add.existing(this);
         this.gravityState = 0; //from default view, 0 -> towards bottom, 1 -> towards right, 2 -> towards top, 3 -> towards left
         this.isJumping = false;
-        this.body.setMaxVelocity(975,975);
+        this.body.setMaxVelocity(925,925);
 
         
         }
