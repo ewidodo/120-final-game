@@ -91,7 +91,7 @@ class First2 extends Phaser.Scene {
     }
 
     resetScene() {
-        this.scene.resetScene();
+        this.rotator.resetScene();
     }
 
     nextLevel() {

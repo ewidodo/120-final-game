@@ -100,7 +100,7 @@ class First3 extends Phaser.Scene {
     }
 
     resetScene() {
-        this.scene.resetScene();
+        this.rotator.resetScene();
     }
 
     nextLevel() {
