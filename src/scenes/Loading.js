@@ -15,6 +15,7 @@ class Loading extends Phaser.Scene{
         this.load.atlas('ruth_stern', './assets/ruth_stern.png', './assets/dialogue.json');
         this.load.atlas('ruth_angry', './assets/ruth_angry.png', './assets/dialogue.json');
         this.load.atlas('malarkey_normal', './assets/malarkey_normal.png', './assets/dialogue.json');
+        this.load.atlas('malarkey_closed', './assets/malarkey_closed.png', './assets/dialogue.json');
 
         //load audio
         this.load.audio('sfx_button', './assets/button.wav');
@@ -70,6 +71,13 @@ class Loading extends Phaser.Scene{
         this.anims.create({
             key: 'malarkey_normal_talk',
             frames: this.anims.generateFrameNames('malarkey_normal'),
+            frameRate: 8,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'malarkey_closed',
+            frames: this.anims.generateFrameNames('malarkey_closed'),
             frameRate: 8,
             repeat: -1
         });

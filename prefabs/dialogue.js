@@ -28,12 +28,13 @@ class Dialogue extends Phaser.GameObjects.Sprite {
         /*
         LIST FOR WHO IS TALKING
         -----------------------
-        Ruth normal = 1
-        Ruth confused = 2
-        Ruth stern = 3
+        Ruth neutral expr. = 1
+        Ruth one raised eyebrow = 2
+        Ruth annoyed = 3
         Ruth angry = 4
 
-        Malarkey normal = 11
+        Malarkey regular = 11
+        Malarkey closed eyes = 12
         */
 
         if (type == 1) {
@@ -50,6 +51,9 @@ class Dialogue extends Phaser.GameObjects.Sprite {
         }
         if (type == 11) {
             this.who = 'malarkey_normal';
+        }
+        if (type == 12) {
+            this.who = 'malarkey_closed';
         }
 
         this.scene.tweens.add({
@@ -131,7 +135,7 @@ class Dialogue extends Phaser.GameObjects.Sprite {
     }
 
     update() {
-        if (!this.finished && this.active) {
+        if (!this.finished) {
             if (this.scene.player.gravityState == 0) {
                 if (this.state == 1 & this.scene.player.y < game.config.height / 3) {
                     this.shiftBottom();
@@ -171,15 +175,21 @@ class Dialogue extends Phaser.GameObjects.Sprite {
         this.state = 1;
         this.outline.y = 1628;
         this.box.y = 1628;
-        this.face.y = 1628;
-        this.dialogue.y = 1598;
+        this.y = 1628;
+        if (this.active) {
+            this.face.y = 1628;
+            this.dialogue.y = 1598;
+        }
     }
 
     shiftBottom() {
         this.state = 2;
         this.outline.y = 2396;
         this.box.y = 2396;
-        this.face.y = 2396;
-        this.dialogue.y = 2366;
+        this.y = 2396;
+        if (this.active) {
+            this.face.y = 2396;
+            this.dialogue.y = 2366;
+        }
     }
 }

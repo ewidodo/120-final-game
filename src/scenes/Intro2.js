@@ -74,9 +74,9 @@ class Intro2 extends Phaser.Scene {
                 this.time.addEvent({
                     delay: 200,
                     callback: () => {
-                        this.dialogue2 = new Dialogue(this, 2012, 2396, 'player', 0, "Some sorta top secret slime...\nit does a whole lotta baloney, so watch your pins.", 20, 11, 2000);
+                        this.dialogue2 = new Dialogue(this, 2012, 2396, 'player', 0, "Some sorta top secret slime...\nit does a whole lotta baloney, so watch your pins.", 20, 11, 2500);
                         this.dialogue2Started = true;
-                }
+                    }
                 });
             }
         }
