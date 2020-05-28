@@ -1,0 +1,84 @@
+{ "frames": {
+   "ruthIdle 0.aseprite": {
+    "frame": { "x": 0, "y": 0, "w": 32, "h": 64 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 64 },
+    "sourceSize": { "w": 32, "h": 64 },
+    "duration": 100
+   },
+   "ruthIdle 1.aseprite": {
+    "frame": { "x": 32, "y": 0, "w": 32, "h": 64 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 64 },
+    "sourceSize": { "w": 32, "h": 64 },
+    "duration": 100
+   },
+   "ruthIdle 2.aseprite": {
+    "frame": { "x": 64, "y": 0, "w": 32, "h": 64 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 64 },
+    "sourceSize": { "w": 32, "h": 64 },
+    "duration": 100
+   },
+   "ruthIdle 3.aseprite": {
+    "frame": { "x": 96, "y": 0, "w": 32, "h": 64 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 64 },
+    "sourceSize": { "w": 32, "h": 64 },
+    "duration": 100
+   },
+   "ruthIdle 4.aseprite": {
+    "frame": { "x": 128, "y": 0, "w": 32, "h": 64 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 64 },
+    "sourceSize": { "w": 32, "h": 64 },
+    "duration": 100
+   },
+   "ruthIdle 5.aseprite": {
+    "frame": { "x": 160, "y": 0, "w": 32, "h": 64 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 64 },
+    "sourceSize": { "w": 32, "h": 64 },
+    "duration": 100
+   },
+   "ruthIdle 6.aseprite": {
+    "frame": { "x": 192, "y": 0, "w": 32, "h": 64 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 64 },
+    "sourceSize": { "w": 32, "h": 64 },
+    "duration": 100
+   },
+   "ruthIdle 7.aseprite": {
+    "frame": { "x": 224, "y": 0, "w": 32, "h": 64 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 64 },
+    "sourceSize": { "w": 32, "h": 64 },
+    "duration": 100
+   }
+ },
+ "meta": {
+  "app": "http://www.aseprite.org/",
+  "version": "1.2.18-x64",
+  "image": "ruthIdle.png",
+  "format": "RGBA8888",
+  "size": { "w": 256, "h": 64 },
+  "scale": "1",
+  "frameTags": [
+  ],
+  "layers": [
+   { "name": "legs", "opacity": 255, "blendMode": "normal" },
+   { "name": "body", "opacity": 255, "blendMode": "normal" },
+   { "name": "head", "opacity": 255, "blendMode": "normal" }
+  ],
+  "slices": [
+  ]
+ }
+}
