@@ -142,6 +142,11 @@ class RotationManager extends Phaser.GameObjects.Sprite {
                     this.scene.player.unJump();
                     this.scene.player.body.setSize(32, 64, true);
 
+                    thud.setVolume(0);
+                    this.scene.time.delayedCall(200, () => {
+                        thud.setVolume(1);
+                    });
+
                     //undo gameOver flag
                     this.scene.gameOver = false;
                 },

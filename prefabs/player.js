@@ -8,7 +8,9 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         this.isJumping = false;
         this.isJumpingButton = false;
         this.isFalling = false;
-        this.idle = true;
+        this.idle = true; //i just realized the way i implemented this it's more like this.walking, so treat it that way
+        this.walk1 = true;
+        this.walk2 = false;
         this.body.setMaxVelocity(925,925);
     }
 
@@ -66,6 +68,22 @@ class Player extends Phaser.Physics.Arcade.Sprite {
                         this.anims.play('r_idle');
                     }
                 }
+                this.walk1 = true;
+                this.walk2 = false;
+            }
+
+            //walk sounds
+            if (this.idle && (!this.isJumpingButton && !this.isFalling)) {
+                if(this.anims.currentFrame.index == 2 && this.walk1) {
+                    this.walk1 = false;
+                    this.walk2 = true;
+                    this.scene.sound.play('walk1');
+                }
+                if(this.anims.currentFrame.index == 6 && this.walk2) {
+                    this.walk1 = true;
+                    this.walk2 = false;
+                    this.scene.sound.play('walk2');
+                }
             }
 
             //jumping
@@ -91,7 +109,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         }
 
         if (this.gravityState == 0) { //bottom
-            if (this.body.velocity.y > 0 && !this.isFalling) {
+            if (this.body.velocity.y > 0 && !this.isFalling) { //falling
                 this.isFalling = true;
                 this.anims.stop();
                 this.setTexture('ruth_fall', 0);
@@ -99,11 +117,12 @@ class Player extends Phaser.Physics.Arcade.Sprite {
             }
             if ((this.isJumping || this.isFalling) && this.body.blocked.down) {
                 this.unJump();
+                thud.play();
                 this.body.setSize(32, 64, true);
             }
         }
         if (this.gravityState == 1) { //right
-            if (this.body.velocity.x > 0 && !this.isFalling) {
+            if (this.body.velocity.x > 0 && !this.isFalling) { //falling
                 this.isFalling = true;
                 this.anims.stop();
                 this.setTexture('ruth_fall', 0);
@@ -111,11 +130,12 @@ class Player extends Phaser.Physics.Arcade.Sprite {
             }
             if ((this.isJumping || this.isFalling) && this.body.blocked.right) {
                 this.unJump();
+                thud.play();
                 this.body.setSize(64, 32, true);
             }
         }
         if (this.gravityState == 2 ) { // top
-            if (this.body.velocity.y < 0 && !this.isFalling) {
+            if (this.body.velocity.y < 0 && !this.isFalling) { //falling
                 this.isFalling = true;
                 this.anims.stop();
                 this.setTexture('ruth_fall', 0);
@@ -123,11 +143,12 @@ class Player extends Phaser.Physics.Arcade.Sprite {
             }
             if ((this.isJumping || this.isFalling) && this.body.blocked.up) {
                 this.unJump();
+                thud.play();
                 this.body.setSize(32, 64, true);
             }
         }
         if (this.gravityState == 3) { //left
-            if (this.body.velocity.x < 0 && !this.isFalling) {
+            if (this.body.velocity.x < 0 && !this.isFalling) { //falling
                 this.isFalling = true;
                 this.anims.stop();
                 this.setTexture('ruth_fall', 0);
@@ -135,6 +156,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
             }
             if ((this.isJumping || this.isFalling) && this.body.blocked.left) {
                 this.unJump();
+                thud.play();
                 this.body.setSize(64, 32, true);
             }
         }
@@ -146,10 +168,12 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         this.isFalling = false;
         if (keyA.isDown || keyD.isDown) {
             this.anims.play('r_run');
-            this.idle = false;
+            this.idle = true;
         } else {
             this.anims.play('r_idle');
-            this.idle = true;
+            this.idle = false;
         }
+        this.walk1 = true;
+        this.walk2 = false;
     }
 }

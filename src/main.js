@@ -39,6 +39,6 @@ let gravityStrength = 2000;
 let playerSpeed = 350;
 let jumpSpeed = -600;
 let rotationSpeed = 350;
-let bgm_menu, bgm_lvl;
+let bgm_menu, bgm_lvl, thud;
 
 let lastLevelCompleted = parseInt(localStorage.getItem('progress')) || 0;

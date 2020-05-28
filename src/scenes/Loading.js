@@ -27,6 +27,9 @@ class Loading extends Phaser.Scene{
         this.load.audio('sfx_death', './assets/explosion38.wav');
         this.load.audio('speechfont1', './assets/speechfont1.wav');
         this.load.audio('speechfont1Completed', './assets/speechfont1Complete.wav');
+        this.load.audio('walk1', './assets/walk1.wav');
+        this.load.audio('walk2', './assets/walk2.wav');
+        this.load.audio('thud', './assets/thud.wav');
 
         this.load.audio('bgm_menu', './assets/bgm_menu.mp3');
         this.load.audio('bgm_ingame', './assets/bgm_ingame.mp3');
@@ -49,6 +52,8 @@ class Loading extends Phaser.Scene{
         bgm_menu.loop = true;
         bgm_lvl = this.sound.add('bgm_ingame');
         bgm_lvl.loop = true;
+
+        thud = this.sound.add('thud');
         
         //define animations
         this.anims.create({
@@ -107,6 +112,7 @@ class Loading extends Phaser.Scene{
             repeat: -1
         });
 
+        console.log(this.anims.get('r_run'));
         //done loading
         this.scene.start("menuScene");
     }

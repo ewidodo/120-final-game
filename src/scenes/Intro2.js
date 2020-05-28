@@ -63,6 +63,11 @@ class Intro2 extends Phaser.Scene {
         if (bgm_menu.isPlaying) {
             bgm_menu.stop();
         }
+
+        thud.setVolume(0);
+        this.time.delayedCall(200, () => {
+            thud.setVolume(1);
+        });
     }
 
     update() {

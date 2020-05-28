@@ -74,6 +74,11 @@ class Intro3 extends Phaser.Scene {
             bgm_menu.stop();
         }
 
+        thud.setVolume(0);
+        this.time.delayedCall(200, () => {
+            thud.setVolume(1);
+        });
+
         let instructionConfig = {
             fontFamily: 'Times New Roman Bold',
             fontSize: '26px',
