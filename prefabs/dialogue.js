@@ -137,34 +137,34 @@ class Dialogue extends Phaser.GameObjects.Sprite {
     update() {
         if (!this.finished) {
             if (this.scene.player.gravityState == 0) {
-                if (this.state == 1 & this.scene.player.y < game.config.height / 3) {
+                if (this.state == 1 & this.scene.player.y < game.config.height / 4) {
                     this.shiftBottom();
                 }
-                if (this.state == 2 & this.scene.player.y > game.config.height / 3 * 2) {
+                if (this.state == 2 & this.scene.player.y > game.config.height / 4 * 3) {
                     this.shiftTop();
                 }
             }
             if (this.scene.player.gravityState == 1) {
-                if (this.state == 1 & this.scene.player.x < game.config.height / 3) {
+                if (this.state == 1 & this.scene.player.x < game.config.height / 4) {
                     this.shiftBottom();
                 }
-                if (this.state == 2 & this.scene.player.x > game.config.height / 3 * 2) {
+                if (this.state == 2 & this.scene.player.x > game.config.height / 4 * 3) {
                     this.shiftTop();
                 }
             }
             if (this.scene.player.gravityState == 2) {
-                if (this.state == 2 & this.scene.player.y < game.config.height / 3) {
+                if (this.state == 2 & this.scene.player.y < game.config.height / 4) {
                     this.shiftTop();
                 }
-                if (this.state == 1 & this.scene.player.y > game.config.height / 3 * 2) {
+                if (this.state == 1 & this.scene.player.y > game.config.height / 4 * 3) {
                     this.shiftBottom();
                 }
             }
             if (this.scene.player.gravityState == 3) {
-                if (this.state == 2 & this.scene.player.x < game.config.height / 3) {
+                if (this.state == 2 & this.scene.player.x < game.config.height / 4) {
                     this.shiftTop();
                 }
-                if (this.state == 1 & this.scene.player.x > game.config.height / 3 * 2) {
+                if (this.state == 1 & this.scene.player.x > game.config.height / 4 * 3) {
                     this.shiftBottom();
                 }
             }

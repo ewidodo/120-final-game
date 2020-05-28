@@ -5,7 +5,8 @@ class Loading extends Phaser.Scene{
 
     preload() {
         //load images
-        this.load.image('player', './assets/fuck.png');
+        this.load.image('ruth_jump', './assets/ruthJump.png');
+        this.load.image('ruth_fall', './assets/ruthFall.png');
         this.load.image('button', './assets/ass.png');
         this.load.image('tiles', './assets/temptiles.png');
 
@@ -16,6 +17,9 @@ class Loading extends Phaser.Scene{
         this.load.atlas('ruth_angry', './assets/ruth_angry.png', './assets/dialogue.json');
         this.load.atlas('malarkey_normal', './assets/malarkey_normal.png', './assets/dialogue.json');
         this.load.atlas('malarkey_closed', './assets/malarkey_closed.png', './assets/dialogue.json');
+
+        this.load.atlas('ruth_idle', './assets/ruthIdle.png', './assets/ruthIdle.json');
+        this.load.atlas('ruth_run', './assets/ruthRun.png', './assets/ruthRun.json');
 
         //load audio
         this.load.audio('sfx_button', './assets/button.wav');
@@ -86,6 +90,20 @@ class Loading extends Phaser.Scene{
             key: 'malarkey_closed_talk',
             frames: this.anims.generateFrameNames('malarkey_closed'),
             frameRate: 8,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'r_idle',
+            frames: this.anims.generateFrameNames('ruth_idle'),
+            frameRate: 12,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'r_run',
+            frames: this.anims.generateFrameNames('ruth_run'),
+            frameRate: 12,
             repeat: -1
         });
 
