@@ -116,7 +116,6 @@ class RotationManager extends Phaser.GameObjects.Sprite {
             this.scene.player.setVelocityY(0);
             this.scene.physics.world.gravity.x = 0;
             this.scene.physics.world.gravity.y = 0;
-            this.scene.player.setSize(32, 64, true);
             this.scene.sound.play('sfx_death');
             this.scene.tweens.add({
                 targets: this.scene.player,
@@ -140,7 +139,8 @@ class RotationManager extends Phaser.GameObjects.Sprite {
                     this.scene.player.y = spawnY;
                     this.scene.player.scale = 1;
                     this.scene.player.gravityState = 0;
-                    
+                    this.scene.player.unJump();
+                    this.scene.player.body.setSize(32, 64, true);
 
                     //undo gameOver flag
                     this.scene.gameOver = false;
