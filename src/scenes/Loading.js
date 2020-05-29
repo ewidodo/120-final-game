@@ -39,17 +39,17 @@ class Loading extends Phaser.Scene{
         
 
         //load levels
-        this.load.tilemapCSV('introJump', './tilemaps/finals/_introJump.csv');
+        this.load.tilemapCSV('introJump', './tilemaps/introJump.csv');
         this.load.tilemapCSV('introObst', './tilemaps/introObst.csv');
-        this.load.tilemapCSV('introButton', './tilemaps/finals/_introButton.csv');
+        this.load.tilemapCSV('introButton', './tilemaps/introButton.csv');
         this.load.tilemapCSV('introGrav', './tilemaps/introGrav.csv');
-        this.load.tilemapCSV('introCorner', './tilemaps/finals/_introCorners.csv');
+        this.load.tilemapCSV('introCorner', './tilemaps/introCorners.csv');
         this.load.tilemapCSV('first1', './tilemaps/first1.csv');
-        this.load.tilemapCSV('first2', './tilemaps/finals/_first2.csv');
-        this.load.tilemapCSV('first3', './tilemaps/finals/_first3.csv');
-        this.load.tilemapCSV('first4', './tilemaps/finals/_first4.csv');
-        this.load.tilemapCSV('first5', './tilemaps/finals/_first5.csv');
-        this.load.tilemapCSV('first6', './tilemaps/finals/_first6.csv');
+        this.load.tilemapCSV('first2', './tilemaps/first2.csv');
+        this.load.tilemapCSV('first3', './tilemaps/first3.csv');
+        this.load.tilemapCSV('first4', './tilemaps/first4.csv');
+        this.load.tilemapCSV('first5', './tilemaps/first5.csv');
+        this.load.tilemapCSV('first6', './tilemaps/first6.csv');
     }
 
     create() {
