@@ -12,21 +12,27 @@ class First1 extends Phaser.Scene {
         }
 
         this.map = this.make.tilemap(this.mapConfig);
-        this.map.setCollision(0); //0 is tile index, we can set specific tiles to have collision i think.
-        this.map.setCollision(2);
-        this.map.setCollision(3);
-        this.map.setCollision(4);
+        this.map.setCollisionBetween(4, 10);
+        this.map.setCollisionBetween(14, 20);
+        this.map.setCollisionBetween(24, 35);
+        this.map.setCollisionBetween(38, 45);
+        this.map.setCollisionBetween(48, 85);
         this.tileset = this.map.addTilesetImage('tilesetImage', 'tiles');
 
         this.layer = this.map.createStaticLayer(0, this.tileset);
 
         //collision events
-        this.map.setTileIndexCallback(3, this.resetScene, this);
-        this.map.setTileIndexCallback(4, this.nextLevel, this);
+        this.map.setTileIndexCallback(
+            [54, 55, 56, 57, 58, 62, 63, 64, 65, 66, 68, 72, 76, 77, 78, 82, 83, 84, 85],
+            this.resetScene, this);
+        this.map.setTileIndexCallback(
+            [16, 17, 26, 27],
+            this.nextLevel, this);
+
 
         //player
-        spawnX = game.config.width/2 + 32;
-        spawnY = 224;
+        spawnX = 100;
+        spawnY = 100;
         this.player = new Player(this, spawnX, spawnY, 'player', 0);
         this.player.setSize(32, 64, true);
         this.gameOver = false;
