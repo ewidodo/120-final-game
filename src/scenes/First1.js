@@ -68,7 +68,7 @@ class First1 extends Phaser.Scene {
     update() {
         if (!this.gameOver){
             //switching gravity towards right
-            if (Phaser.Input.Keyboard.JustDown(keyE) && !this.switching) {
+            if ((Phaser.Input.Keyboard.JustDown(keyE) || Phaser.Input.Keyboard.JustDown(keyRIGHT)) && !this.switching) {
                 this.time.delayedCall(10, () => {
                     this.sound.play('sfx_switch');
                 });
@@ -81,7 +81,7 @@ class First1 extends Phaser.Scene {
             }
 
             //switching gravity towards left
-            if (Phaser.Input.Keyboard.JustDown(keyQ) && !this.switching) {
+            if ((Phaser.Input.Keyboard.JustDown(keyQ) || Phaser.Input.Keyboard.JustDown(keyLEFT)) && !this.switching) {
                 this.time.delayedCall(10, () => {
                     this.sound.play('sfx_switch');
                 });
