@@ -100,6 +100,10 @@ class Intro3 extends Phaser.Scene {
             },
         }
 
+        this.outline = this.add.rectangle(2012, 1628, 328, 96, 0x00000).setOrigin(0.5);
+        this.box = this.add.rectangle(2012, 1628, 320, 88, 0xFFFFFF).setOrigin(0.5);
+        this.outline.setAlpha(0);
+        this.box.setAlpha(0);
         this.testText = this.add.text(2012, 1628, "", instructionConfig).setOrigin(0.5);
     }
 
@@ -169,17 +173,23 @@ class Intro3 extends Phaser.Scene {
             this.time.addEvent({
                 delay: 400,
                 callback: () => {
+                    this.outline.setAlpha(1);
+                    this.box.setAlpha(1);
                     this.testText.setText("Q or ← to rotate left\nE or → to rotate right");
                     this.canSwitch = true;
                 }
             });     
         } else {
+            this.outline.setAlpha(1);
+            this.box.setAlpha(1);
             this.testText.setText("Q or ← to rotate left\nE or → to rotate right");
             this.canSwitch = true;
         }
     }
 
     switchDialogue() {
+        this.outline.destroy();
+        this.box.destroy();
         this.testText.destroy();
         this.dialogue2 = new Dialogue(this, 2012, 1564, 'player', 0, "HEY WHAT THE HELL???\nWhat did that just do?!", 10, 4, 2500);
         this.dialogue2Started = true;
