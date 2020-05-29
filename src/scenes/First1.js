@@ -30,8 +30,8 @@ class First1 extends Phaser.Scene {
             this.nextLevel, this);
 
         //player
-        spawnX = 100;
-        spawnY = 100;
+        spawnX = game.config.width / 2 + 32;
+        spawnY = 224;
         this.player = new Player(this, spawnX, spawnY, 'player', 0);
         this.player.setSize(32, 64, true);
         this.gameOver = false;
@@ -63,8 +63,10 @@ class First1 extends Phaser.Scene {
         this.uiCamera = this.cameras.add(0, 0, game.config.width, game.config.height);
         this.uiCamera.setScroll(1500, 1500);
 
-        this.dialogue = new Dialogue(this, 2012, 2396, 'player', 0, "Alright gal, first object we're fixin' is a laughing owl.\nThis bird faded back in '14, but that's beside the point.", 25);
+        this.dialogue = new Dialogue(this, 2012, 2396, 'player', 0, "Alright gal, first object on the shopping list is gonna be\nthe laughing owl.", 25, 11, 3000);
         this.dialogue1Finished = false;
+        this.dialogue2Started = false;
+        this.dialogue3Started = false;
 
         //music
         if (!bgm_lvl.isPlaying) {
@@ -102,9 +104,46 @@ class First1 extends Phaser.Scene {
         }
 
         //chain dialogues and stuff
-        if (!this.dialogue1Finished && this.dialogue.finished) {
-            this.dialogue1Finished = true;
-            this.dialogue2 = new Dialogue(this, 2012, 2396, 'player', 0, "This bird is causing all sorts of hoots to float in the\nair and that ain't swanky, so we gotta calm it down.", 25);
+        if (!this.dialogue1Finished) {
+            this.dialogue.update();
+            if (this.dialogue.finished) {
+                this.dialogue1Finished = true;
+                this.time.addEvent({
+                    delay: 200,
+                    callback: () => {
+                        this.dialogue2 = new Dialogue(this, 2012, 2396, 'player', 0, "Uh, didn't those go extinct back in '14?", 20, 2, 3000);
+                        this.dialogue2Started = true;
+                    }
+                });
+            }
+        }
+
+        if (this.dialogue2Started) {
+            this.dialogue2.update();
+            if (this.dialogue2.finished) {
+                this.dialogue2Started = false;
+                this.time.addEvent({
+                    delay: 200,
+                    callback: () => {
+                        this.dialogue3 = new Dialogue(this, 2012, 2396, 'player', 0, "Well, apparently not. Anyways, this bird causes things to\nfloat when stressed, and the big cheese has his eyes on it.", 20, 11, 3000);
+                        this.dialogue3Started = true;
+                    }
+                });
+            }
+        }
+
+        if (this.dialogue3Started) {
+            this.dialogue3.update();
+            if (this.dialogue3.finished) {
+                this.dialogue3Started = false;
+                this.time.addEvent({
+                    delay: 200,
+                    callback: () => {
+                        this.dialogue4 = new Dialogue(this, 2012, 2396, 'player', 0, "Well, he's gonna have a hoot of a time with it.", 20, 5, 3000);
+                        this.dialogue4Started = true;
+                    }
+                });
+            }
         }
     }
 
