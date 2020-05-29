@@ -4,10 +4,18 @@ class LevelSelect extends Phaser.Scene {
     }
 
     preload() {
-
+        
     }
 
     create() {
+        //change music to menu music
+        if (bgm_lvl.isPlaying) {
+            bgm_lvl.stop();
+        }
+        if (!bgm_menu.isPlaying) {
+            bgm_menu.play();
+        }
+
         let unlockedConfig = {
             fontFamily: 'Times New Roman Bold',
             fontSize: '22px',

@@ -26,7 +26,7 @@ let config = {
         target: 60,
         forceSetTimeOut: true
     },
-    scene: [Menu, LevelSelect, Intro1, Intro2, Intro3, Intro4, Intro5, First1, First2, First3],
+    scene: [Loading, Menu, LevelSelect, Intro1, Intro2, Intro3, Intro4, Intro5, First1, First2, First3],
 };
 
 let game = new Phaser.Game(config);
@@ -39,5 +39,6 @@ let gravityStrength = 2000;
 let playerSpeed = 350;
 let jumpSpeed = -600;
 let rotationSpeed = 350;
+let bgm_menu, bgm_lvl, thud;
 
 let lastLevelCompleted = parseInt(localStorage.getItem('progress')) || 0;

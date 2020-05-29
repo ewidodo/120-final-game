@@ -4,10 +4,6 @@ class First1 extends Phaser.Scene {
         this.uiCamera = 0;
     }
 
-    preload() {
-        this.load.tilemapCSV('first1', './tilemaps/first1.csv');
-    }
-
     create() {
         this.mapConfig = {
             key: 'first1',
@@ -29,9 +25,10 @@ class First1 extends Phaser.Scene {
         this.map.setTileIndexCallback(4, this.nextLevel, this);
 
         //player
-        spawnX = 96;
+        spawnX = game.config.width/2 + 32;
         spawnY = 224;
         this.player = new Player(this, spawnX, spawnY, 'player', 0);
+        this.player.setSize(32, 64, true);
         this.gameOver = false;
 
         //physics
@@ -53,46 +50,41 @@ class First1 extends Phaser.Scene {
         rotationValue = 0;
         playerRotationValue = 0;
         this.cameras.main.setRotation(rotationValue);
-        //this.cameras.main.startFollow(this.player);
         this.player.setRotation(playerRotationValue);
         this.switching = false;
+        this.rotator = new RotationManager(this, 0, 0 , 'player', 0);
 
         //ui
         this.uiCamera = this.cameras.add(0, 0, game.config.width, game.config.height);
         this.uiCamera.setScroll(1500, 1500);
-        
+
         this.dialogue = new Dialogue(this, 2012, 2396, 'player', 0, "Alright gal, first object we're fixin' is a laughing owl.\nThis bird faded back in '14, but that's beside the point.", 25);
         this.dialogue1Finished = false;
+
+        //music
+        if (!bgm_lvl.isPlaying) {
+            bgm_lvl.play();
+        }
+        if (bgm_menu.isPlaying) {
+            bgm_menu.stop();
+        }
+
+        thud.setVolume(0);
+        this.time.delayedCall(200, () => {
+            thud.setVolume(1);
+        });
     }
 
     update() {
         if (!this.gameOver){
             //switching gravity towards right
             if ((Phaser.Input.Keyboard.JustDown(keyE) || Phaser.Input.Keyboard.JustDown(keyRIGHT)) && !this.switching) {
-                this.time.delayedCall(10, () => {
-                    this.sound.play('sfx_switch');
-                });
-                rotationValue += Math.PI / 2;
-                console.log(playerRotationValue);
-                playerRotationValue -= Math.PI / 2;
-                this.player.gravityState++;
-                this.player.gravityState %= 4;
-                this.updateGravity();
+                this.rotator.updateGravityRight();
             }
 
             //switching gravity towards left
             if ((Phaser.Input.Keyboard.JustDown(keyQ) || Phaser.Input.Keyboard.JustDown(keyLEFT)) && !this.switching) {
-                this.time.delayedCall(10, () => {
-                    this.sound.play('sfx_switch');
-                });
-                rotationValue -= Math.PI / 2;
-                console.log(playerRotationValue);
-                playerRotationValue += Math.PI / 2;
-                this.player.gravityState--;
-                if (this.player.gravityState < 0) {
-                    this.player.gravityState = 3;
-                }
-                this.updateGravity();
+                this.rotator.updateGravityLeft();
             }
         }
 
@@ -111,89 +103,8 @@ class First1 extends Phaser.Scene {
         }
     }
 
-    updateGravity() {
-        this.physics.world.gravity.x = Math.sin(rotationValue) * gravityStrength;
-        this.physics.world.gravity.y = Math.cos(rotationValue) * gravityStrength;
-
-        this.tweens.add({
-            targets: this.cameras.main,
-            rotation: rotationValue,
-            duration: rotationSpeed,
-            ease: 'Power',
-            repeat: 0,
-            yoyo: false,
-        });
-
-        playerRotationValue %= Math.PI * 2;
-        console.log(playerRotationValue);
-
-        this.tweens.add({
-            targets: this.player,
-            rotation: playerRotationValue,
-            duration: rotationSpeed,
-            ease: 'Power',
-            repeat: 0,
-            yoyo: false,
-        });
-
-        if (playerRotationValue > 0) {
-            playerRotationValue -= Math.PI * 2;
-        }
-        console.log(playerRotationValue);
-
-        //prevent player from switching too frequently
-        this.time.addEvent({
-            delay: rotationSpeed + 75,
-            callback: () => {
-                this.sound.play('sfx_button');
-            }
-        });
-        this.switching = true;
-        this.time.addEvent({
-            delay: rotationSpeed * 2,
-            callback: () => {
-                this.switching = false;
-            }
-        });
-    };
-
-     resetScene(){
-        if (!this.gameOver) {
-            this.gameOver = true;
-            this.player.setVelocityX(0);
-            this.player.setVelocityY(0);
-            this.physics.world.gravity.x = 0;
-            this.physics.world.gravity.y = 0;
-            this.sound.play('sfx_death');
-            this.tweens.add({
-                targets: this.player,
-                scale: 0,
-                duration: rotationSpeed,
-                ease: 'Power',
-                repeat: 0,
-                yoyo: false,
-                completeDelay: 100,
-                onComplete: function() {
-                    //reset rotation + gravity
-                    rotationValue = 0;
-                    playerRotationValue = 0;
-                    this.cameras.main.setRotation(rotationValue);
-                    this.player.setRotation(playerRotationValue);
-                    this.physics.world.gravity.x = Math.sin(rotationValue) * gravityStrength;
-                    this.physics.world.gravity.y = Math.cos(rotationValue) * gravityStrength;
-
-                    //reset player
-                    this.player.x = spawnX;
-                    this.player.y = spawnY;
-                    this.player.scale = 1;
-                    this.player.gravityState = 0;
-
-                    //undo gameOver flag
-                    this.gameOver = false;
-                },
-                onCompleteScope: this,
-            });
-        }
+    resetScene() {
+        this.rotator.resetScene();
     }
 
     nextLevel() {

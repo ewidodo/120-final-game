@@ -4,12 +4,7 @@ class Intro2 extends Phaser.Scene {
         this.uiCamera = 0;
     }
 
-    preload() {
-        this.load.tilemapCSV('introObst', './tilemaps/introObst.csv');
-    }
-
     create() {
-
         this.mapConfig = {
             key: 'introObst',
             tileWidth: 64,
@@ -29,21 +24,22 @@ class Intro2 extends Phaser.Scene {
         this.map.setTileIndexCallback(3, this.resetScene, this);
         this.map.setTileIndexCallback(4, this.nextLevel, this);
 
-        //player
-        spawnX = 96;
-        spawnY = 224;
-        this.player = new Player(this, spawnX, spawnY, 'player', 0);
-        this.gameOver = false;
-
-        //physics
-        this.physics.add.collider(this.player, this.layer);
-
         //keyboard input
         keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
         keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
         keyESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
+
+        //player
+        spawnX = 96;
+        spawnY = 224;
+        this.player = new Player(this, spawnX, spawnY, 'player', 0);
+        this.player.setSize(32, 64);
+        this.gameOver = false;
+
+        //physics
+        this.physics.add.collider(this.player, this.layer);
 
         //camera & gravity
         rotationValue = 0;
@@ -56,7 +52,22 @@ class Intro2 extends Phaser.Scene {
         this.uiCamera = this.cameras.add(0, 0, game.config.width, game.config.height);
         this.uiCamera.setScroll(1500, 1500);
 
-        this.dialogue = new Dialogue(this, 2012, 2396, 'player', 0, "That red dingus you see is some sorta classified slime...\nIt does a whole lotta baloney, so watch your pins.", 25);
+        this.dialogue = new Dialogue(this, 2012, 2396, 'player', 0, "Hey, what's all this red gunk on the floor?", 20, 2, 3000);
+        this.dialogue1Finished = false;
+        this.dialogue2Started = false;
+
+        //music
+        if (!bgm_lvl.isPlaying) {
+            bgm_lvl.play();
+        }
+        if (bgm_menu.isPlaying) {
+            bgm_menu.stop();
+        }
+
+        thud.setVolume(0);
+        this.time.delayedCall(200, () => {
+            thud.setVolume(1);
+        });
     }
 
     update() {
@@ -67,9 +78,31 @@ class Intro2 extends Phaser.Scene {
         if (Phaser.Input.Keyboard.JustDown(keyESC)) {
             this.scene.start("levelSelect");
         }
+
+        //chain dialogues and stuff
+        if (!this.dialogue1Finished) {
+            this.dialogue.update();
+            if (this.dialogue.finished) {
+                this.dialogue1Finished = true;
+                this.time.addEvent({
+                    delay: 200,
+                    callback: () => {
+                        this.dialogue2 = new Dialogue(this, 2012, 2396, 'player', 0, "Some sorta top secret slime...\nit does a whole lotta baloney, so watch your pins.", 20, 11, 2500);
+                        this.dialogue2Started = true;
+                    }
+                });
+            }
+        }
+
+        if (this.dialogue2Started) {
+            this.dialogue2.update();
+            if (this.dialogue2.finished) {
+                this.dialogue2Started = false;
+            }
+        }
     }
 
-    resetScene(){
+    resetScene() {
         if (!this.gameOver) {
             this.gameOver = true;
             this.player.setVelocityX(0);

@@ -4,12 +4,7 @@ class Intro1 extends Phaser.Scene {
         this.uiCamera = 0;
     }
 
-    preload() {
-        this.load.tilemapCSV('introJump', './tilemaps/introJump.csv');
-    }
-
     create() {
-
         this.mapConfig = {
             key: 'introJump',
             tileWidth: 64,
@@ -27,15 +22,6 @@ class Intro1 extends Phaser.Scene {
         //collision events
         this.map.setTileIndexCallback(4, this.nextLevel, this);
 
-
-        //player
-        spawnX = 96;
-        spawnY = game.config.height - 416;
-        this.player = new Player(this, spawnX, spawnY, 'player', 0);
-
-        //physics
-        this.physics.add.collider(this.player, this.layer);
-
         //keyboard input
         keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
@@ -43,22 +29,45 @@ class Intro1 extends Phaser.Scene {
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
         keyESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
 
+        //player
+        spawnX = 96;
+        spawnY = game.config.height - 416;
+        this.player = new Player(this, spawnX, spawnY, 'player', 0);
+        this.player.setSize(32, 64, true);
+
+        //physics
+        this.physics.add.collider(this.player, this.layer);
+
         //camera & gravity
         rotationValue = 0;
         playerRotationValue = 0;
         this.cameras.main.setRotation(rotationValue);
         this.player.setRotation(playerRotationValue);
-        this.switching = false;
 
         //ui
         this.uiCamera = this.cameras.add(0, 0, game.config.width, game.config.height);
         this.uiCamera.setScroll(1500, 1500);
-          
-        this.dialogue = new Dialogue(this, 2012, 1628, 'player', 0, "Alright, looks like your next job is just up ahead.", 25);
+
+        this.dialogue = new Dialogue(this, 2012, 1628, 'player', 0, "Alright, this should be an easy job.\nWe're on the clock here, so no dewdropping now.", 20, 11, 3000);
 
         this.dialogue1Finished = false;
         this.dialogue2Finished = false;
         this.dialogue2Started = false;
+        this.dialogue3Started = false;
+        this.dialogue3Finished = false;
+
+        //music
+        if (!bgm_lvl.isPlaying) {
+            bgm_lvl.play();
+        }
+        if (bgm_menu.isPlaying) {
+            bgm_menu.stop();
+        }
+
+        thud.setVolume(0);
+        this.time.delayedCall(200, () => {
+            thud.setVolume(1);
+        });
     }
 
     update() {
@@ -71,20 +80,40 @@ class Intro1 extends Phaser.Scene {
         }
 
         //chain dialogues and stuff
-        if (!this.dialogue1Finished && this.dialogue.finished) {
-            this.dialogue1Finished = true;
-            this.time.addEvent({
-                delay: 200,
-                callback: () => {
-                    this.dialogue2 = new Dialogue(this, 2012, 1628, 'player', 0, "In case ya forgot how to do the Charleston, you can use\nthe A and D keys to move and the W key to jump.", 25);
-                    this.dialogue2Started = true;
-                }
-            });
-        }
+       if (!this.dialogue1Finished) {
+           this.dialogue.update();
+           if (this.dialogue.finished) {
+                this.dialogue1Finished = true;
+                this.time.addEvent({
+                    delay: 200,
+                    callback: () => {
+                        this.dialogue2 = new Dialogue(this, 2012, 1628, 'player', 0, "In case ya forgot how to do the Charleston, you can use\nthe A and D keys to move and the W or Space keys to jump.", 20, 11, 4000);
+                        this.dialogue2Started = true;
+                    }
+                });
+           }
+       }
 
         if (this.dialogue2Started) {
+            this.dialogue2.update();
             if (!this.dialogue2Finished && this.dialogue2.finished) {
+                this.dialogue2Started = false;
                 this.dialogue2Finished = true;
+                this.time.addEvent({
+                    delay: 200,
+                    callback: () => {
+                        this.dialogue3 = new Dialogue(this, 2012, 1628, 'player', 0, "Yeah yeah, I got it, you egg.", 20, 3, 2000);
+                        this.dialogue3Started = true;
+                }
+                });
+            }
+        }
+
+        if (this.dialogue3Started) {
+            this.dialogue3.update();
+            if (!this.dialogue3Finished && this.dialogue3.finished) {
+                this.dialogue3Started = false;
+                this.dialogue3Finished = true;
                 this.time.addEvent({
                     delay: 500,
                     callback: () => {
@@ -99,9 +128,9 @@ class Intro1 extends Phaser.Scene {
                                 left: 15,
                                 right: 15
                             },
-                
+
                         }
-                        this.testText = this.add.text(2012, 1628, "A and D to move\nW to jump", instructionConfig).setOrigin(0.5);
+                        this.testText = this.add.text(2012, 1628, "A and D to move\nW / Space to jump\nEsc to go back to level select", instructionConfig).setOrigin(0.5);
                     }
                 });
             }

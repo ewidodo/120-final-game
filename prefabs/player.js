@@ -6,10 +6,13 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         scene.add.existing(this);
         this.gravityState = 0; //from default view, 0 -> towards bottom, 1 -> towards right, 2 -> towards top, 3 -> towards left
         this.isJumping = false;
-        this.body.setMaxVelocity(975,975);
-
-        
-        }
+        this.isJumpingButton = false;
+        this.isFalling = false;
+        this.idle = true; //i just realized the way i implemented this it's more like this.walking, so treat it that way
+        this.walk1 = true;
+        this.walk2 = false;
+        this.body.setMaxVelocity(925,925);
+    }
 
     update() {
         if (!this.scene.gameOver) {
@@ -18,6 +21,12 @@ class Player extends Phaser.Physics.Arcade.Sprite {
                 //move left
                 //figure out whether moving left/right happens in X or Y axis
                 //do not alter velocity in vertical axis
+                if (!this.isJumpingButton && !this.isFalling) {
+                    if (!this.idle) {
+                        this.idle = true;
+                        this.anims.play('r_run');
+                    }
+                }
                 if (this.gravityState % 2 == 0) {
                     this.setVelocityX(Math.cos(this.rotation) * playerSpeed * -1);
                 }
@@ -30,6 +39,12 @@ class Player extends Phaser.Physics.Arcade.Sprite {
                 //move right
                 //figure out whether moving left/right happens in X or Y axis
                 //do not alter velocity in vertical axis
+                if (!this.isJumpingButton && !this.isFalling) {
+                    if (!this.idle) {
+                        this.idle = true;
+                        this.anims.play('r_run');
+                    }
+                }
                 if (this.gravityState % 2 == 0) {
                     this.setVelocityX(Math.cos(this.rotation) * playerSpeed);
                 }
@@ -46,16 +61,46 @@ class Player extends Phaser.Physics.Arcade.Sprite {
                 if (this.gravityState % 2 == 1) {
                     this.setVelocityY(0);
                 }
+
+                if (!this.isJumpingButton && !this.isFalling) {
+                    if (this.idle) {
+                        this.idle = false;
+                        this.anims.play('r_idle');
+                    }
+                }
+                this.walk1 = true;
+                this.walk2 = false;
             }
 
-            //og code
-             //jumping
-             if ((Phaser.Input.Keyboard.JustDown(keyW) || Phaser.Input.Keyboard.JustDown(keySPACE)) && !this.isJumping && !this.scene.switching) {
+            //walk sounds
+            if (this.idle && (!this.isJumpingButton && !this.isFalling)) {
+                if(this.anims.currentFrame.index == 2 && this.walk1) {
+                    this.walk1 = false;
+                    this.walk2 = true;
+                    this.scene.sound.play('walk1');
+                }
+                if(this.anims.currentFrame.index == 6 && this.walk2) {
+                    this.walk1 = true;
+                    this.walk2 = false;
+                    this.scene.sound.play('walk2');
+                }
+            }
+
+            //jumping
+            if ((Phaser.Input.Keyboard.JustDown(keyW) || Phaser.Input.Keyboard.JustDown(keySPACE)) && !this.isJumping && !this.scene.switching) {
+                this.anims.stop();
+                this.setTexture('ruth_jump', 0);
+                //this.scene.sound.play('jump');
+                this.isJumpingButton = true;
+                this.isFalling = false;
+
                 if (this.gravityState % 2 == 0) {
                     this.setVelocityY(Math.cos(rotationValue) * jumpSpeed);
+                    this.body.setSize(32, 64, true);
                 }
                 if (this.gravityState % 2 == 1) {
                     this.setVelocityX(Math.sin(rotationValue) * jumpSpeed);
+                    this.body.setSize(64, 32, true);
                 } 
                 
                 this.scene.time.delayedCall(10, () => {
@@ -64,24 +109,72 @@ class Player extends Phaser.Physics.Arcade.Sprite {
             }
         }
 
+        if (this.gravityState == 0) { //bottom
+            if (this.body.velocity.y > 0 && !this.isFalling) { //falling
+                this.isFalling = true;
+                this.anims.stop();
+                this.setTexture('ruth_fall', 0);
+                this.body.setSize(32, 64, true);
+            }
+            if ((this.isJumping || this.isFalling) && this.body.blocked.down) {
+                this.unJump();
+                thud.play();
+                this.body.setSize(32, 64, true);
+            }
+        }
+        if (this.gravityState == 1) { //right
+            if (this.body.velocity.x > 0 && !this.isFalling) { //falling
+                this.isFalling = true;
+                this.anims.stop();
+                this.setTexture('ruth_fall', 0);
+                this.body.setSize(64, 32, true);
+            }
+            if ((this.isJumping || this.isFalling) && this.body.blocked.right) {
+                this.unJump();
+                thud.play();
+                this.body.setSize(64, 32, true);
+            }
+        }
+        if (this.gravityState == 2 ) { // top
+            if (this.body.velocity.y < 0 && !this.isFalling) { //falling
+                this.isFalling = true;
+                this.anims.stop();
+                this.setTexture('ruth_fall', 0);
+                this.body.setSize(32, 64, true);
+            }
+            if ((this.isJumping || this.isFalling) && this.body.blocked.up) {
+                this.unJump();
+                thud.play();
+                this.body.setSize(32, 64, true);
+            }
+        }
+        if (this.gravityState == 3) { //left
+            if (this.body.velocity.x < 0 && !this.isFalling) { //falling
+                this.isFalling = true;
+                this.anims.stop();
+                this.setTexture('ruth_fall', 0);
+                this.body.setSize(64, 32, true);
+            }
+            if ((this.isJumping || this.isFalling) && this.body.blocked.left) {
+                this.unJump();
+                thud.play();
+                this.body.setSize(64, 32, true);
+            }
+        }
+    }
 
-        
-       
-
-        
-
-        if (this.gravityState == 0 && this.body.blocked.down) { //bottom
-            //console.log("blocked bottom");
-            this.isJumping = false;
+    unJump() {
+        this.isJumping = false;
+        this.isJumpingButton = false;
+        this.isFalling = false;
+        if (keyA.isDown || keyD.isDown) {
+            this.anims.play('r_run');
+            this.idle = true;
+        } else {
+            this.anims.play('r_idle');
+            this.idle = false;
         }
-        if (this.gravityState == 1 && this.body.blocked.right) { //right
-            this.isJumping = false;
-        }
-        if (this.gravityState == 2 && this.body.blocked.up) { // top
-            this.isJumping = false;
-        }
-        if (this.gravityState == 3 && this.body.blocked.left) { //left
-            this.isJumping = false;
-        }
+        this.walk1 = true;
+        this.walk2 = false;
     }
 }
