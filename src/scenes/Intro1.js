@@ -47,7 +47,7 @@ class Intro1 extends Phaser.Scene {
         //ui
         this.uiCamera = this.cameras.add(0, 0, game.config.width, game.config.height);
         this.uiCamera.setScroll(1500, 1500);
-          
+
         this.dialogue = new Dialogue(this, 2012, 1628, 'player', 0, "Alright, this should be an easy job.\nWe're on the clock here, so no dewdropping now.", 20, 11, 3000);
 
         this.dialogue1Finished = false;
@@ -128,7 +128,7 @@ class Intro1 extends Phaser.Scene {
                                 left: 15,
                                 right: 15
                             },
-                
+
                         }
                         this.testText = this.add.text(2012, 1628, "A and D to move\nW / Space to jump\nEsc to go back to level select", instructionConfig).setOrigin(0.5);
                     }

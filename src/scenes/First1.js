@@ -57,7 +57,7 @@ class First1 extends Phaser.Scene {
         //ui
         this.uiCamera = this.cameras.add(0, 0, game.config.width, game.config.height);
         this.uiCamera.setScroll(1500, 1500);
-        
+
         this.dialogue = new Dialogue(this, 2012, 2396, 'player', 0, "Alright gal, first object we're fixin' is a laughing owl.\nThis bird faded back in '14, but that's beside the point.", 25);
         this.dialogue1Finished = false;
 

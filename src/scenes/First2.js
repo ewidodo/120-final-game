@@ -57,7 +57,7 @@ class First2 extends Phaser.Scene {
         //ui
         this.uiCamera = this.cameras.add(0, 0, game.config.width, game.config.height);
         this.uiCamera.setScroll(1500, 1500);
-        
+
         this.dialogue = new Dialogue(this, 2012, 2396, 'player', 0, "Did I tell you about the time I got into a box job\nwith my cousin Antonio?", 25);
         this.dialogue1Finished = false;
 
