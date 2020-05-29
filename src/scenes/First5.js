@@ -126,7 +126,7 @@ class First5 extends Phaser.Scene {
                 this.time.addEvent({
                     delay: 200,
                     callback: () => {
-                        this.dialogue3 = new Dialogue(this, 2012, 1564, 'player', 0, "Why the hoot would anyone need a room full of top-secret slime?", 20, 2, 3000);
+                        this.dialogue3 = new Dialogue(this, 2012, 1564, 'player', 0, "Why the hoot would anyone need a room full of\ntop-secret slime?", 20, 2, 3000);
                         this.dialogue3Started = true;
                     }
                 });

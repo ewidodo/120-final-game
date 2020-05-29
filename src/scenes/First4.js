@@ -114,7 +114,7 @@ class First4 extends Phaser.Scene {
                 this.time.addEvent({
                     delay: 200,
                     callback: () => {
-                        this.dialogue2 = new Dialogue(this, 2012, 1564, 'player', 0, "Cuz no one else wanted to work with you\nafter THAT hoot of an incident...", 20, 3, 3000);
+                        this.dialogue2 = new Dialogue(this, 2012, 1564, 'player', 0, "Cuz no one else wanted to work with you after\nTHAT hoot of an incident...", 20, 3, 3000);
                         this.dialogue2Started = true;
                     }
                 });
