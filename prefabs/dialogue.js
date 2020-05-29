@@ -145,34 +145,34 @@ class Dialogue extends Phaser.GameObjects.Sprite {
     update() {
         if (!this.finished) {
             if (this.scene.player.gravityState == 0) {
-                if (this.state == 1 & this.scene.player.y < game.config.height / 4) {
+                if (this.state == 1 & this.scene.player.y < game.config.height / 8) {
                     this.shiftBottom();
                 }
-                if (this.state == 2 & this.scene.player.y > game.config.height / 4 * 3) {
+                if (this.state == 2 & this.scene.player.y > game.config.height / 8 * 7) {
                     this.shiftTop();
                 }
             }
             if (this.scene.player.gravityState == 1) {
-                if (this.state == 1 & this.scene.player.x < game.config.height / 4) {
+                if (this.state == 1 & this.scene.player.x < game.config.width / 8) {
                     this.shiftBottom();
                 }
-                if (this.state == 2 & this.scene.player.x > game.config.height / 4 * 3) {
+                if (this.state == 2 & this.scene.player.x > game.config.width / 8 * 7) {
                     this.shiftTop();
                 }
             }
             if (this.scene.player.gravityState == 2) {
-                if (this.state == 2 & this.scene.player.y < game.config.height / 4) {
+                if (this.state == 2 & this.scene.player.y < game.config.height / 8) {
                     this.shiftTop();
                 }
-                if (this.state == 1 & this.scene.player.y > game.config.height / 4 * 3) {
+                if (this.state == 1 & this.scene.player.y > game.config.height / 8 * 7) {
                     this.shiftBottom();
                 }
             }
             if (this.scene.player.gravityState == 3) {
-                if (this.state == 2 & this.scene.player.x < game.config.height / 4) {
+                if (this.state == 2 & this.scene.player.x < game.config.width / 8) {
                     this.shiftTop();
                 }
-                if (this.state == 1 & this.scene.player.x > game.config.height / 4 * 3) {
+                if (this.state == 1 & this.scene.player.x > game.config.width / 8 * 7) {
                     this.shiftBottom();
                 }
             }
@@ -181,23 +181,23 @@ class Dialogue extends Phaser.GameObjects.Sprite {
 
     shiftTop() {
         this.state = 1;
-        this.outline.y = 1628;
-        this.box.y = 1628;
-        this.y = 1628;
+        this.outline.y = 1564;
+        this.box.y = 1564;
+        this.y = 1564;
         if (this.active) {
-            this.face.y = 1628;
-            this.dialogue.y = 1598;
+            this.face.y = 1564;
+            this.dialogue.y = 1534;
         }
     }
 
     shiftBottom() {
         this.state = 2;
-        this.outline.y = 2396;
-        this.box.y = 2396;
-        this.y = 2396;
+        this.outline.y = 2460;
+        this.box.y = 2460;
+        this.y = 2460;
         if (this.active) {
-            this.face.y = 2396;
-            this.dialogue.y = 2366;
+            this.face.y = 2460;
+            this.dialogue.y = 2430;
         }
     }
 }

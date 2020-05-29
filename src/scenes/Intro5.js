@@ -111,7 +111,7 @@ class Intro5 extends Phaser.Scene {
                 this.time.addEvent({
                     delay: 200,
                     callback: () => {
-                        this.dialogue2 = new Dialogue(this, 2012, 2396, 'player', 0, "...yeah? I know I got my hands up in the air but I am\nstill holding onto the button you know.", 20, 2, 3000);
+                        this.dialogue2 = new Dialogue(this, 2012, 2460, 'player', 0, "...yeah? I know I got my hands up in the air but I am\nstill holding onto the button you know.", 20, 2, 3000);
                         this.dialogue2Started = true;
                     }
                 });
@@ -125,7 +125,7 @@ class Intro5 extends Phaser.Scene {
                 this.time.addEvent({
                     delay: 200,
                     callback: () => {
-                        this.dialogue3 = new Dialogue(this, 2012, 2396, 'player', 0, "Nevermind, just... you can land on the walls around corners\nto continue in this part of the warehouse.", 2, 12, 3000);
+                        this.dialogue3 = new Dialogue(this, 2012, 2460, 'player', 0, "Nevermind, just... you can land on the walls around corners\nto continue in this part of the warehouse.", 2, 12, 3000);
                         this.dialogue3Started = true;
                     }
                 });
@@ -139,7 +139,7 @@ class Intro5 extends Phaser.Scene {
                 this.time.addEvent({
                     delay: 200,
                     callback: () => {
-                        this.dialogue4 = new Dialogue(this, 2012, 2396, 'player', 0, "...palooka.", 2, 3, 2500);
+                        this.dialogue4 = new Dialogue(this, 2012, 2460, 'player', 0, "...palooka.", 2, 3, 2500);
                         this.dialogue4Started = true;
                     }
                 });

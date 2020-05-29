@@ -57,7 +57,7 @@ class Intro2 extends Phaser.Scene {
         this.uiCamera = this.cameras.add(0, 0, game.config.width, game.config.height);
         this.uiCamera.setScroll(1500, 1500);
 
-        this.dialogue = new Dialogue(this, 2012, 2396, 'player', 0, "Hey, what's all this red gunk on the floor?", 20, 2, 3000);
+        this.dialogue = new Dialogue(this, 2012, 2460, 'player', 0, "Hey, what's all this red gunk on the floor?", 20, 2, 3000);
         this.dialogue1Finished = false;
         this.dialogue2Started = false;
 
@@ -92,7 +92,7 @@ class Intro2 extends Phaser.Scene {
                 this.time.addEvent({
                     delay: 200,
                     callback: () => {
-                        this.dialogue2 = new Dialogue(this, 2012, 2396, 'player', 0, "Some sorta top secret slime...\nit does a whole lotta baloney, so watch your pins.", 20, 11, 2500);
+                        this.dialogue2 = new Dialogue(this, 2012, 2460, 'player', 0, "Some sorta top secret slime...\nit does a whole lotta baloney, so watch your pins.", 20, 11, 2500);
                         this.dialogue2Started = true;
                     }
                 });

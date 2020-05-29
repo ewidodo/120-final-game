@@ -65,7 +65,7 @@ class Intro3 extends Phaser.Scene {
         this.uiCamera = this.cameras.add(0, 0, game.config.width, game.config.height);
         this.uiCamera.setScroll(1500, 1500);
 
-        this.dialogue = new Dialogue(this, 2012, 1628, 'player', 0, "The warehouse gets applesaucey up ahead, so grab that\nbutton, it'll be useful.", 20, 11, 3000);
+        this.dialogue = new Dialogue(this, 2012, 1564, 'player', 0, "The warehouse gets applesaucey up ahead, so grab that\nbutton, it'll be useful.", 20, 11, 3000);
 
         this.dialogue2 = 0;
         this.dialogue3 = 0;
@@ -147,7 +147,7 @@ class Intro3 extends Phaser.Scene {
                 this.time.addEvent({
                     delay: 200,
                     callback: () => {
-                        this.dialogue3 = new Dialogue(this, 2012, 1628, 'player', 0, "That button switches the gravity of the room you're in.\nShould've said that earlier, but we gotta breeze through.", 25, 11, 3000);
+                        this.dialogue3 = new Dialogue(this, 2012, 1564, 'player', 0, "That button switches the gravity of the room you're in.\nShould've said that earlier, but we gotta breeze through.", 25, 11, 3000);
                         this.dialogue3Started = true;
                     }
                 });
@@ -181,7 +181,7 @@ class Intro3 extends Phaser.Scene {
 
     switchDialogue() {
         this.testText.destroy();
-        this.dialogue2 = new Dialogue(this, 2012, 1628, 'player', 0, "HEY WHAT THE HELL???\nWhat did that just do?!", 10, 4, 2500);
+        this.dialogue2 = new Dialogue(this, 2012, 1564, 'player', 0, "HEY WHAT THE HELL???\nWhat did that just do?!", 10, 4, 2500);
         this.dialogue2Started = true;
     }
 

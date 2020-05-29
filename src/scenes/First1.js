@@ -63,7 +63,7 @@ class First1 extends Phaser.Scene {
         this.uiCamera = this.cameras.add(0, 0, game.config.width, game.config.height);
         this.uiCamera.setScroll(1500, 1500);
 
-        this.dialogue = new Dialogue(this, 2012, 2396, 'player', 0, "Alright gal, first object on the shopping list is gonna be\nthe laughing owl.", 25, 11, 3000);
+        this.dialogue = new Dialogue(this, 2012, 2460, 'player', 0, "Alright gal, first object on the shopping list is gonna be\nthe laughing owl.", 25, 11, 3000);
         this.dialogue1Finished = false;
         this.dialogue2Started = false;
         this.dialogue3Started = false;
@@ -113,7 +113,7 @@ class First1 extends Phaser.Scene {
                 this.time.addEvent({
                     delay: 200,
                     callback: () => {
-                        this.dialogue2 = new Dialogue(this, 2012, 2396, 'player', 0, "Uh, didn't those go extinct back in '14?", 20, 2, 3000);
+                        this.dialogue2 = new Dialogue(this, 2012, 2460, 'player', 0, "Uh, didn't those go extinct back in '14?", 20, 2, 3000);
                         this.dialogue2Started = true;
                     }
                 });
@@ -127,7 +127,7 @@ class First1 extends Phaser.Scene {
                 this.time.addEvent({
                     delay: 200,
                     callback: () => {
-                        this.dialogue3 = new Dialogue(this, 2012, 2396, 'player', 0, "Apparently not. Anyways, this bird causes things to float\nwhen stressed, including all those boxes you see.", 20, 11, 3000);
+                        this.dialogue3 = new Dialogue(this, 2012, 2460, 'player', 0, "Apparently not. Anyways, this bird causes things to float\nwhen stressed, including all those boxes you see.", 20, 11, 3000);
                         this.dialogue3Started = true;
                     }
                 });
@@ -141,7 +141,7 @@ class First1 extends Phaser.Scene {
                 this.time.addEvent({
                     delay: 200,
                     callback: () => {
-                        this.dialogue4 = new Dialogue(this, 2012, 2396, 'player', 0, "The big cheese has his eyes on it for quote unquote\n\"reasons\" he won't share.", 20, 13, 3000);
+                        this.dialogue4 = new Dialogue(this, 2012, 2460, 'player', 0, "The big cheese has his eyes on it for quote unquote\n\"reasons\" he won't share.", 20, 13, 3000);
                         this.dialogue4Started = true;
                     }
                 });
@@ -155,7 +155,7 @@ class First1 extends Phaser.Scene {
                 this.time.addEvent({
                     delay: 200,
                     callback: () => {
-                        this.dialogue5 = new Dialogue(this, 2012, 2396, 'player', 0, "Well whatever it is, he'll have a hoot of a time with it.", 20, 5, 3000);
+                        this.dialogue5 = new Dialogue(this, 2012, 2460, 'player', 0, "Well whatever it is, he'll have a hoot of a time with it.", 20, 5, 3000);
                         this.dialogue5Started = true;
                     }
                 });
