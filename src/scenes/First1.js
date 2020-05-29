@@ -29,7 +29,6 @@ class First1 extends Phaser.Scene {
             [16, 17, 26, 27],
             this.nextLevel, this);
 
-
         //player
         spawnX = 100;
         spawnY = 100;
