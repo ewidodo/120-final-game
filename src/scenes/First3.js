@@ -63,9 +63,10 @@ class First3 extends Phaser.Scene {
         this.uiCamera = this.cameras.add(0, 0, game.config.width, game.config.height);
         this.uiCamera.setScroll(1500, 1500);
         
-        this.dialogue = new Dialogue(this, 2012, 1628, 'player', 0, "I'll be square, I don't even know how we got\nhalf the junk we got here.", 25);
+        this.dialogue = new Dialogue(this, 2012, 1564, 'player', 0, "Anyhoot, how'd you reckon the birds got their hands\non all this hooey round here?", 25, 1, 3000);
         this.dialogue1Finished = false;
         this.dialogue2Started = false;
+        this.dialogue3Started = false;
 
         //music
         if (!bgm_lvl.isPlaying) {
@@ -103,16 +104,39 @@ class First3 extends Phaser.Scene {
         }
 
         //chain dialogues and stuff
-        if (!this.dialogue1Finished && this.dialogue.finished) {
-            this.dialogue1Finished = true;
-            this.dialogue2 = new Dialogue(this, 2012, 1628, 'player', 0, "I'd rather not know though. All of this hooey gives me\nthe heebie-jeebies.", 25);
-            this.dialogue2Started = true;
+        //chain dialogues and stuff
+        if (!this.dialogue1Finished) {
+            this.dialogue.update();
+            if (this.dialogue.finished) {
+                this.dialogue1Finished = true;
+                this.time.addEvent({
+                    delay: 200,
+                    callback: () => {
+                        this.dialogue2 = new Dialogue(this, 2012, 1564, 'player', 0, "I'd rather not know to be honest, all this baloney\n gives me the heebie-jeebies.", 20, 11, 3000);
+                        this.dialogue2Started = true;
+                    }
+                });
+            }
         }
 
         if (this.dialogue2Started) {
-            if(this.dialogue2.finished) {
+            this.dialogue2.update();
+            if (this.dialogue2.finished) {
                 this.dialogue2Started = false;
-                this.dialogue2 = new Dialogue(this, 2012, 1628, 'player', 0, "But hey, better to keep all of this garbage away\nfrom the streets I suppose...", 25);
+                this.time.addEvent({
+                    delay: 200,
+                    callback: () => {
+                        this.dialogue3 = new Dialogue(this, 2012, 1564, 'player', 0, "I'd say the same, but your face does the trick already.", 20, 5, 3000);
+                        this.dialogue3Started = true;
+                    }
+                });
+            }
+        }
+
+        if (this.dialogue3Started) {
+            this.dialogue3.update();
+            if (this.dialogue3.finished) {
+                this.dialogue3Started = false;
             }
         }
     }

@@ -63,8 +63,10 @@ class First2 extends Phaser.Scene {
         this.uiCamera = this.cameras.add(0, 0, game.config.width, game.config.height);
         this.uiCamera.setScroll(1500, 1500);
 
-        this.dialogue = new Dialogue(this, 2012, 2396, 'player', 0, "Did I tell you about the time I got into a box job\nwith my cousin Antonio?", 25);
+        this.dialogue = new Dialogue(this, 2012, 2460, 'player', 0, "I don't know why, but I've got an uncontrollable urge\nto say \"hoot\".", 25, 2, 3000);
         this.dialogue1Finished = false;
+        this.dialogue2Started = false;
+        this.dialogue3Started = false;
 
         //music
         if (!bgm_lvl.isPlaying) {
@@ -102,9 +104,39 @@ class First2 extends Phaser.Scene {
         }
 
         //chain dialogues and stuff
-        if (!this.dialogue1Finished && this.dialogue.finished) {
-            this.dialogue1Finished = true;
-            this.dialogue2 = new Dialogue(this, 2012, 2396, 'player', 0, "It all went well until he got his pants caught in\nthe safe as we were leaving. Gave me a right hoot.", 25);
+        if (!this.dialogue1Finished) {
+            this.dialogue.update();
+            if (this.dialogue.finished) {
+                this.dialogue1Finished = true;
+                this.time.addEvent({
+                    delay: 200,
+                    callback: () => {
+                        this.dialogue2 = new Dialogue(this, 2012, 2460, 'player', 0, "And why is that so?", 20, 11, 2500);
+                        this.dialogue2Started = true;
+                    }
+                });
+            }
+        }
+
+        if (this.dialogue2Started) {
+            this.dialogue2.update();
+            if (this.dialogue2.finished) {
+                this.dialogue2Started = false;
+                this.time.addEvent({
+                    delay: 200,
+                    callback: () => {
+                        this.dialogue3 = new Dialogue(this, 2012, 2460, 'player', 0, "If I could put it into hoots, I'd spill it.", 20, 3, 3000);
+                        this.dialogue3Started = true;
+                    }
+                });
+            }
+        }
+
+        if (this.dialogue3Started) {
+            this.dialogue3.update();
+            if (this.dialogue3.finished) {
+                this.dialogue3Started = false;
+            }
         }
     }
 
