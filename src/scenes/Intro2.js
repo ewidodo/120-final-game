@@ -12,18 +12,20 @@ class Intro2 extends Phaser.Scene {
         }
 
         this.map = this.make.tilemap(this.mapConfig);
-        this.map.setCollisionBetween(4, 8);
-        this.map.setCollisionBetween(13, 17);
-        this.map.setCollisionBetween(22, 77);
+        this.map.setCollisionBetween(4, 10);
+        this.map.setCollisionBetween(14, 20);
+        this.map.setCollisionBetween(24, 85);
         this.tileset = this.map.addTilesetImage('tilesetImage', 'tiles');
 
         this.layer = this.map.createStaticLayer(0, this.tileset);
 
         //collision events
         this.map.setTileIndexCallback(
-            [49, 50, 51, 52, 53, 56, 57, 58, 59, 60, 62, 65, 69, 70, 71, 74, 75, 76, 77], 
+            [54, 55, 56, 57, 58, 62, 63, 64, 65, 66, 68, 72, 76, 77, 78, 82, 83, 84, 85],
             this.resetScene, this);
-        this.map.setTileIndexCallback(9, this.nextLevel, this);
+        this.map.setTileIndexCallback(
+            [16, 17, 26, 27],
+            this.nextLevel, this);
 
         //keyboard input
         keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
