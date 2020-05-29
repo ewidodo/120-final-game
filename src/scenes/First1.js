@@ -30,8 +30,8 @@ class First1 extends Phaser.Scene {
             this.nextLevel, this);
 
         //player
-        spawnX = 100;
-        spawnY = 100;
+        spawnX = game.config.width/2 + 32;
+        spawnY = 224;
         this.player = new Player(this, spawnX, spawnY, 'player', 0);
         this.player.setSize(32, 64, true);
         this.gameOver = false;
