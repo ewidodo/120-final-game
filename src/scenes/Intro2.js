@@ -14,7 +14,9 @@ class Intro2 extends Phaser.Scene {
         this.map = this.make.tilemap(this.mapConfig);
         this.map.setCollisionBetween(4, 10);
         this.map.setCollisionBetween(14, 20);
-        this.map.setCollisionBetween(24, 85);
+        this.map.setCollisionBetween(24, 35);
+        this.map.setCollisionBetween(38, 45);
+        this.map.setCollisionBetween(48, 85);
         this.tileset = this.map.addTilesetImage('tilesetImage', 'tiles');
 
         this.layer = this.map.createStaticLayer(0, this.tileset);
