@@ -49,6 +49,9 @@ class LevelSelect extends Phaser.Scene {
         this.level6 = this.add.rectangle(704, 64, 64, 64, 0xFFFFFF).setOrigin(0,0);
         this.level7 = this.add.rectangle(832, 64, 64, 64, 0xFFFFFF).setOrigin(0,0);
         this.level8 = this.add.rectangle(64, 192, 64, 64, 0xFFFFFF).setOrigin(0,0);
+        this.level9 = this.add.rectangle(192, 192, 64, 64, 0xFFFFFF).setOrigin(0,0);
+        this.level10 = this.add.rectangle(320, 192, 64, 64, 0xFFFFFF).setOrigin(0,0);
+        this.level11 = this.add.rectangle(448, 192, 64, 64, 0xFFFFFF).setOrigin(0,0);
         
         this.level1Text = this.add.text(64, 64, "1", unlockedConfig).setOrigin(0, 0);
         this.level1.setInteractive({useHandCursor: true}).on('pointerdown', () => {
@@ -116,6 +119,33 @@ class LevelSelect extends Phaser.Scene {
             });
         } else {
             this.level8Text = this.add.text(64, 192, "8", lockedConfig).setOrigin(0, 0);
+        }
+
+        if(lastLevelCompleted  >= 8){
+            this.level9Text = this.add.text(192, 192, "9", unlockedConfig).setOrigin(0, 0);
+            this.level9.setInteractive({useHandCursor: true}).on('pointerdown', () => {
+                this.scene.start("first4");
+            });
+        } else {
+            this.level9Text = this.add.text(192, 192, "9", lockedConfig).setOrigin(0, 0);
+        }
+
+        if(lastLevelCompleted  >= 9){
+            this.level10Text = this.add.text(315, 192, "10", unlockedConfig).setOrigin(0, 0);
+            this.level10.setInteractive({useHandCursor: true}).on('pointerdown', () => {
+                this.scene.start("first5");
+            });
+        } else {
+            this.level10Text = this.add.text(315, 192, "10", lockedConfig).setOrigin(0, 0);
+        }
+
+        if(lastLevelCompleted  >= 10){
+            this.level11Text = this.add.text(442, 192, "11", unlockedConfig).setOrigin(0, 0);
+            this.level11.setInteractive({useHandCursor: true}).on('pointerdown', () => {
+                this.scene.start("first6");
+            });
+        } else {
+            this.level11Text = this.add.text(442, 192, "11", lockedConfig).setOrigin(0, 0);
         }
     }
 

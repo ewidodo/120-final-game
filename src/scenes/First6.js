@@ -1,12 +1,12 @@
-class First3 extends Phaser.Scene {
+class First6 extends Phaser.Scene {
     constructor() {
-        super("first3");
+        super("first6");
         this.uiCamera = 0;
     }
 
     create() {
         this.mapConfig = {
-            key: 'first3',
+            key: 'first6',
             tileWidth: 64,
             tileHeight: 64
         }
@@ -30,8 +30,8 @@ class First3 extends Phaser.Scene {
             this.nextLevel, this);
 
         //player
-        spawnX = game.config.width - 96;
-        spawnY = game.config.height - 96;
+        spawnX = 96;
+        spawnY = game.config.height - 416;
         this.player = new Player(this, spawnX, spawnY, 'player', 0);
         this.player.setSize(32, 64, true);
         this.gameOver = false;
@@ -126,6 +126,6 @@ class First3 extends Phaser.Scene {
             lastLevelCompleted = 8;
             localStorage.setItem('progress', lastLevelCompleted);
         }
-        this.scene.start("first4");
+        this.scene.start("levelSelect");
     }
 }

@@ -45,6 +45,9 @@ class Loading extends Phaser.Scene{
         this.load.tilemapCSV('first1', './tilemaps/first1.csv');
         this.load.tilemapCSV('first2', './tilemaps/finals/_first2.csv');
         this.load.tilemapCSV('first3', './tilemaps/finals/_first3.csv');
+        this.load.tilemapCSV('first4', './tilemaps/finals/_first4.csv');
+        this.load.tilemapCSV('first5', './tilemaps/finals/_first5.csv');
+        this.load.tilemapCSV('first6', './tilemaps/finals/_first6.csv');
     }
 
     create() {

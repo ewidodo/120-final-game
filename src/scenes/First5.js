@@ -1,12 +1,12 @@
-class First3 extends Phaser.Scene {
+class First5 extends Phaser.Scene {
     constructor() {
-        super("first3");
+        super("first5");
         this.uiCamera = 0;
     }
 
     create() {
         this.mapConfig = {
-            key: 'first3',
+            key: 'first5',
             tileWidth: 64,
             tileHeight: 64
         }
@@ -122,10 +122,10 @@ class First3 extends Phaser.Scene {
     }
 
     nextLevel() {
-        if (lastLevelCompleted < 8) {
-            lastLevelCompleted = 8;
+        if (lastLevelCompleted < 10) {
+            lastLevelCompleted = 10;
             localStorage.setItem('progress', lastLevelCompleted);
         }
-        this.scene.start("first4");
+        this.scene.start("first6");
     }
 }

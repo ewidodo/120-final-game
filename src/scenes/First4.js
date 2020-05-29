@@ -1,12 +1,12 @@
-class First3 extends Phaser.Scene {
+class First4 extends Phaser.Scene {
     constructor() {
-        super("first3");
+        super("first4");
         this.uiCamera = 0;
     }
 
     create() {
         this.mapConfig = {
-            key: 'first3',
+            key: 'first4',
             tileWidth: 64,
             tileHeight: 64
         }
@@ -31,7 +31,7 @@ class First3 extends Phaser.Scene {
 
         //player
         spawnX = game.config.width - 96;
-        spawnY = game.config.height - 96;
+        spawnY = game.config.height - 608;
         this.player = new Player(this, spawnX, spawnY, 'player', 0);
         this.player.setSize(32, 64, true);
         this.gameOver = false;
@@ -63,9 +63,9 @@ class First3 extends Phaser.Scene {
         this.uiCamera = this.cameras.add(0, 0, game.config.width, game.config.height);
         this.uiCamera.setScroll(1500, 1500);
         
-        this.dialogue = new Dialogue(this, 2012, 1628, 'player', 0, "I'll be square, I don't even know how we got\nhalf the junk we got here.", 25);
-        this.dialogue1Finished = false;
-        this.dialogue2Started = false;
+        // this.dialogue = new Dialogue(this, 2012, 1628, 'player', 0, "I'll be square, I don't even know how we got\nhalf the junk we got here.", 25);
+        // this.dialogue1Finished = false;
+        // this.dialogue2Started = false;
 
         //music
         if (!bgm_lvl.isPlaying) {
@@ -103,18 +103,18 @@ class First3 extends Phaser.Scene {
         }
 
         //chain dialogues and stuff
-        if (!this.dialogue1Finished && this.dialogue.finished) {
-            this.dialogue1Finished = true;
-            this.dialogue2 = new Dialogue(this, 2012, 1628, 'player', 0, "I'd rather not know though. All of this hooey gives me\nthe heebie-jeebies.", 25);
-            this.dialogue2Started = true;
-        }
+        // if (!this.dialogue1Finished && this.dialogue.finished) {
+        //     this.dialogue1Finished = true;
+        //     this.dialogue2 = new Dialogue(this, 2012, 1628, 'player', 0, "I'd rather not know though. All of this hooey gives me\nthe heebie-jeebies.", 25);
+        //     this.dialogue2Started = true;
+        // }
 
-        if (this.dialogue2Started) {
-            if(this.dialogue2.finished) {
-                this.dialogue2Started = false;
-                this.dialogue2 = new Dialogue(this, 2012, 1628, 'player', 0, "But hey, better to keep all of this garbage away\nfrom the streets I suppose...", 25);
-            }
-        }
+        // if (this.dialogue2Started) {
+        //     if(this.dialogue2.finished) {
+        //         this.dialogue2Started = false;
+        //         this.dialogue2 = new Dialogue(this, 2012, 1628, 'player', 0, "But hey, better to keep all of this garbage away\nfrom the streets I suppose...", 25);
+        //     }
+        // }
     }
 
     resetScene() {
@@ -122,10 +122,10 @@ class First3 extends Phaser.Scene {
     }
 
     nextLevel() {
-        if (lastLevelCompleted < 8) {
-            lastLevelCompleted = 8;
+        if (lastLevelCompleted < 9) {
+            lastLevelCompleted = 9;
             localStorage.setItem('progress', lastLevelCompleted);
         }
-        this.scene.start("first4");
+        this.scene.start("first5");
     }
 }
