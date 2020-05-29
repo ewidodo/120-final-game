@@ -62,7 +62,7 @@ class Intro5 extends Phaser.Scene {
         this.uiCamera = this.cameras.add(0, 0, game.config.width, game.config.height);
         this.uiCamera.setScroll(1500, 1500);
         
-        this.dialogue = new Dialogue(this, 2012, 2396, 'player', 0, "Did you know you can press the button while in mid-air?", 25, 11, 3000);
+        this.dialogue = new Dialogue(this, 2012, 2396, 'player', 0, "Did you know you can press the button while in mid-air?", 20, 11, 3000);
         this.dialogue1Finished = false;
         this.dialogue2Started = false;
         this.dialogue3Started = false;
