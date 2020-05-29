@@ -67,6 +67,8 @@ class First1 extends Phaser.Scene {
         this.dialogue1Finished = false;
         this.dialogue2Started = false;
         this.dialogue3Started = false;
+        this.dialogue4Started = false;
+        this.dialogue5Started = false;
 
         //music
         if (!bgm_lvl.isPlaying) {
@@ -125,7 +127,7 @@ class First1 extends Phaser.Scene {
                 this.time.addEvent({
                     delay: 200,
                     callback: () => {
-                        this.dialogue3 = new Dialogue(this, 2012, 2396, 'player', 0, "Well, apparently not. Anyways, this bird causes things to\nfloat when stressed, and the big cheese has his eyes on it.", 20, 11, 3000);
+                        this.dialogue3 = new Dialogue(this, 2012, 2396, 'player', 0, "Apparently not. Anyways, this bird causes things to float\nwhen stressed, including all those boxes you see.", 20, 11, 3000);
                         this.dialogue3Started = true;
                     }
                 });
@@ -139,10 +141,31 @@ class First1 extends Phaser.Scene {
                 this.time.addEvent({
                     delay: 200,
                     callback: () => {
-                        this.dialogue4 = new Dialogue(this, 2012, 2396, 'player', 0, "Well, he's gonna have a hoot of a time with it.", 20, 5, 3000);
+                        this.dialogue4 = new Dialogue(this, 2012, 2396, 'player', 0, "The big cheese has his eyes on it for quote unquote\n\"reasons\" he won't share.", 20, 13, 3000);
                         this.dialogue4Started = true;
                     }
                 });
+            }
+        }
+
+        if (this.dialogue4Started) {
+            this.dialogue4.update();
+            if (this.dialogue4.finished) {
+                this.dialogue4Started = false;
+                this.time.addEvent({
+                    delay: 200,
+                    callback: () => {
+                        this.dialogue5 = new Dialogue(this, 2012, 2396, 'player', 0, "Well whatever it is, he'll have a hoot of a time with it.", 20, 5, 3000);
+                        this.dialogue5Started = true;
+                    }
+                });
+            }
+        }
+
+        if (this.dialogue5Started) {
+            this.dialogue5.update();
+            if (this.dialogue5.finished) {
+                this.dialogue5Started = false;
             }
         }
     }

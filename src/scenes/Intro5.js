@@ -149,7 +149,7 @@ class Intro5 extends Phaser.Scene {
         if (this.dialogue4Started) {
             this.dialogue4.update();
             if (this.dialogue4.finished) {
-                this.dialogueStarted = false;
+                this.dialogue4Started = false;
             }
         }
     }

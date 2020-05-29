@@ -36,6 +36,7 @@ class Dialogue extends Phaser.GameObjects.Sprite {
 
         Malarkey regular = 11
         Malarkey closed eyes = 12
+        Malarkey shifty = 13
         */
 
         if (type == 1) {
@@ -58,6 +59,9 @@ class Dialogue extends Phaser.GameObjects.Sprite {
         }
         if (type == 12) {
             this.who = 'malarkey_closed';
+        }
+        if (type == 13) {
+            this.who = 'malarkey_shifty';
         }
 
         this.scene.tweens.add({
