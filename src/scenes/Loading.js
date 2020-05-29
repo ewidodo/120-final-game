@@ -16,9 +16,11 @@ class Loading extends Phaser.Scene{
         this.load.atlas('ruth_stern', './assets/ruth_stern.png', './assets/dialogue.json');
         this.load.atlas('ruth_angry', './assets/ruth_angry.png', './assets/dialogue.json');
         this.load.atlas('ruth_smug', './assets/ruth_smug.png', './assets/dialogue.json');
+        this.load.atlas('ruth_laugh', './assets/ruth_laugh.png', './assets/dialogue.json');
         this.load.atlas('malarkey_normal', './assets/malarkey_normal.png', './assets/dialogue.json');
         this.load.atlas('malarkey_closed', './assets/malarkey_closed.png', './assets/dialogue.json');
         this.load.atlas('malarkey_shifty', './assets/malarkey_shifty.png', './assets/dialogue.json');
+        this.load.atlas('malarkey_neutral', './assets/malarkey_neutral.png', './assets/dialogue.json');
 
         this.load.atlas('ruth_idle', './assets/ruthIdle.png', './assets/ruthIdle.json');
         this.load.atlas('ruth_run', './assets/ruthRun.png', './assets/ruthRun.json');
@@ -98,6 +100,13 @@ class Loading extends Phaser.Scene{
         });
 
         this.anims.create({
+            key: 'ruth_laugh_talk',
+            frames: this.anims.generateFrameNames('ruth_laugh'),
+            frameRate: 8,
+            repeat: -1
+        });
+
+        this.anims.create({
             key: 'malarkey_normal_talk',
             frames: this.anims.generateFrameNames('malarkey_normal'),
             frameRate: 8,
@@ -114,6 +123,13 @@ class Loading extends Phaser.Scene{
         this.anims.create({
             key: 'malarkey_shifty_talk',
             frames: this.anims.generateFrameNames('malarkey_shifty'),
+            frameRate: 8,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'malarkey_neutral_talk',
+            frames: this.anims.generateFrameNames('malarkey_neutral'),
             frameRate: 8,
             repeat: -1
         });

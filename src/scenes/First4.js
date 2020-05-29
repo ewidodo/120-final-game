@@ -63,9 +63,13 @@ class First4 extends Phaser.Scene {
         this.uiCamera = this.cameras.add(0, 0, game.config.width, game.config.height);
         this.uiCamera.setScroll(1500, 1500);
         
-        // this.dialogue = new Dialogue(this, 2012, 1628, 'player', 0, "I'll be square, I don't even know how we got\nhalf the junk we got here.", 25);
-        // this.dialogue1Finished = false;
-        // this.dialogue2Started = false;
+        this.dialogue = new Dialogue(this, 2012, 1564, 'player', 0, "You know, I keep asking myself why I put up\nwith your bushwa...", 25, 13, 3000);
+        this.dialogue1Finished = false;
+        this.dialogue2Started = false;
+        this.dialogue3Started = false;
+        this.dialogue4Started = false;
+        this.dialogue5Started = false;
+        this.dialogue6Started = false;
 
         //music
         if (!bgm_lvl.isPlaying) {
@@ -103,18 +107,83 @@ class First4 extends Phaser.Scene {
         }
 
         //chain dialogues and stuff
-        // if (!this.dialogue1Finished && this.dialogue.finished) {
-        //     this.dialogue1Finished = true;
-        //     this.dialogue2 = new Dialogue(this, 2012, 1628, 'player', 0, "I'd rather not know though. All of this hooey gives me\nthe heebie-jeebies.", 25);
-        //     this.dialogue2Started = true;
-        // }
+        if (!this.dialogue1Finished) {
+            this.dialogue.update();
+            if (this.dialogue.finished) {
+                this.dialogue1Finished = true;
+                this.time.addEvent({
+                    delay: 200,
+                    callback: () => {
+                        this.dialogue2 = new Dialogue(this, 2012, 1564, 'player', 0, "Cuz no one else wanted to work with you\nafter THAT hoot of an incident...", 20, 3, 3000);
+                        this.dialogue2Started = true;
+                    }
+                });
+            }
+        }
 
-        // if (this.dialogue2Started) {
-        //     if(this.dialogue2.finished) {
-        //         this.dialogue2Started = false;
-        //         this.dialogue2 = new Dialogue(this, 2012, 1628, 'player', 0, "But hey, better to keep all of this garbage away\nfrom the streets I suppose...", 25);
-        //     }
-        // }
+        if (this.dialogue2Started) {
+            this.dialogue2.update();
+            if (this.dialogue2.finished) {
+                this.dialogue2Started = false;
+                this.time.addEvent({
+                    delay: 200,
+                    callback: () => {
+                        this.dialogue3 = new Dialogue(this, 2012, 1564, 'player', 0, "Uh...", 10, 14, 1500);
+                        this.dialogue3Started = true;
+                    }
+                });
+            }
+        }
+
+        if (this.dialogue3Started) {
+            this.dialogue3.update();
+            if (this.dialogue3.finished) {
+                this.dialogue3Started = false;
+                this.time.addEvent({
+                    delay: 200,
+                    callback: () => {
+                        this.dialogue4 = new Dialogue(this, 2012, 1564, 'player', 0, "You and Tony were on that box job and you got\nyour pants caught in the safe as you were leaving.", 20, 5, 3000);
+                        this.dialogue4Started = true;
+                    }
+                });
+            }
+        }
+
+        if (this.dialogue4Started) {
+            this.dialogue4.update();
+            if (this.dialogue4.finished) {
+                this.dialogue4Started = false;
+                this.time.addEvent({
+                    delay: 200,
+                    callback: () => {
+                        this.dialogue5 = new Dialogue(this, 2012, 1564, 'player', 0, "Look, can we not talk about this and focus on the job at hand?", 20, 14, 3000);
+                        this.dialogue5Started = true;
+                    }
+                });
+                this.time.addEvent({
+                    delay: 1300,
+                    callback: () => {
+                        this.dialogue5.deleteDialogue();
+                    }
+                });
+            }
+        }
+
+        if (this.dialogue5Started) {
+            this.dialogue5.update();
+            if (this.dialogue5.finished) {
+                this.dialogue5Started = false;
+                this.dialogue6 = new Dialogue(this, 2012, 1564, 'player', 0, "Fat chance! It's too good to pass up on telling it!", 20, 6, 3000);
+                this.dialogue6Started = true;
+            }
+        }
+
+        if (this.dialogue6Started) {
+            this.dialogue6.update();
+            if (this.dialogue6.finished) {
+                this.dialogue6Started = false;
+            }
+        }
     }
 
     resetScene() {

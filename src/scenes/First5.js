@@ -63,9 +63,11 @@ class First5 extends Phaser.Scene {
         this.uiCamera = this.cameras.add(0, 0, game.config.width, game.config.height);
         this.uiCamera.setScroll(1500, 1500);
         
-        this.dialogue = new Dialogue(this, 2012, 1628, 'player', 0, "I'll be square, I don't even know how we got\nhalf the junk we got here.", 25);
+        this.dialogue = new Dialogue(this, 2012, 1564, 'player', 0, "Whoa, what is this room?", 20, 2, 2500);
         this.dialogue1Finished = false;
         this.dialogue2Started = false;
+        this.dialogue3Started = false;
+        this.dialogue4Started = false;
 
         //music
         if (!bgm_lvl.isPlaying) {
@@ -103,16 +105,52 @@ class First5 extends Phaser.Scene {
         }
 
         //chain dialogues and stuff
-        if (!this.dialogue1Finished && this.dialogue.finished) {
-            this.dialogue1Finished = true;
-            this.dialogue2 = new Dialogue(this, 2012, 1628, 'player', 0, "I'd rather not know though. All of this hooey gives me\nthe heebie-jeebies.", 25);
-            this.dialogue2Started = true;
+        if (!this.dialogue1Finished) {
+            this.dialogue.update();
+            if (this.dialogue.finished) {
+                this.dialogue1Finished = true;
+                this.time.addEvent({
+                    delay: 200,
+                    callback: () => {
+                        this.dialogue2 = new Dialogue(this, 2012, 1564, 'player', 0, "Oh, this must be the infamous slimeroom the jobbies\nkeep talking about...", 20, 11, 3000);
+                        this.dialogue2Started = true;
+                    }
+                });
+            }
         }
 
         if (this.dialogue2Started) {
-            if(this.dialogue2.finished) {
+            this.dialogue2.update();
+            if (this.dialogue2.finished) {
                 this.dialogue2Started = false;
-                this.dialogue2 = new Dialogue(this, 2012, 1628, 'player', 0, "But hey, better to keep all of this garbage away\nfrom the streets I suppose...", 25);
+                this.time.addEvent({
+                    delay: 200,
+                    callback: () => {
+                        this.dialogue3 = new Dialogue(this, 2012, 1564, 'player', 0, "Why the hoot would anyone need a room full of top-secret slime?", 20, 2, 3000);
+                        this.dialogue3Started = true;
+                    }
+                });
+            }
+        }
+
+        if (this.dialogue3Started) {
+            this.dialogue3.update();
+            if (this.dialogue3.finished) {
+                this.dialogue3Started = false;
+                this.time.addEvent({
+                    delay: 200,
+                    callback: () => {
+                        this.dialogue4 = new Dialogue(this, 2012, 1564, 'player', 0, "As if anyone would ever spill the reason...", 20, 13, 3000);
+                        this.dialogue4Started = true;
+                    }
+                });
+            }
+        }
+
+        if (this.dialogue4Started) {
+            this.dialogue4.update();
+            if (this.dialogue4.finished) {
+                this.dialogue4Started = false;
             }
         }
     }

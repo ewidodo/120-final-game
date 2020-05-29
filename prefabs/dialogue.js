@@ -33,10 +33,12 @@ class Dialogue extends Phaser.GameObjects.Sprite {
         Ruth annoyed = 3
         Ruth angry = 4
         Ruth smug = 5
+        Ruth laugh = 6
 
         Malarkey regular = 11
         Malarkey closed eyes = 12
         Malarkey shifty = 13
+        Malarkey neutral = 14
         */
 
         if (type == 1) {
@@ -54,6 +56,9 @@ class Dialogue extends Phaser.GameObjects.Sprite {
         if (type == 5) {
             this.who = 'ruth_smug';
         }
+        if (type == 6) {
+            this.who = 'ruth_laugh';
+        }
         if (type == 11) {
             this.who = 'malarkey_normal';
         }
@@ -62,6 +67,9 @@ class Dialogue extends Phaser.GameObjects.Sprite {
         }
         if (type == 13) {
             this.who = 'malarkey_shifty';
+        }
+        if (type == 14) {
+            this.who = 'malarkey_neutral';
         }
 
         this.scene.tweens.add({
