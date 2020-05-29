@@ -29,6 +29,7 @@ class Loading extends Phaser.Scene{
         this.load.audio('speechfont1Completed', './assets/speechfont1Complete.wav');
         this.load.audio('walk1', './assets/walk1.wav');
         this.load.audio('walk2', './assets/walk2.wav');
+        this.load.audio('jump', './assets/jump.wav');
         this.load.audio('thud', './assets/thud.wav');
 
         this.load.audio('bgm_menu', './assets/bgm_menu.mp3');

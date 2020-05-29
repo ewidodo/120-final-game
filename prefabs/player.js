@@ -90,6 +90,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
             if ((Phaser.Input.Keyboard.JustDown(keyW) || Phaser.Input.Keyboard.JustDown(keySPACE)) && !this.isJumping && !this.scene.switching) {
                 this.anims.stop();
                 this.setTexture('ruth_jump', 0);
+                //this.scene.sound.play('jump');
                 this.isJumpingButton = true;
                 this.isFalling = false;
 

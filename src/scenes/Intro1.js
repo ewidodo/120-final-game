@@ -130,7 +130,7 @@ class Intro1 extends Phaser.Scene {
                             },
                 
                         }
-                        this.testText = this.add.text(2012, 1628, "A and D to move\nW / Space to jump", instructionConfig).setOrigin(0.5);
+                        this.testText = this.add.text(2012, 1628, "A and D to move\nW / Space to jump\nEsc to go back to level select", instructionConfig).setOrigin(0.5);
                     }
                 });
             }

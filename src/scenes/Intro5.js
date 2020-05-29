@@ -57,7 +57,11 @@ class Intro5 extends Phaser.Scene {
         this.uiCamera = this.cameras.add(0, 0, game.config.width, game.config.height);
         this.uiCamera.setScroll(1500, 1500);
         
-        this.dialogue = new Dialogue(this, 2012, 2396, 'player', 0, "Hey, how am I supposed to get through this part?", 25);
+        this.dialogue = new Dialogue(this, 2012, 2396, 'player', 0, "Did you know you can press the button while in mid-air?", 25, 11, 3000);
+        this.dialogue1Finished = false;
+        this.dialogue2Started = false;
+        this.dialogue3Started = false;
+        this.dialogue4Started = false;
 
         //music
         if (!bgm_lvl.isPlaying) {
@@ -92,6 +96,56 @@ class Intro5 extends Phaser.Scene {
         //exit level
         if (Phaser.Input.Keyboard.JustDown(keyESC)) {
             this.scene.start("levelSelect");
+        }
+
+        //chain dialogues and stuff
+        if (!this.dialogue1Finished) {
+            this.dialogue.update();
+            if (this.dialogue.finished) {
+                this.dialogue1Finished = true;
+                this.time.addEvent({
+                    delay: 200,
+                    callback: () => {
+                        this.dialogue2 = new Dialogue(this, 2012, 2396, 'player', 0, "...yeah? I know I got my hands up in the air but I am\nstill holding onto the button you know.", 20, 2, 3000);
+                        this.dialogue2Started = true;
+                    }
+                });
+            }
+        }
+
+        if (this.dialogue2Started) {
+            this.dialogue2.update();
+            if (this.dialogue2.finished) {
+                this.dialogue2Started = false;
+                this.time.addEvent({
+                    delay: 200,
+                    callback: () => {
+                        this.dialogue3 = new Dialogue(this, 2012, 2396, 'player', 0, "Nevermind, just... you can land on the walls around corners\nto continue in this part of the warehouse.", 2, 12, 3000);
+                        this.dialogue3Started = true;
+                    }
+                });
+            }
+        }
+
+        if (this.dialogue3Started) {
+            this.dialogue3.update();
+            if (this.dialogue3.finished) {
+                this.dialogue3Started = false;
+                this.time.addEvent({
+                    delay: 200,
+                    callback: () => {
+                        this.dialogue4 = new Dialogue(this, 2012, 2396, 'player', 0, "...palooka.", 2, 3, 2500);
+                        this.dialogue4Started = true;
+                    }
+                });
+            }
+        }
+
+        if (this.dialogue4Started) {
+            this.dialogue4.update();
+            if (this.dialogue4.finished) {
+                this.dialogueStarted = false;
+            }
         }
     }
 
