@@ -4,7 +4,7 @@ class LevelSelect extends Phaser.Scene {
     }
 
     preload() {
-        
+        keyESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
     }
 
     create() {
@@ -150,6 +150,9 @@ class LevelSelect extends Phaser.Scene {
     }
 
     update() {
-
+        //main menu
+        if (Phaser.Input.Keyboard.JustDown(keyESC)) {
+            this.scene.start("menuScene");
+        }
     }
 }

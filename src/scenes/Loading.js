@@ -8,8 +8,12 @@ class Loading extends Phaser.Scene{
         this.load.image('ruth_jump', './assets/ruthJump.png');
         this.load.image('ruth_fall', './assets/ruthFall.png');
         this.load.image('ruth_deth', './assets/ruthDeth.png');
+
         this.load.image('button', './assets/ass.png');
         this.load.image('tiles', './assets/tileSheet.png');
+        this.load.image('menu', './assets/mainMenu.png');
+        this.load.image('new-story', './assets/newStoryButton.png');
+        this.load.image('level-select', './assets/levelSelectButton.png');
 
         //load atlases
         this.load.atlas('ruth_normal', './assets/ruth_normal.png', './assets/dialogue.json');
