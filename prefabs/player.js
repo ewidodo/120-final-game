@@ -111,55 +111,76 @@ class Player extends Phaser.Physics.Arcade.Sprite {
 
         if (this.gravityState == 0) { //bottom
             if (this.body.velocity.y > 0 && !this.isFalling) { //falling
-                this.isFalling = true;
-                this.anims.stop();
-                this.setTexture('ruth_fall', 0);
-                this.body.setSize(32, 64, true);
+                if (!this.scene.gameOver) {
+                    this.isFalling = true;
+                    this.anims.stop();
+                    this.setTexture('ruth_fall', 0);
+                    this.body.setSize(32, 64, true);
+                }
             }
             if ((this.isJumping || this.isFalling) && this.body.blocked.down) {
-                this.unJump();
-                thud.play();
-                this.body.setSize(32, 64, true);
+                if (!this.scene.gameOver) {
+                    this.unJump();
+                    thud.play();
+                    this.body.setSize(32, 64, true);
+                }
             }
         }
         if (this.gravityState == 1) { //right
             if (this.body.velocity.x > 0 && !this.isFalling) { //falling
-                this.isFalling = true;
-                this.anims.stop();
-                this.setTexture('ruth_fall', 0);
-                this.body.setSize(64, 32, true);
+                if (!this.scene.gameOver) {
+                    this.isFalling = true;
+                    this.anims.stop();
+                    this.setTexture('ruth_fall', 0);
+                    this.body.setSize(64, 32, true);
+                }
             }
             if ((this.isJumping || this.isFalling) && this.body.blocked.right) {
-                this.unJump();
-                thud.play();
-                this.body.setSize(64, 32, true);
+                if (!this.scene.gameOver) {
+                    this.unJump();
+                    thud.play();
+                    this.body.setSize(64, 32, true);
+                }
             }
         }
         if (this.gravityState == 2 ) { // top
             if (this.body.velocity.y < 0 && !this.isFalling) { //falling
-                this.isFalling = true;
-                this.anims.stop();
-                this.setTexture('ruth_fall', 0);
-                this.body.setSize(32, 64, true);
+                if (!this.scene.gameOver) {
+                    this.isFalling = true;
+                    this.anims.stop();
+                    this.setTexture('ruth_fall', 0);
+                    this.body.setSize(32, 64, true);
+                }
             }
             if ((this.isJumping || this.isFalling) && this.body.blocked.up) {
-                this.unJump();
-                thud.play();
-                this.body.setSize(32, 64, true);
+                if (!this.scene.gameOver) {
+                    this.unJump();
+                    thud.play();
+                    this.body.setSize(32, 64, true);
+                }
             }
         }
         if (this.gravityState == 3) { //left
             if (this.body.velocity.x < 0 && !this.isFalling) { //falling
-                this.isFalling = true;
-                this.anims.stop();
-                this.setTexture('ruth_fall', 0);
-                this.body.setSize(64, 32, true);
+                if (!this.scene.gameOver) {
+                    this.isFalling = true;
+                    this.anims.stop();
+                    this.setTexture('ruth_fall', 0);
+                    this.body.setSize(64, 32, true);
+                }
             }
             if ((this.isJumping || this.isFalling) && this.body.blocked.left) {
-                this.unJump();
-                thud.play();
-                this.body.setSize(64, 32, true);
+                if (!this.scene.gameOver) {
+                    this.unJump();
+                    thud.play();
+                    this.body.setSize(64, 32, true);
+                }
             }
+        }
+
+        if (this.scene.gameOver) {
+            this.anims.stop();
+            this.setTexture('ruth_deth', 0);
         }
     }
 

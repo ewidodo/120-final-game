@@ -7,6 +7,7 @@ class Loading extends Phaser.Scene{
         //load images
         this.load.image('ruth_jump', './assets/ruthJump.png');
         this.load.image('ruth_fall', './assets/ruthFall.png');
+        this.load.image('ruth_deth', './assets/ruthDeth.png');
         this.load.image('button', './assets/ass.png');
         this.load.image('tiles', './assets/tileSheet.png');
 
@@ -28,7 +29,7 @@ class Loading extends Phaser.Scene{
         //load audio
         this.load.audio('sfx_button', './assets/button.wav');
         this.load.audio('sfx_switch', './assets/switch.wav');
-        this.load.audio('sfx_death', './assets/explosion38.wav');
+        this.load.audio('sfx_death', './assets/deth.wav');
         this.load.audio('speechfont1', './assets/speechfont1.wav');
         this.load.audio('speechfont1Completed', './assets/speechfont1Complete.wav');
         this.load.audio('walk1', './assets/walk1.wav');
