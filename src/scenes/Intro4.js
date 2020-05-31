@@ -62,10 +62,11 @@ class Intro4 extends Phaser.Scene {
         this.uiCamera = this.cameras.add(0, 0, game.config.width, game.config.height);
         this.uiCamera.setScroll(1500, 1500);
 
-        this.dialogue = new Dialogue(this, 2012, 2460, 'player', 0, "I kinda wish you'd warn me about these kinds of things\nin advance, that was quite the shock.", 20, 3, 3000);
+        this.dialogue = new Dialogue(this, 2012, 2460, 'player', 0, "So why would the warehouse need a button like this?", 20, 2, 3000);
         this.dialogue1Finished = false;
         this.dialogue2Started = false;
         this.dialogue3Started = false;
+        this.dialogue4Started = false;
 
         //music
         if (!bgm_lvl.isPlaying) {
@@ -110,7 +111,7 @@ class Intro4 extends Phaser.Scene {
                 this.time.addEvent({
                     delay: 200,
                     callback: () => {
-                        this.dialogue2 = new Dialogue(this, 2012, 2460, 'player', 0, "Hrmph, if you listened to all my briefings\nyou would know all about the onions of this place.", 20, 12, 3000);
+                        this.dialogue2 = new Dialogue(this, 2012, 2460, 'player', 0, "You'll see soon enough that things get...\nreally dicey around here.", 20, 13, 3000);
                         this.dialogue2Started = true;
                     }
                 });
@@ -124,7 +125,7 @@ class Intro4 extends Phaser.Scene {
                 this.time.addEvent({
                     delay: 200,
                     callback: () => {
-                        this.dialogue3 = new Dialogue(this, 2012, 2460, 'player', 0, "...", 2, 1, 2000);
+                        this.dialogue3 = new Dialogue(this, 2012, 2460, 'player', 0, "...but why is it dicey?", 20, 3, 2000);
                         this.dialogue3Started = true;
                     }
                 });
@@ -135,6 +136,20 @@ class Intro4 extends Phaser.Scene {
             this.dialogue3.update();
             if (this.dialogue3.finished) {
                 this.dialogue3Started = false;
+                this.time.addEvent({
+                    delay: 200,
+                    callback: () => {
+                        this.dialogue4 = new Dialogue(this, 2012, 2460, 'player', 0, "I don't think anyone in this warehouse has a clue\nto be honest.", 20, 11, 3000);
+                        this.dialogue4Started = true;
+                    }
+                });
+            }
+        }
+
+        if (this.dialogue4Started) {
+            this.dialogue4.update();
+            if (this.dialogue4.finished) {
+                this.dialogue4Started = false;
             }
         }
     }

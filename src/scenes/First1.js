@@ -63,7 +63,7 @@ class First1 extends Phaser.Scene {
         this.uiCamera = this.cameras.add(0, 0, game.config.width, game.config.height);
         this.uiCamera.setScroll(1500, 1500);
 
-        this.dialogue = new Dialogue(this, 2012, 2460, 'player', 0, "Alright gal, first object on the shopping list is gonna be\nthe laughing owl.", 25, 11, 3000);
+        this.dialogue = new Dialogue(this, 2012, 2460, 'player', 0, "Alright gal, first item on the shopping list is gonna be\nthe laughing owl.", 25, 11, 3000);
         this.dialogue1Finished = false;
         this.dialogue2Started = false;
         this.dialogue3Started = false;
@@ -127,7 +127,7 @@ class First1 extends Phaser.Scene {
                 this.time.addEvent({
                     delay: 200,
                     callback: () => {
-                        this.dialogue3 = new Dialogue(this, 2012, 2460, 'player', 0, "Apparently not. Anyways, this bird causes things to float\nwhen stressed, including all those boxes you see.", 20, 11, 3000);
+                        this.dialogue3 = new Dialogue(this, 2012, 2460, 'player', 0, "Apparently not. Its mere existence has caught the\nattention of the big cheese.", 20, 11, 3000);
                         this.dialogue3Started = true;
                     }
                 });
@@ -141,7 +141,7 @@ class First1 extends Phaser.Scene {
                 this.time.addEvent({
                     delay: 200,
                     callback: () => {
-                        this.dialogue4 = new Dialogue(this, 2012, 2460, 'player', 0, "The big cheese has his eyes on it for quote unquote\n\"reasons\" he won't share.", 20, 13, 3000);
+                        this.dialogue4 = new Dialogue(this, 2012, 2460, 'player', 0, "He has his eyes on it for quote unquote\n\"reasons\" he won't share.", 20, 13, 3000);
                         this.dialogue4Started = true;
                     }
                 });

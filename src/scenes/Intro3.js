@@ -151,7 +151,7 @@ class Intro3 extends Phaser.Scene {
                 this.time.addEvent({
                     delay: 200,
                     callback: () => {
-                        this.dialogue3 = new Dialogue(this, 2012, 1564, 'player', 0, "That button switches the gravity of the room you're in.\nShould've said that earlier, but we gotta breeze through.", 25, 11, 3000);
+                        this.dialogue3 = new Dialogue(this, 2012, 1564, 'player', 0, "That button switches the gravity you feel. It’s how\nthe jobbies get around here. Now, let’s get a move on.", 25, 11, 3000);
                         this.dialogue3Started = true;
                     }
                 });

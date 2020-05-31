@@ -60,6 +60,8 @@ class Intro2 extends Phaser.Scene {
         this.dialogue = new Dialogue(this, 2012, 2460, 'player', 0, "Hey, what's all this red gunk on the floor?", 20, 2, 3000);
         this.dialogue1Finished = false;
         this.dialogue2Started = false;
+        this.dialogue3Started = false;
+        this.dialogue4Started = false;
 
         //music
         if (!bgm_lvl.isPlaying) {
@@ -92,7 +94,7 @@ class Intro2 extends Phaser.Scene {
                 this.time.addEvent({
                     delay: 200,
                     callback: () => {
-                        this.dialogue2 = new Dialogue(this, 2012, 2460, 'player', 0, "Some sorta top secret slime...\nit does a whole lotta baloney, so watch your pins.", 20, 11, 2500);
+                        this.dialogue2 = new Dialogue(this, 2012, 2460, 'player', 0, "That’s part of the security here. It’s some classified slime\nthat does horrid nasty stuff if you touch it.", 20, 11, 2500);
                         this.dialogue2Started = true;
                     }
                 });
@@ -103,6 +105,34 @@ class Intro2 extends Phaser.Scene {
             this.dialogue2.update();
             if (this.dialogue2.finished) {
                 this.dialogue2Started = false;
+                this.time.addEvent({
+                    delay: 200,
+                    callback: () => {
+                        this.dialogue3 = new Dialogue(this, 2012, 2460, 'player', 0, "Do they not have coppers around or something?", 20, 2, 3000);
+                        this.dialogue3Started = true;
+                    }
+                });
+            }
+        }
+
+        if (this.dialogue3Started) {
+            this.dialogue3.update();
+            if (this.dialogue3.finished) {
+                this.dialogue3Started = false;
+                this.time.addEvent({
+                    delay: 200,
+                    callback: () => {
+                        this.dialogue4 = new Dialogue(this, 2012, 2460, 'player', 0, "No need for them really, no one outside really knows what\nthe slime is, so they end up touching it, and KAPLOOEY!", 20, 11, 3000);
+                        this.dialogue4Started = true;
+                    }
+                });
+            }
+        }
+
+        if (this.dialogue4Started) {
+            this.dialogue4.update();
+            if (this.dialogue4.finished) {
+                this.dialogue4Started = false;
             }
         }
     }
