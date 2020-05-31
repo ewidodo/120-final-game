@@ -26,13 +26,10 @@ class Menu extends Phaser.Scene {
 
         this.levelSelect.setInteractive({useHandCursor: true})
         .on('pointerdown', () => { this.scene.start("levelSelect"); } )
-        .on('pointerover', () => { this.levelSelect.setScale(1.1,1.1); } ) 
+        .on('pointerover', () => { this.levelSelect.setScale(1.05,1.05); } ) 
         .on('pointerout', ()  => { this.levelSelect.setScale(1,1); } );
 
-        // this.newStory.setInteractive({useHandCursor: true}).on('pointerover', () => {
-        //     this.newOver = true;
-        //     this.newStory.setScale(1.1,1.1);
-        // });
+       
     }
 
     update() {
