@@ -20,7 +20,7 @@ class Menu extends Phaser.Scene {
         }
         this.newStory.setInteractive({useHandCursor: true})
         .on('pointerdown', () => { this.scene.start("intro1"); } )
-        .on('pointerover', () => { this.newStory.setScale(1.1,1.1); } ) 
+        .on('pointerover', () => { this.newStory.setScale(1.05,1.05); } ) 
         .on('pointerout', ()  => { this.newStory.setScale(1,1); } );
 
 
