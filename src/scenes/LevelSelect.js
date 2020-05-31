@@ -5,7 +5,7 @@ class LevelSelect extends Phaser.Scene {
 
     preload() {
         keyESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
-        this.load.image('bg', './assets/LevelSelect.png');
+        this.load.image('bg', './assets/levelSelect.png');
     }
 
     create() {
