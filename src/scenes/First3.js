@@ -146,6 +146,9 @@ class First3 extends Phaser.Scene {
     }
 
     nextLevel() {
+        this.dialogue1Finished = true;
+        this.dialogue2Started = false;
+        this.dialogue3Started = false;
         if (lastLevelCompleted < 8) {
             lastLevelCompleted = 8;
             localStorage.setItem('progress', lastLevelCompleted);

@@ -159,6 +159,10 @@ class Intro5 extends Phaser.Scene {
     }
 
     nextLevel() {
+        this.dialogue1Finished = true;
+        this.dialogue2Started = false;
+        this.dialogue3Started = false;
+        this.dialogue4Started = false;
         if (lastLevelCompleted < 5) {
             lastLevelCompleted = 5;
             localStorage.setItem('progress', lastLevelCompleted);

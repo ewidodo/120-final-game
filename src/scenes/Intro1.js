@@ -147,6 +147,11 @@ class Intro1 extends Phaser.Scene {
     }
 
     nextLevel() {
+        this.dialogue1Finished = true;
+        this.dialogue2Finished = true;
+        this.dialogue2Started = false;
+        this.dialogue3Started = false;
+        this.dialogue3Finished = true;
         if (lastLevelCompleted < 1) {
             lastLevelCompleted = 1;
             localStorage.setItem('progress', lastLevelCompleted);

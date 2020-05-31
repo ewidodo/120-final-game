@@ -66,6 +66,8 @@ class First6 extends Phaser.Scene {
         this.dialogue = new Dialogue(this, 2012, 1564, 'player', 0, "Uh, when are we going to get to the owl? Feels like\nI've been circling for a while now...", 20, 3, 3000);
         this.dialogue1Finished = false;
         this.dialogue2Started = false;
+        this.dialogue3Started = false;
+        this.dialogue4Started = false;
 
         //music
         if (!bgm_lvl.isPlaying) {
@@ -158,6 +160,10 @@ class First6 extends Phaser.Scene {
     }
 
     nextLevel() {
+        this.dialogue1Finished = true;
+        this.dialogue2Started = false;
+        this.dialogue3Started = false;
+        this.dialogue4Started = false;
         if (lastLevelCompleted < 8) {
             lastLevelCompleted = 8;
             localStorage.setItem('progress', lastLevelCompleted);
