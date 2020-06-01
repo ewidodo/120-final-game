@@ -18,6 +18,8 @@ class Menu extends Phaser.Scene {
         if (!bgm_menu.isPlaying) {
             bgm_menu.play();
         }
+
+        //sets the menu buttons to have hover effect and switch scenes when clicked
         this.newStory.setInteractive({useHandCursor: true})
         .on('pointerdown', () => { this.scene.start("intro1"); } )
         .on('pointerover', () => { this.newStory.setScale(1.05,1.05); } ) 

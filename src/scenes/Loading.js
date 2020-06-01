@@ -9,7 +9,7 @@ class Loading extends Phaser.Scene{
         this.load.image('ruth_fall', './assets/ruthFall.png');
         this.load.image('ruth_deth', './assets/ruthDeth.png');
 
-        this.load.image('button', './assets/ass.png');
+        this.load.image('button', './assets/button.png');
         this.load.image('tiles', './assets/tileSheet.png');
         this.load.image('menu', './assets/mainMenu.png');
         this.load.image('new-story', './assets/newStoryButton.png');
