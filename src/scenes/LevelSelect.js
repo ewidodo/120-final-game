@@ -6,10 +6,12 @@ class LevelSelect extends Phaser.Scene {
     preload() {
         keyESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
         this.load.image('bg', './assets/levelSelect.png');
+        this.load.image('lstext', './assets/lstext.png');
     }
 
     create() {
         this.bg  = this.add.image( 0, 0,'bg').setOrigin(0,0);
+        this.lstext = this.add.image(game.config.width/2, 128, 'lstext').setOrigin(0.5);
         //change music to menu music
         if (bgm_lvl.isPlaying) {
             bgm_lvl.stop();
