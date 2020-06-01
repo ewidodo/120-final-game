@@ -139,6 +139,8 @@ class Intro1 extends Phaser.Scene {
                         }
                         this.outline = this.add.rectangle(2012, 1628, 328, 120, 0x00000).setOrigin(0.5);
                         this.box = this.add.rectangle(2012, 1628, 320, 112, 0xFFFFFF).setOrigin(0.5);
+                        this.outline.alpha = 0.45;
+                        this.box.alpha = 0.55;
                         this.testText = this.add.text(2012, 1628, "A and D to move\nW / Space to jump\nEsc to go back to level select", instructionConfig).setOrigin(0.5);
                     }
                 });

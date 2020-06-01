@@ -180,8 +180,8 @@ class Intro3 extends Phaser.Scene {
                 }
             });     
         } else {
-            this.outline.setAlpha(1);
-            this.box.setAlpha(1);
+            this.outline.setAlpha(0.45);
+            this.box.setAlpha(0.55);
             this.testText.setText("Q or ← to rotate left\nE or → to rotate right");
             this.canSwitch = true;
         }
