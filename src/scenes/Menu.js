@@ -28,13 +28,43 @@ class Menu extends Phaser.Scene {
 
         //sets the menu buttons to have hover effect and switch scenes when clicked
         this.newStory.setInteractive({useHandCursor: true})
-        .on('pointerdown', () => { this.scene.start("intro"); } )
+        .on('pointerdown', () => {  
+            this.time.addEvent({
+            delay: 0,
+            callback: () => {
+                this.cameras.main.fadeOut(400, 0, 0, 0);
+                this.cameras.main.on('camerafadeoutcomplete', () => {
+                    this.time.addEvent({
+                        delay: 400,
+                        callback: () => {
+                            this.scene.start("intro");
+                        }
+                    })
+                });
+            }
+            });
+        })
         .on('pointerover', () => { this.newStory.setScale(1.05,1.05); } ) 
         .on('pointerout', ()  => { this.newStory.setScale(1,1); } );
 
 
         this.levelSelect.setInteractive({useHandCursor: true})
-        .on('pointerdown', () => { this.scene.start("levelSelect"); } )
+        .on('pointerdown', () => {
+            this.time.addEvent({
+                delay: 0,
+                callback: () => {
+                    this.cameras.main.fadeOut(400, 0, 0, 0);
+                    this.cameras.main.on('camerafadeoutcomplete', () => {
+                        this.time.addEvent({
+                            delay: 400,
+                            callback: () => {
+                                this.scene.start("levelSelect");
+                            }
+                        })
+                    });
+                }
+                });
+        })
         .on('pointerover', () => { this.levelSelect.setScale(1.05,1.05); } ) 
         .on('pointerout', ()  => { this.levelSelect.setScale(1,1); } );
 

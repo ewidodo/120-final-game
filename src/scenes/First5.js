@@ -5,6 +5,7 @@ class First5 extends Phaser.Scene {
     }
 
     create() {
+        this.cameras.main.fadeIn(650, 0, 0, 0);
         this.mapConfig = {
             key: 'first5',
             tileWidth: 64,
@@ -35,6 +36,7 @@ class First5 extends Phaser.Scene {
         this.player = new Player(this, spawnX, spawnY, 'player', 0);
         this.player.setSize(32, 64, true);
         this.gameOver = false;
+        this.door = false;
 
         //physics
         this.physics.add.collider(this.player, this.layer);
@@ -101,7 +103,7 @@ class First5 extends Phaser.Scene {
 
         //exit level
         if (Phaser.Input.Keyboard.JustDown(keyESC)) {
-            this.scene.start("levelSelect");
+            this.transition("levelSelect");
         }
 
         //chain dialogues and stuff
@@ -168,6 +170,30 @@ class First5 extends Phaser.Scene {
             lastLevelCompleted = 10;
             localStorage.setItem('progress', lastLevelCompleted);
         }
-        this.scene.start("first6");
+
+        if(this.door == false){
+            this.transition("first6");
+        }
+        
+        this.door = true;
+    }
+
+
+    
+    transition(sceneString) {
+        this.time.addEvent({
+            delay: 0,
+            callback: () => {
+                this.cameras.main.fadeOut(400, 0, 0, 0);
+                this.cameras.main.on('camerafadeoutcomplete', () => {
+                    this.time.addEvent({
+                        delay: 400,
+                        callback: () => {
+                            this.scene.start(sceneString);
+                        }
+                    })
+                });
+            }
+        });
     }
 }

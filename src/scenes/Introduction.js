@@ -4,6 +4,7 @@ class Introduction extends Phaser.Scene {
     }
 
     create() {
+        this.cameras.main.fadeIn(650, 0, 0, 0);
         this.cameras.main.setBackgroundColor("#555555");
 
         this.ruth = this.add.sprite(game.config.width / 3, game.config.height / 2, 'ruth_idle').setOrigin(0.5).setScale(2);
@@ -136,9 +137,17 @@ class Introduction extends Phaser.Scene {
 
     transition() {
         this.time.addEvent({
-            delay: 1000,
+            delay: 0,
             callback: () => {
-                this.scene.start('intro1');
+                this.cameras.main.fadeOut(400, 0, 0, 0);
+                this.cameras.main.on('camerafadeoutcomplete', () => {
+                    this.time.addEvent({
+                        delay: 400,
+                        callback: () => {
+                            this.scene.start("intro1");
+                        }
+                    })
+                });
             }
         });
     }

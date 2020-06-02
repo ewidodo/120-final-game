@@ -5,6 +5,7 @@ class Intro2 extends Phaser.Scene {
     }
 
     create() {
+        this.cameras.main.fadeIn(650, 0, 0, 0);
         this.mapConfig = {
             key: 'introObst',
             tileWidth: 64,
@@ -28,7 +29,7 @@ class Intro2 extends Phaser.Scene {
         this.map.setTileIndexCallback(
             [16, 17, 26, 27],
             this.nextLevel, this);
-
+        
         //keyboard input
         keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
@@ -42,7 +43,7 @@ class Intro2 extends Phaser.Scene {
         this.player = new Player(this, spawnX, spawnY, 'player', 0);
         this.player.setSize(32, 64);
         this.gameOver = false;
-
+        this.door = false;
         //physics
         this.physics.add.collider(this.player, this.layer);
 
@@ -83,7 +84,7 @@ class Intro2 extends Phaser.Scene {
 
         //exit level
         if (Phaser.Input.Keyboard.JustDown(keyESC)) {
-            this.scene.start("levelSelect");
+            this.transition("levelSelect");
         }
 
         //chain dialogues and stuff
@@ -174,6 +175,29 @@ class Intro2 extends Phaser.Scene {
             lastLevelCompleted = 2;
             localStorage.setItem('progress', lastLevelCompleted);
         }
-        this.scene.start("intro3");
+        if(this.door == false){
+            this.transition("intro3"); 
+        }
+        
+        this.door = true;
+        
+    }
+
+    
+    transition(sceneString) {
+        this.time.addEvent({
+            delay: 0,
+            callback: () => {
+                this.cameras.main.fadeOut(400, 0, 0, 0);
+                this.cameras.main.on('camerafadeoutcomplete', () => {
+                    this.time.addEvent({
+                        delay: 400,
+                        callback: () => {
+                            this.scene.start(sceneString);
+                        }
+                    })
+                });
+            }
+        });
     }
 }

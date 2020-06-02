@@ -8,6 +8,7 @@ class LevelSelect extends Phaser.Scene {
     }
 
     create() {
+        this.cameras.main.fadeIn(650, 0, 0, 0);
         this.bg  = this.add.image( 0, 0,'bg').setOrigin(0,0);
         this.lstext = this.add.image(game.config.width/2, 128, 'lstext').setOrigin(0.5);
         this.exit = this.add.image(game.config.width/2, game.config.height - 96, 'exit').setOrigin(0.5);
@@ -59,13 +60,13 @@ class LevelSelect extends Phaser.Scene {
         
         this.level1Text = this.add.text(192, 192, "1", unlockedConfig).setOrigin(0, 0);
         this.level1.setInteractive({useHandCursor: true}).on('pointerdown', () => {
-            this.scene.start("intro1");
+            this.transition("intro1");
         });
 
         if(lastLevelCompleted  >= 1){
             this.level2Text = this.add.text(384, 192, "2", unlockedConfig).setOrigin(0, 0);
              this.level2.setInteractive({useHandCursor: true}).on('pointerdown', () => {
-            this.scene.start("intro2");
+                this.transition("intro2");
             });
         } else {
             this.level2Text = this.add.text(384, 192, "2", lockedConfig).setOrigin(0, 0);
@@ -74,7 +75,7 @@ class LevelSelect extends Phaser.Scene {
         if(lastLevelCompleted  >= 2){
             this.level3Text = this.add.text(576, 192, "3", unlockedConfig).setOrigin(0, 0);
             this.level3.setInteractive({useHandCursor: true}).on('pointerdown', () => {
-                this.scene.start("intro3");
+                this.transition("intro3");
             });
         } else {
             this.level3Text = this.add.text(576, 192, "3", lockedConfig).setOrigin(0, 0);
@@ -83,7 +84,7 @@ class LevelSelect extends Phaser.Scene {
         if(lastLevelCompleted  >= 3){
             this.level4Text = this.add.text(768, 192, "4", unlockedConfig).setOrigin(0, 0);
             this.level4.setInteractive({useHandCursor: true}).on('pointerdown', () => {
-                this.scene.start("intro4");
+                this.transition("intro4");
             });
         } else {
             this.level4Text = this.add.text(768, 192, "4", lockedConfig).setOrigin(0, 0);
@@ -92,7 +93,7 @@ class LevelSelect extends Phaser.Scene {
         if(lastLevelCompleted  >= 4){
             this.level5Text = this.add.text(192, 384, "5", unlockedConfig).setOrigin(0, 0);
             this.level5.setInteractive({useHandCursor: true}).on('pointerdown', () => {
-                this.scene.start("intro5");
+                this.transition("intro5");
             });
         } else {
             this.level5Text = this.add.text(192, 384, "5", lockedConfig).setOrigin(0, 0);
@@ -101,7 +102,7 @@ class LevelSelect extends Phaser.Scene {
         if(lastLevelCompleted  >= 5){
             this.level6Text = this.add.text(384, 384, "6", unlockedConfig).setOrigin(0, 0);
             this.level6.setInteractive({useHandCursor: true}).on('pointerdown', () => {
-                this.scene.start("first1");
+                this.transition("first1");
             });
         } else {
             this.level6Text = this.add.text(384, 384, "6", lockedConfig).setOrigin(0, 0);
@@ -110,7 +111,7 @@ class LevelSelect extends Phaser.Scene {
         if(lastLevelCompleted  >= 6){
             this.level7Text = this.add.text(576, 384, "7", unlockedConfig).setOrigin(0, 0);
             this.level7.setInteractive({useHandCursor: true}).on('pointerdown', () => {
-                this.scene.start("first2");
+                this.transition("first2");
             });
         } else {
             this.level7Text = this.add.text(576, 384, "7", lockedConfig).setOrigin(0, 0);
@@ -119,7 +120,7 @@ class LevelSelect extends Phaser.Scene {
         if(lastLevelCompleted  >= 7){
             this.level8Text = this.add.text(768, 384, "8", unlockedConfig).setOrigin(0, 0);
             this.level8.setInteractive({useHandCursor: true}).on('pointerdown', () => {
-                this.scene.start("first3");
+                this.transition("first3");
             });
         } else {
             this.level8Text = this.add.text(768, 384, "8", lockedConfig).setOrigin(0, 0);
@@ -128,7 +129,7 @@ class LevelSelect extends Phaser.Scene {
         if(lastLevelCompleted  >= 8){
             this.level9Text = this.add.text(192, 576, "9", unlockedConfig).setOrigin(0, 0);
             this.level9.setInteractive({useHandCursor: true}).on('pointerdown', () => {
-                this.scene.start("first4");
+                this.transition("first4");
             });
         } else {
             this.level9Text = this.add.text(192, 576, "9", lockedConfig).setOrigin(0, 0);
@@ -137,7 +138,7 @@ class LevelSelect extends Phaser.Scene {
         if(lastLevelCompleted  >= 9){
             this.level10Text = this.add.text(378, 576, "10", unlockedConfig).setOrigin(0, 0);
             this.level10.setInteractive({useHandCursor: true}).on('pointerdown', () => {
-                this.scene.start("first5");
+                this.transition("first5");
             });
         } else {
             this.level10Text = this.add.text(378, 576, "10", lockedConfig).setOrigin(0, 0);
@@ -146,7 +147,7 @@ class LevelSelect extends Phaser.Scene {
         if(lastLevelCompleted  >= 10){
             this.level11Text = this.add.text(570, 576, "11", unlockedConfig).setOrigin(0, 0);
             this.level11.setInteractive({useHandCursor: true}).on('pointerdown', () => {
-                this.scene.start("first6");
+                this.transition("first6");
             });
         } else {
             this.level11Text = this.add.text(570, 576, "11", lockedConfig).setOrigin(0, 0);
@@ -155,7 +156,7 @@ class LevelSelect extends Phaser.Scene {
         if(lastLevelCompleted  >= 11){
             this.level12Text = this.add.text(762, 576, "12", unlockedConfig).setOrigin(0, 0);
             this.level12.setInteractive({useHandCursor: true}).on('pointerdown', () => {
-                this.scene.start("first6");
+                this.transition("first6");
             });
         } else {
             this.level12Text = this.add.text(762, 576, "12", lockedConfig).setOrigin(0, 0);
@@ -165,7 +166,27 @@ class LevelSelect extends Phaser.Scene {
     update() {
         //main menu
         if (Phaser.Input.Keyboard.JustDown(keyESC)) {
-            this.scene.start("menuScene");
+            this.transition("menuScene")
+           
         }
     }
+
+
+    transition(sceneString) {
+        this.time.addEvent({
+            delay: 0,
+            callback: () => {
+                this.cameras.main.fadeOut(400, 0, 0, 0);
+                this.cameras.main.on('camerafadeoutcomplete', () => {
+                    this.time.addEvent({
+                        delay: 400,
+                        callback: () => {
+                            this.scene.start(sceneString);
+                        }
+                    })
+                });
+            }
+        });
+    }
+    
 }

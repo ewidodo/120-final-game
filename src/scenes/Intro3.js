@@ -5,6 +5,7 @@ class Intro3 extends Phaser.Scene {
     }
 
     create() {
+        this.cameras.main.fadeIn(650, 0, 0, 0);
         this.mapConfig = {
             key: 'introButton',
             tileWidth: 64,
@@ -28,7 +29,8 @@ class Intro3 extends Phaser.Scene {
         this.map.setTileIndexCallback(
             [16, 17, 26, 27],
             this.nextLevel, this);
-
+        this.gameOver = false;
+        this.door = false;
         //keyboard input
         keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
@@ -133,7 +135,7 @@ class Intro3 extends Phaser.Scene {
 
         //exit level
         if (Phaser.Input.Keyboard.JustDown(keyESC)) {
-            this.scene.start("levelSelect");
+            this.transition("levelSelect");
         }
 
         //chain dialogues and stuff
@@ -203,6 +205,30 @@ class Intro3 extends Phaser.Scene {
             lastLevelCompleted = 3;
             localStorage.setItem('progress', lastLevelCompleted);
         }
-        this.scene.start("intro4");
+        
+        if(this.door == false){
+            this.transition("intro4");
+        }
+        
+        this.door = true;
+    }
+
+
+    
+    transition(sceneString) {
+        this.time.addEvent({
+            delay: 0,
+            callback: () => {
+                this.cameras.main.fadeOut(400, 0, 0, 0);
+                this.cameras.main.on('camerafadeoutcomplete', () => {
+                    this.time.addEvent({
+                        delay: 400,
+                        callback: () => {
+                            this.scene.start(sceneString);
+                        }
+                    })
+                });
+            }
+        });
     }
 }

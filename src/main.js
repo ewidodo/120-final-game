@@ -2,7 +2,8 @@ let config = {
     type: Phaser.CANVAS,
     width: 1024,
     height: 1024,
-    pixelArt: true,
+    //pixelArt: true,
+    //antialias: false,
     scale: {
         //mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH
