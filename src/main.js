@@ -2,6 +2,7 @@ let config = {
     type: Phaser.CANVAS,
     width: 1024,
     height: 1024,
+    pixelArt: true,
     scale: {
         //mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH
@@ -26,7 +27,7 @@ let config = {
         target: 60,
         forceSetTimeOut: true
     },
-    scene: [Loading, Menu, LevelSelect, Intro1, Intro2, Intro3, Intro4, Intro5, First1, First2, First3, First4, First5, First6],
+    scene: [Loading, Menu, LevelSelect, Introduction, Intro1, Intro2, Intro3, Intro4, Intro5, First1, First2, First3, First4, First5, First6],
 };
 
 let game = new Phaser.Game(config);

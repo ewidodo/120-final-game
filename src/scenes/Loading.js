@@ -160,6 +160,13 @@ class Loading extends Phaser.Scene{
             repeat: -1
         });
 
+        this.anims.create({
+            key: 'm_idle',
+            frames: this.anims.generateFrameNames('malarkey'),
+            frameRate: 12,
+            repeat: -1
+        });
+
         this.ruth = this.add.sprite(game.config.width / 2, game.config.height / 2, 'ruth_idle').setOrigin(0.5).setScale(2);
         this.ruth.anims.play('r_idle');
 

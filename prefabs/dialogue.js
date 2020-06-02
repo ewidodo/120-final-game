@@ -19,7 +19,7 @@ class Dialogue extends Phaser.GameObjects.Sprite {
         this.box = this.scene.add.rectangle(x, y, 760, 88, 0xFFFFFF).setOrigin(0.5).setScale(0);
         this.outline.alpha = 0.45
         this.box.alpha = 0.55;
-        if (y == 1628) { //1 -> top of screen, 2 -> bottom of screen
+        if (y == 1564 || (y == 64 || y == 96)) { //1 -> top of screen, 2 -> bottom of screen
             this.state = 1;
         } else {
             this.state = 2;
