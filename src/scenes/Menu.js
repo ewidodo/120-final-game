@@ -4,20 +4,27 @@ class Menu extends Phaser.Scene {
     }
 
     preload() {
+
         this.menuBG = this.add.image(0, 0, 'menu').setOrigin(0, 0);
         this.newStory = this.add.image(80, 512, 'new-story').setOrigin(0, 0);
         this.levelSelect = this.add.image(game.config.width - 318, 512, 'level-select').setOrigin(0, 0);
     }
 
     create() {
+        this.cameras.main.fadeIn(650, 0, 0, 0);
         this.newOver = false;
 
-        if (bgm_lvl.isPlaying) {
-            bgm_lvl.stop();
-        }
-        if (!bgm_menu.isPlaying) {
-            bgm_menu.play();
-        }
+        this.time.addEvent({
+            delay: 400,
+            callback: () => {
+                if (bgm_lvl.isPlaying) {
+                    bgm_lvl.stop();
+                }
+                if (!bgm_menu.isPlaying) {
+                    bgm_menu.play();
+                }
+            }
+        });
 
         //sets the menu buttons to have hover effect and switch scenes when clicked
         this.newStory.setInteractive({useHandCursor: true})

@@ -4,6 +4,8 @@ class Loading extends Phaser.Scene{
     }
 
     preload() {
+        this.cameras.main.setBackgroundColor("#555555");
+
         //load images
         this.load.image('ruth_jump', './assets/ruthJump.png');
         this.load.image('ruth_fall', './assets/ruthFall.png');
@@ -14,6 +16,10 @@ class Loading extends Phaser.Scene{
         this.load.image('menu', './assets/mainMenu.png');
         this.load.image('new-story', './assets/newStoryButton.png');
         this.load.image('level-select', './assets/levelSelectButton.png');
+        this.load.image('bg', './assets/levelSelect.png');
+        this.load.image('lstext', './assets/lstext.png');
+        this.load.image('door', './assets/door.png');
+        this.load.image('exit', './assets/exitInstruc.png');
 
         //load atlases
         this.load.atlas('ruth_normal', './assets/ruth_normal.png', './assets/dialogue.json');
@@ -29,6 +35,7 @@ class Loading extends Phaser.Scene{
 
         this.load.atlas('ruth_idle', './assets/ruthIdle.png', './assets/ruthIdle.json');
         this.load.atlas('ruth_run', './assets/ruthRun.png', './assets/ruthRun.json');
+        this.load.atlas('malarkey', './assets/MrMalarkey.png', './assets/MrMalarkey.json');
 
         //load audio
         this.load.audio('sfx_button', './assets/button.wav');
@@ -153,8 +160,23 @@ class Loading extends Phaser.Scene{
             repeat: -1
         });
 
-        console.log(this.anims.get('r_run'));
+        this.ruth = this.add.sprite(game.config.width / 2, game.config.height / 2, 'ruth_idle').setOrigin(0.5).setScale(2);
+        this.ruth.anims.play('r_idle');
+
         //done loading
-        this.scene.start("menuScene");
+        this.time.addEvent({
+            delay: 2000,
+            callback: () => {
+                this.cameras.main.fadeOut(400, 0, 0, 0);
+                this.cameras.main.on('camerafadeoutcomplete', () => {
+                    this.time.addEvent({
+                        delay: 400,
+                        callback: () => {
+                            this.scene.start('menuScene');
+                        }
+                    })
+                });
+            }
+        });
     }
 }
