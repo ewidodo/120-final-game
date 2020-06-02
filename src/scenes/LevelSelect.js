@@ -7,11 +7,14 @@ class LevelSelect extends Phaser.Scene {
         keyESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
         this.load.image('bg', './assets/levelSelect.png');
         this.load.image('lstext', './assets/lstext.png');
+        this.load.image('door', './assets/door.png');
+        this.load.image('exit', './assets/exitInstruc.png');
     }
 
     create() {
         this.bg  = this.add.image( 0, 0,'bg').setOrigin(0,0);
         this.lstext = this.add.image(game.config.width/2, 128, 'lstext').setOrigin(0.5);
+        this.exit = this.add.image(game.config.width/2, game.config.height - 96, 'exit').setOrigin(0.5);
         //change music to menu music
         if (bgm_lvl.isPlaying) {
             bgm_lvl.stop();
@@ -45,18 +48,18 @@ class LevelSelect extends Phaser.Scene {
             },
         };
 
-        this.level1 = this.add.rectangle(192, 192, 64, 64).setOrigin(0,0);
-        this.level2 = this.add.rectangle(384, 192, 64, 64).setOrigin(0,0);
-        this.level3 = this.add.rectangle(576, 192, 64, 64).setOrigin(0,0);
-        this.level4 = this.add.rectangle(768, 192, 64, 64).setOrigin(0,0);
-        this.level5 = this.add.rectangle(192, 384, 64, 64).setOrigin(0,0);
-        this.level6 = this.add.rectangle(384, 384, 64, 64).setOrigin(0,0);
-        this.level7 = this.add.rectangle(576, 384, 64, 64).setOrigin(0,0);
-        this.level8 = this.add.rectangle(768, 384, 64, 64).setOrigin(0,0);
-        this.level9 = this.add.rectangle(192, 576, 64, 64).setOrigin(0,0);
-        this.level10 = this.add.rectangle(384, 576, 64, 64).setOrigin(0,0);
-        this.level11 = this.add.rectangle(576, 576, 64, 64).setOrigin(0,0);
-        this.level12 = this.add.rectangle(768, 576, 64, 64).setOrigin(0,0);
+        this.level1 = this.add.image(192, 192, 'door').setOrigin(0,0);
+        this.level2 = this.add.image(384, 192, 'door').setOrigin(0,0);
+        this.level3 = this.add.image(576, 192, 'door').setOrigin(0,0);
+        this.level4 = this.add.image(768, 192, 'door').setOrigin(0,0);
+        this.level5 = this.add.image(192, 384, 'door').setOrigin(0,0);
+        this.level6 = this.add.image(384, 384, 'door').setOrigin(0,0);
+        this.level7 = this.add.image(576, 384, 'door').setOrigin(0,0);
+        this.level8 = this.add.image(768, 384, 'door').setOrigin(0,0);
+        this.level9 = this.add.image(192, 576, 'door').setOrigin(0,0);
+        this.level10 = this.add.image(384, 576, 'door').setOrigin(0,0);
+        this.level11 = this.add.image(576, 576, 'door').setOrigin(0,0);
+        this.level12 = this.add.image(768, 576, 'door').setOrigin(0,0);
         
         this.level1Text = this.add.text(192, 192, "1", unlockedConfig).setOrigin(0, 0);
         this.level1.setInteractive({useHandCursor: true}).on('pointerdown', () => {
