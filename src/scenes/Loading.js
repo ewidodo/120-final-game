@@ -24,7 +24,7 @@ class Loading extends Phaser.Scene{
 
         this.rnd = Phaser.Math.RND;
         this.randomThings = [
-            "The statement \"2+2=5\" is only true in Level 3, so keep that in mind while completing the level.",
+            "The statement \"2+2=5\" is only true in Level 3, so keep that in mind while completing that level.",
             "When falling from a great height, be sure to immediately use your idle animation.",
             "Log in every Friday to collect your extra weekly button press.",
             "There is an easter egg that can be accessed in the loading screen by typing the following 6 times before the menu loads:\n\"Taumatawhakatangi­hangakoauauotamatea­turipukakapikimaunga­horonukupokaiwhen­uakitanatahu\"",
