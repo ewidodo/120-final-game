@@ -41,7 +41,7 @@ class Loading extends Phaser.Scene{
         this.randomTing = this.rnd.pick(this.randomThings);
         this.randomTip = this.add.text(game.config.width / 2, game.config.height / 2 + 192, this.randomTing, tipConfig).setOrigin(0.5);
 
-        //load images
+        //load images 
         this.load.image('ruth_jump', './assets/ruthJump.png');
         this.load.image('ruth_fall', './assets/ruthFall.png');
         this.load.image('ruth_deth', './assets/ruthDeth.png');
