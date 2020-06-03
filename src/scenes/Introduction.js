@@ -14,6 +14,7 @@ class Introduction extends Phaser.Scene {
 
         //dummy player
         this.player = new Player(this, game.config.width * 10, game.config.height * 10, 'ruth_idle', 0);
+        this.gameOver = true;
 
         this.dialogue = new Dialogue(this, 512, 96, 'player', 0, "So the big cheese has asked me to glaum a whole buncha\nstuff from this kooky place...", 20, 11, 3000);
         this.dialogue1Finished = false;

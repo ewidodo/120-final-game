@@ -17,7 +17,7 @@ class Loading extends Phaser.Scene{
                 right: 15
             },
         }
-        this.loading = this.add.text(game.config.width / 2, game.config.height / 2 - 256, "Loading", tipConfig).setOrigin(0.5);
+        this.loading = this.add.text(game.config.width / 2, game.config.height / 2 - 144, "Loading", tipConfig).setOrigin(0.5);
         tipConfig.fontSize = '26px';
         this.tipText = this.add.text(game.config.width / 2, game.config.height / 2 + 144, "TIP", tipConfig).setOrigin(0.5);
         tipConfig.fontSize = '20px';
