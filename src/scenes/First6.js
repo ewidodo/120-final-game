@@ -5,7 +5,7 @@ class First6 extends Phaser.Scene {
     }
 
     create() {
-        this.cameras.main.fadeIn(650, 0, 0, 0);
+        this.cameras.main.fadeIn(transitionSpeed, 0, 0, 0);
         this.mapConfig = {
             key: 'first6',
             tileWidth: 64,
@@ -182,10 +182,10 @@ class First6 extends Phaser.Scene {
         this.time.addEvent({
             delay: 0,
             callback: () => {
-                this.cameras.main.fadeOut(400, 0, 0, 0);
+                this.cameras.main.fadeOut(transitionSpeed, 0, 0, 0);
                 this.cameras.main.on('camerafadeoutcomplete', () => {
                     this.time.addEvent({
-                        delay: 400,
+                        delay: transitionSpeed,
                         callback: () => {
                             this.scene.start(sceneString);
                         }

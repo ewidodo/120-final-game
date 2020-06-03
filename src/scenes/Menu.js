@@ -11,7 +11,7 @@ class Menu extends Phaser.Scene {
     }
 
     create() {
-        this.cameras.main.fadeIn(650, 0, 0, 0);
+        this.cameras.main.fadeIn(transitionSpeed, 0, 0, 0);
         this.newOver = false;
 
         this.time.addEvent({
@@ -32,10 +32,11 @@ class Menu extends Phaser.Scene {
             this.time.addEvent({
             delay: 0,
             callback: () => {
+                this.sound.play('sfx_select1');
                 this.cameras.main.fadeOut(400, 0, 0, 0);
                 this.cameras.main.on('camerafadeoutcomplete', () => {
                     this.time.addEvent({
-                        delay: 400,
+                        delay: transitionSpeed,
                         callback: () => {
                             this.scene.start("intro");
                         }
@@ -44,8 +45,13 @@ class Menu extends Phaser.Scene {
             }
             });
         })
-        .on('pointerover', () => { this.newStory.setScale(1.05,1.05); } ) 
-        .on('pointerout', ()  => { this.newStory.setScale(1,1); } );
+        .on('pointerover', () => {
+            this.newStory.setScale(1.05,1.05);
+            this.sound.play('sfx_hover');
+        }) 
+        .on('pointerout', ()  => {
+            this.newStory.setScale(1,1);
+        });
 
 
         this.levelSelect.setInteractive({useHandCursor: true})
@@ -53,10 +59,11 @@ class Menu extends Phaser.Scene {
             this.time.addEvent({
                 delay: 0,
                 callback: () => {
+                    this.sound.play('sfx_select1');
                     this.cameras.main.fadeOut(400, 0, 0, 0);
                     this.cameras.main.on('camerafadeoutcomplete', () => {
                         this.time.addEvent({
-                            delay: 400,
+                            delay: transitionSpeed,
                             callback: () => {
                                 this.scene.start("levelSelect");
                             }
@@ -65,8 +72,13 @@ class Menu extends Phaser.Scene {
                 }
                 });
         })
-        .on('pointerover', () => { this.levelSelect.setScale(1.05,1.05); } ) 
-        .on('pointerout', ()  => { this.levelSelect.setScale(1,1); } );
+        .on('pointerover', () => {
+            this.levelSelect.setScale(1.05,1.05);
+            this.sound.play('sfx_hover');
+        }) 
+        .on('pointerout', ()  => {
+            this.levelSelect.setScale(1,1);
+        });
 
        
     }

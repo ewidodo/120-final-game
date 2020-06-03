@@ -47,6 +47,10 @@ class Loading extends Phaser.Scene{
         this.load.audio('walk2', './assets/walk2.wav');
         this.load.audio('jump', './assets/jump.wav');
         this.load.audio('thud', './assets/thud.wav');
+        
+        this.load.audio('sfx_hover', './assets/menu_hover.wav');
+        this.load.audio('sfx_select1', './assets/menu_select.wav');
+        this.load.audio('sfx_select2', './assets/menu_select2.wav');
 
         this.load.audio('bgm_menu', './assets/bgm_menu.mp3');
         this.load.audio('bgm_ingame', './assets/bgm_ingame.mp3');
@@ -167,8 +171,8 @@ class Loading extends Phaser.Scene{
             repeat: -1
         });
 
-        this.ruth = this.add.sprite(game.config.width / 2, game.config.height / 2, 'ruth_idle').setOrigin(0.5).setScale(2);
-        this.ruth.anims.play('r_idle');
+        this.ruth = this.add.sprite(game.config.width / 2, game.config.height / 2, 'ruth_run').setOrigin(0.5).setScale(2);
+        this.ruth.anims.play('r_run');
 
         //done loading
         this.time.addEvent({

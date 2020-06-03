@@ -37,10 +37,13 @@ let game = new Phaser.Game(config);
 let keyA, keyD, keyW, keyQ, keyE, keyESC, keyLEFT, keyRIGHT, keySPACE;
 let rotationValue, playerRotationValue;
 let spawnX, spawnY;
+let transitionSpeed = 300;
 let gravityStrength = 2000;
 let playerSpeed = 350;
 let jumpSpeed = -600;
 let rotationSpeed = 350;
 let bgm_menu, bgm_lvl, thud;
 
+let bgm_vol = parseInt(localStorage.getItem('bgm_volume')) || 1;
+let sfx_vol = parseInt(localStorage.getItem('sfx_volume')) || 1;
 let lastLevelCompleted = parseInt(localStorage.getItem('progress')) || 0;

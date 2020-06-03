@@ -8,7 +8,7 @@ class LevelSelect extends Phaser.Scene {
     }
 
     create() {
-        this.cameras.main.fadeIn(650, 0, 0, 0);
+        this.cameras.main.fadeIn(transitionSpeed, 0, 0, 0);
         this.bg  = this.add.image( 0, 0,'bg').setOrigin(0,0);
         this.lstext = this.add.image(game.config.width/2, 128, 'lstext').setOrigin(0.5);
         this.exit = this.add.image(game.config.width/2, game.config.height - 96, 'exit').setOrigin(0.5);
@@ -173,13 +173,16 @@ class LevelSelect extends Phaser.Scene {
 
 
     transition(sceneString) {
+        if (sceneString != 'menuScene') {
+            this.sound.play('sfx_select1');
+        }
         this.time.addEvent({
             delay: 0,
             callback: () => {
-                this.cameras.main.fadeOut(400, 0, 0, 0);
+                this.cameras.main.fadeOut(transitionSpeed, 0, 0, 0);
                 this.cameras.main.on('camerafadeoutcomplete', () => {
                     this.time.addEvent({
-                        delay: 400,
+                        delay: transitionSpeed,
                         callback: () => {
                             this.scene.start(sceneString);
                         }

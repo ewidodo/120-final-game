@@ -4,7 +4,7 @@ class Introduction extends Phaser.Scene {
     }
 
     create() {
-        this.cameras.main.fadeIn(650, 0, 0, 0);
+        this.cameras.main.fadeIn(transitionSpeed, 0, 0, 0);
         this.cameras.main.setBackgroundColor("#555555");
 
         this.ruth = this.add.sprite(game.config.width / 3, game.config.height / 2, 'ruth_idle').setOrigin(0.5).setScale(2);
@@ -24,6 +24,14 @@ class Introduction extends Phaser.Scene {
         this.dialogue6Started = false;
         this.dialogue7Started = false;
         this.dialogue8Started = false;
+
+        //music
+        if (!bgm_lvl.isPlaying) {
+            bgm_lvl.play();
+        }
+        if (bgm_menu.isPlaying) {
+            bgm_menu.stop();
+        }
     }
 
     update() {
@@ -139,10 +147,10 @@ class Introduction extends Phaser.Scene {
         this.time.addEvent({
             delay: 0,
             callback: () => {
-                this.cameras.main.fadeOut(400, 0, 0, 0);
+                this.cameras.main.fadeOut(transitionSpeed, 0, 0, 0);
                 this.cameras.main.on('camerafadeoutcomplete', () => {
                     this.time.addEvent({
-                        delay: 400,
+                        delay: transitionSpeed,
                         callback: () => {
                             this.scene.start("intro1");
                         }
