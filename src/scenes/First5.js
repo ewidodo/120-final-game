@@ -71,6 +71,8 @@ class First5 extends Phaser.Scene {
         this.dialogue3Started = false;
         this.dialogue4Started = false;
 
+        this.transitioning = false;
+
         //music
         if (!bgm_lvl.isPlaying) {
             bgm_lvl.play();
@@ -168,6 +170,9 @@ class First5 extends Phaser.Scene {
         this.dialogue4Started = false;
         this.map.setCollisionBetween(16, 17, false, true, this.layer);
         this.map.setCollisionBetween(26, 27, false, true, this.layer);
+        this.map.setTileIndexCallback(
+            [54, 55, 56, 57, 58, 62, 63, 64, 65, 66, 68, 72, 76, 77, 78, 82, 83, 84, 85],
+            () => {this.b = 1;}, this);
         if (lastLevelCompleted < 10) {
             lastLevelCompleted = 10;
             localStorage.setItem('progress', lastLevelCompleted);
@@ -183,19 +188,22 @@ class First5 extends Phaser.Scene {
 
     
     transition(sceneString) {
-        this.time.addEvent({
-            delay: 0,
-            callback: () => {
-                this.cameras.main.fadeOut(transitionSpeed, 0, 0, 0);
-                this.cameras.main.on('camerafadeoutcomplete', () => {
-                    this.time.addEvent({
-                        delay: transitionSpeed,
-                        callback: () => {
-                            this.scene.start(sceneString);
-                        }
-                    })
-                });
-            }
-        });
+        if (!this.transitioning) {
+            this.transitioning = true;
+            this.time.addEvent({
+                delay: 0,
+                callback: () => {
+                    this.cameras.main.fadeOut(transitionSpeed, 0, 0, 0);
+                    this.cameras.main.on('camerafadeoutcomplete', () => {
+                        this.time.addEvent({
+                            delay: transitionSpeed,
+                            callback: () => {
+                                this.scene.start(sceneString);
+                            }
+                        })
+                    });
+                }
+            });
+        }
     }
 }
