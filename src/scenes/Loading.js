@@ -24,14 +24,14 @@ class Loading extends Phaser.Scene{
 
         this.rnd = Phaser.Math.RND;
         this.randomThings = [
-            "Picking up the Giant Bean allows you to deal 3x damage to Inconspicuous Slimes.",
+            "The statement \"2+2=5\" is only true in Level 3, so keep that in mind while completing the level.",
             "When falling from a great height, be sure to immediately use your idle animation.",
-            "Log in every Friday to collect your extra button press.",
+            "Log in every Friday to collect your extra weekly button press.",
             "There is an easter egg that can be accessed in the loading screen by typing the following 6 times before the menu loads:\n\"Taumatawhakatangi­hangakoauauotamatea­turipukakapikimaunga­horonukupokaiwhen­uakitanatahu\"",
-            "Celery Sticks are a common healing item, so don't be afraid to use them.",
+            "Celery Sticks are a common healing item, which is weird considering they don't appear ingame at all.",
             "The S rank is awarded to players who complete a level with only 0.5 of a button press.",
-            "When your Gravity skill reaches 39, you can press the button much faster.",
-            "The Out-Of-This-World Whiskey Soda provides a lot of stat boosts that allow you to perform better in gravity rotation.",
+            "When your Gravity skill reaches 39, you can report this unintended feature to the developers.",
+            "The Out-Of-This-World Whiskey Soda provides a lot of stat boosts that allow you to perform better in menu browsing.",
             "This game is best experienced in a low-light environment as lights hurt my eyes.",
             "To give a service provider extra currency as a way to thank them.",
             "Holding A allows your character to run into a wall and ponder the meaning of life."
