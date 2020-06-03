@@ -4,6 +4,8 @@ class Menu extends Phaser.Scene {
     }
 
     preload() {
+        keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
+        keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
 
         this.menuBG = this.add.image(0, 0, 'menu').setOrigin(0, 0);
         this.newStory = this.add.image(80, 512, 'new-story').setOrigin(0, 0);
@@ -84,6 +86,24 @@ class Menu extends Phaser.Scene {
     }
 
     update() {
-        
+        if (Phaser.Input.Keyboard.JustDown(keyLEFT)) {
+            if (bgm_vol > 0.05) {
+                bgm_vol -= 0.1;
+            } else {
+                bgm_vol = 0;
+            }
+            localStorage.setItem('bgm_volume', bgm_vol);
+            bgm_menu.setVolume(bgm_vol);
+            bgm_lvl.setVolume(bgm_vol);
+        }
+
+        if (Phaser.Input.Keyboard.JustDown(keyRIGHT)) {
+            if (bgm_vol < 1) {
+                bgm_vol += 0.1;
+                localStorage.setItem('bgm_volume', bgm_vol);
+                bgm_menu.setVolume(bgm_vol);
+                bgm_lvl.setVolume(bgm_vol);
+            }
+        }
     }
 }

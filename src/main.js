@@ -44,6 +44,6 @@ let jumpSpeed = -600;
 let rotationSpeed = 350;
 let bgm_menu, bgm_lvl, thud;
 
-let bgm_vol = parseInt(localStorage.getItem('bgm_volume')) || 1;
-let sfx_vol = parseInt(localStorage.getItem('sfx_volume')) || 1;
+let bgm_vol = 1;
+let sfx_vol = 1;
 let lastLevelCompleted = parseInt(localStorage.getItem('progress')) || 0;

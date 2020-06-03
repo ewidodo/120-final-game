@@ -5,7 +5,7 @@ class Introduction extends Phaser.Scene {
 
     create() {
         this.cameras.main.fadeIn(transitionSpeed, 0, 0, 0);
-        this.cameras.main.setBackgroundColor("#555555");
+        this.cameras.main.setBackgroundColor("#2A2A2A");
 
         this.ruth = this.add.sprite(game.config.width / 3, game.config.height / 2, 'ruth_idle').setOrigin(0.5).setScale(2);
         this.malarkey = this.add.sprite(game.config.width /3 * 2, game.config.height / 2, 'malarkey').setOrigin(0.5).setScale(2);
@@ -25,16 +25,35 @@ class Introduction extends Phaser.Scene {
         this.dialogue7Started = false;
         this.dialogue8Started = false;
 
-        //music
-        if (!bgm_lvl.isPlaying) {
-            bgm_lvl.play();
-        }
-        if (bgm_menu.isPlaying) {
-            bgm_menu.stop();
+        keyESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
+        if (lastLevelCompleted > 0) {
+            let instructionConfig = {
+                fontFamily: 'Times New Roman',
+                fontSize: '26px',
+                color: '#000000',
+                align: 'center',
+                padding: {
+                    top: 15,
+                    bottom: 15,
+                    left: 15,
+                    right: 15
+                },
+
+            }
+            this.outline = this.add.rectangle(512, 928, 160, 64, 0x00000).setOrigin(0.5);
+            this.box = this.add.rectangle(512, 928, 152, 56, 0xFFFFFF).setOrigin(0.5);
+            this.outline.alpha = 0.45;
+            this.box.alpha = 0.55;
+            this.testText = this.add.text(512, 928, "Esc to skip", instructionConfig).setOrigin(0.5);
         }
     }
 
     update() {
+        //skip intro
+        if (Phaser.Input.Keyboard.JustDown(keyESC)) {
+            this.transition();
+        }
+
         //chain dialogues and stuff
         if (!this.dialogue1Finished) {
             this.dialogue.update();
@@ -144,6 +163,10 @@ class Introduction extends Phaser.Scene {
     }
 
     transition() {
+        if (lastLevelCompleted < 1) {
+            lastLevelCompleted = 0.1;
+            localStorage.setItem('progress', lastLevelCompleted);
+        }
         this.time.addEvent({
             delay: 0,
             callback: () => {

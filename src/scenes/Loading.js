@@ -74,8 +74,10 @@ class Loading extends Phaser.Scene{
         //set music
         bgm_menu = this.sound.add('bgm_menu');
         bgm_menu.loop = true;
+        bgm_menu.setVolume(bgm_vol);
         bgm_lvl = this.sound.add('bgm_ingame');
         bgm_lvl.loop = true;
+        bgm_lvl.setVolume(bgm_vol);
 
         thud = this.sound.add('thud');
         
