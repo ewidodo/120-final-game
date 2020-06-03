@@ -183,6 +183,8 @@ class First1 extends Phaser.Scene {
         this.dialogue3Started = false;
         this.dialogue4Started = false;
         this.dialogue5Started = false;
+        this.map.setCollisionBetween(16, 17, false, true, this.layer);
+        this.map.setCollisionBetween(26, 27, false, true, this.layer);
         if (lastLevelCompleted < 6) {
             lastLevelCompleted = 6;
             localStorage.setItem('progress', lastLevelCompleted);
