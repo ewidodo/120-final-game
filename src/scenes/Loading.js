@@ -5,6 +5,39 @@ class Loading extends Phaser.Scene{
 
     preload() {
         this.cameras.main.setBackgroundColor("#555555");
+        let tipConfig = {
+            fontFamily: 'Times New Roman',
+            fontSize: '48px',
+            color: '#FFFFFF',
+            align: 'center',
+            padding: {
+                top: 15,
+                bottom: 15,
+                left: 15,
+                right: 15
+            },
+        }
+        this.loading = this.add.text(game.config.width / 2, game.config.height / 2 - 256, "Loading", tipConfig).setOrigin(0.5);
+        tipConfig.fontSize = '26px';
+        this.tipText = this.add.text(game.config.width / 2, game.config.height / 2 + 144, "TIP", tipConfig).setOrigin(0.5);
+        tipConfig.fontSize = '20px';
+
+        this.rnd = Phaser.Math.RND;
+        this.randomThings = [
+            "Picking up the Giant Bean allows you to deal 3x damage to Inconspicuous Slimes.",
+            "When falling from a great height, be sure to immediately use your idle animation.",
+            "Log in every Friday to collect your extra button press.",
+            "There is an easter egg that can be accessed in the loading screen by typing the following 6 times before the menu loads:\n\"Taumatawhakatangi­hangakoauauotamatea­turipukakapikimaunga­horonukupokaiwhen­uakitanatahu\"",
+            "Celery Sticks are a common healing item, so don't be afraid to use them.",
+            "The S rank is awarded to players who complete a level with only 0.5 of a button press.",
+            "When your Gravity skill reaches 39, you can press the button much faster.",
+            "The Out-Of-This-World Whiskey Soda provides a lot of stat boosts that allow you to perform better in gravity rotation.",
+            "This game is best experienced in a low-light environment as lights hurt my eyes.",
+            "To give a service provider extra currency as a way to thank them.",
+            "Holding A allows your character to run into a wall and ponder the meaning of life."
+        ]
+        this.randomTing = this.rnd.pick(this.randomThings);
+        this.randomTip = this.add.text(game.config.width / 2, game.config.height / 2 + 192, this.randomTing, tipConfig).setOrigin(0.5);
 
         //load images
         this.load.image('ruth_jump', './assets/ruthJump.png');
@@ -71,6 +104,8 @@ class Loading extends Phaser.Scene{
     }
 
     create() {
+        this.ruth = this.add.sprite(game.config.width / 2, game.config.height / 2, 'ruth_idle').setOrigin(0.5).setScale(2);
+
         //set music
         bgm_menu = this.sound.add('bgm_menu');
         bgm_menu.loop = true;
@@ -173,12 +208,11 @@ class Loading extends Phaser.Scene{
             repeat: -1
         });
 
-        this.ruth = this.add.sprite(game.config.width / 2, game.config.height / 2, 'ruth_run').setOrigin(0.5).setScale(2);
         this.ruth.anims.play('r_run');
 
         //done loading
         this.time.addEvent({
-            delay: 2000,
+            delay: 4000,
             callback: () => {
                 this.cameras.main.fadeOut(400, 0, 0, 0);
                 this.cameras.main.on('camerafadeoutcomplete', () => {
