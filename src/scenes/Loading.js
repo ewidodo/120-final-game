@@ -4,7 +4,7 @@ class Loading extends Phaser.Scene{
     }
 
     preload() {
-        this.cameras.main.setBackgroundColor("#555555");
+        this.cameras.main.setBackgroundColor("#2A2A2A");
         let tipConfig = {
             fontFamily: 'Times New Roman',
             fontSize: '48px',
@@ -108,6 +108,7 @@ class Loading extends Phaser.Scene{
         this.done = false;
         this.walk1 = true;
         this.walk2 = false;
+        this.volume = 0.2;
     }
 
     create() {
@@ -122,6 +123,11 @@ class Loading extends Phaser.Scene{
         bgm_lvl.setVolume(bgm_vol);
 
         thud = this.sound.add('thud');
+
+        this.walk1sound = this.sound.add('walk1');
+        this.walk1sound.setVolume(this.volume);
+        this.walk2sound = this.sound.add('walk2');
+        this.walk2sound.setVolume(this.volume);
         
         //define animations
         this.anims.create({
@@ -240,12 +246,22 @@ class Loading extends Phaser.Scene{
             if(this.ruth.anims.currentFrame.index == 2 && this.walk1) {
                 this.walk1 = false;
                 this.walk2 = true;
-                this.sound.play('walk1');
+                this.walk1sound.play();
+
+                //get louder as she walks in
+                this.volume += 0.1;
+                this.walk1sound.setVolume(this.volume);
+                this.walk2sound.setVolume(this.volume);
             }
             if(this.ruth.anims.currentFrame.index == 6 && this.walk2) {
                 this.walk1 = true;
                 this.walk2 = false;
-                this.sound.play('walk2');
+                this.walk2sound.play();
+
+                //get louder as she walks in
+                this.volume += 0.1;
+                this.walk1sound.setVolume(this.volume);
+                this.walk2sound.setVolume(this.volume);
             }
         } else {
             if (!this.done) {

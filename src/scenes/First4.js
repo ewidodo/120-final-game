@@ -107,6 +107,9 @@ class First4 extends Phaser.Scene {
 
         //exit level
         if (Phaser.Input.Keyboard.JustDown(keyESC)) {
+            if (!this.transitioning) {
+                this.sound.play('sfx_select2');
+            }
             this.transition("levelSelect");
         }
 
@@ -201,7 +204,7 @@ class First4 extends Phaser.Scene {
         this.dialogue4Started = false;
         this.dialogue5Started = false;
         this.dialogue6Started = false;
-        this.map.setCollisionBetween(16, 17, false, true, this.layer);
+        this.map.setCollisionBetween(16, 17, false, true, this.layer); //disable collision with the doors and slime
         this.map.setCollisionBetween(26, 27, false, true, this.layer);
         this.map.setTileIndexCallback(
             [54, 55, 56, 57, 58, 62, 63, 64, 65, 66, 68, 72, 76, 77, 78, 82, 83, 84, 85],
@@ -223,6 +226,17 @@ class First4 extends Phaser.Scene {
     transition(sceneString) {
         if (!this.transitioning) {
             this.transitioning = true;
+            if (sceneString == "levelSelect") {
+                this.tweens.add({
+                    targets: bgm_lvl,
+                    volume: 0,
+                    duration: transitionSpeed * 1.5,
+                    onComplete: () => {
+                        bgm_lvl.stop();
+                        bgm_lvl.setVolume(bgm_vol);
+                    }
+                })
+            }
             this.time.addEvent({
                 delay: 0,
                 callback: () => {

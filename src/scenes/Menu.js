@@ -10,6 +10,8 @@ class Menu extends Phaser.Scene {
         this.menuBG = this.add.image(0, 0, 'menu').setOrigin(0, 0);
         this.newStory = this.add.image(80, 512, 'new-story').setOrigin(0, 0);
         this.levelSelect = this.add.image(game.config.width - 318, 512, 'level-select').setOrigin(0, 0);
+
+        this.transitioning = false;
     }
 
     create() {
@@ -30,55 +32,61 @@ class Menu extends Phaser.Scene {
 
         //sets the menu buttons to have hover effect and switch scenes when clicked
         this.newStory.setInteractive({useHandCursor: true})
-        .on('pointerdown', () => {  
-            this.time.addEvent({
-            delay: 0,
-            callback: () => {
-                this.sound.play('sfx_select1');
-                this.cameras.main.fadeOut(400, 0, 0, 0);
-                this.cameras.main.on('camerafadeoutcomplete', () => {
-                    this.time.addEvent({
-                        delay: transitionSpeed,
-                        callback: () => {
-                            this.scene.start("intro");
-                        }
-                    })
+        .on('pointerdown', () => {
+            if (!this.transitioning) {
+                this.transitioning = true;
+                this.time.addEvent({
+                    delay: 0,
+                    callback: () => {
+                        this.sound.play('sfx_select1');
+                        this.cameras.main.fadeOut(400, 0, 0, 0);
+                        this.cameras.main.on('camerafadeoutcomplete', () => {
+                            this.time.addEvent({
+                                delay: transitionSpeed,
+                                callback: () => {
+                                    this.scene.start("intro");
+                                }
+                            })
+                        });
+                    }
                 });
             }
-            });
         })
-        .on('pointerover', () => {
+        .on('pointerover', () => { //scale text up a bit when hovering
             this.newStory.setScale(1.05,1.05);
             this.sound.play('sfx_hover');
         }) 
-        .on('pointerout', ()  => {
+        .on('pointerout', ()  => { //scale back down if not
             this.newStory.setScale(1,1);
         });
 
 
         this.levelSelect.setInteractive({useHandCursor: true})
         .on('pointerdown', () => {
-            this.time.addEvent({
-                delay: 0,
-                callback: () => {
-                    this.sound.play('sfx_select1');
-                    this.cameras.main.fadeOut(400, 0, 0, 0);
-                    this.cameras.main.on('camerafadeoutcomplete', () => {
-                        this.time.addEvent({
-                            delay: transitionSpeed,
-                            callback: () => {
-                                this.scene.start("levelSelect");
-                            }
-                        })
-                    });
-                }
+            if (!this.transitioning) {
+                this.transitioning = true;
+                this.time.addEvent({
+                    delay: 0,
+                    callback: () => {
+                        this.sound.play('sfx_select1');
+                        this.cameras.main.fadeOut(400, 0, 0, 0);
+                        this.cameras.main.on('camerafadeoutcomplete', () => {
+                            this.time.addEvent({
+                                delay: transitionSpeed,
+                                callback: () => {
+                                    this.scene.start("levelSelect");
+                                }
+                            })
+                        });
+                    }
                 });
+            }
         })
-        .on('pointerover', () => {
+        .on('pointerover', () => { //scale text up a bit when hovering
             this.levelSelect.setScale(1.05,1.05);
             this.sound.play('sfx_hover');
         }) 
-        .on('pointerout', ()  => {
+        .on('pointerout', ()  => { //scale back down if not
             this.levelSelect.setScale(1,1);
         });
 

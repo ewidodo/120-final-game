@@ -5,6 +5,8 @@ class LevelSelect extends Phaser.Scene {
 
     preload() {
         keyESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
+
+        this.transitioning = false;
     }
 
     create() {
@@ -12,6 +14,7 @@ class LevelSelect extends Phaser.Scene {
         this.bg  = this.add.image( 0, 0,'bg').setOrigin(0,0);
         this.lstext = this.add.image(game.config.width/2, 128, 'lstext').setOrigin(0.5);
         this.exit = this.add.image(game.config.width/2, game.config.height - 96, 'exit').setOrigin(0.5);
+        
         //change music to menu music
         if (bgm_lvl.isPlaying) {
             bgm_lvl.stop();
@@ -61,10 +64,10 @@ class LevelSelect extends Phaser.Scene {
         this.level1Text = this.add.text(192, 192, "1", unlockedConfig).setOrigin(0, 0);
         this.level1.setInteractive({useHandCursor: true}).on('pointerdown', () => {
             this.transition("intro1");
-        }).on('pointerover', () => {
+        }).on('pointerover', () => { //set text to cyan when hovering
             this.level1Text.setColor("#00FFFF");
             this.sound.play('sfx_hover');
-        }).on('pointerout', ()  => {
+        }).on('pointerout', ()  => { //otherwise set it back to black
             this.level1Text.setColor("#000000")
         });
 
@@ -72,10 +75,10 @@ class LevelSelect extends Phaser.Scene {
             this.level2Text = this.add.text(384, 192, "2", unlockedConfig).setOrigin(0, 0);
              this.level2.setInteractive({useHandCursor: true}).on('pointerdown', () => {
                 this.transition("intro2");
-            }).on('pointerover', () => {
+            }).on('pointerover', () => { //set text to cyan when hovering
                 this.level2Text.setColor("#00FFFF");
                 this.sound.play('sfx_hover');
-            }).on('pointerout', ()  => {
+            }).on('pointerout', ()  => { //otherwise set it back to black
                 this.level2Text.setColor("#000000")
             });
         } else {
@@ -86,10 +89,10 @@ class LevelSelect extends Phaser.Scene {
             this.level3Text = this.add.text(576, 192, "3", unlockedConfig).setOrigin(0, 0);
             this.level3.setInteractive({useHandCursor: true}).on('pointerdown', () => {
                 this.transition("intro3");
-            }).on('pointerover', () => {
+            }).on('pointerover', () => { //set text to cyan when hovering
                 this.level3Text.setColor("#00FFFF");
                 this.sound.play('sfx_hover');
-            }).on('pointerout', ()  => {
+            }).on('pointerout', ()  => { //otherwise set it back to black
                 this.level3Text.setColor("#000000")
             });
         } else {
@@ -100,10 +103,10 @@ class LevelSelect extends Phaser.Scene {
             this.level4Text = this.add.text(768, 192, "4", unlockedConfig).setOrigin(0, 0);
             this.level4.setInteractive({useHandCursor: true}).on('pointerdown', () => {
                 this.transition("intro4");
-            }).on('pointerover', () => {
+            }).on('pointerover', () => { //set text to cyan when hovering
                 this.level4Text.setColor("#00FFFF");
                 this.sound.play('sfx_hover');
-            }).on('pointerout', ()  => {
+            }).on('pointerout', ()  => { //otherwise set it back to black
                 this.level4Text.setColor("#000000")
             });
         } else {
@@ -114,10 +117,10 @@ class LevelSelect extends Phaser.Scene {
             this.level5Text = this.add.text(192, 384, "5", unlockedConfig).setOrigin(0, 0);
             this.level5.setInteractive({useHandCursor: true}).on('pointerdown', () => {
                 this.transition("intro5");
-            }).on('pointerover', () => {
+            }).on('pointerover', () => { //set text to cyan when hovering
                 this.level5Text.setColor("#00FFFF");
                 this.sound.play('sfx_hover');
-            }).on('pointerout', ()  => {
+            }).on('pointerout', ()  => { //otherwise set it back to black
                 this.level5Text.setColor("#000000")
             });
         } else {
@@ -128,10 +131,10 @@ class LevelSelect extends Phaser.Scene {
             this.level6Text = this.add.text(384, 384, "6", unlockedConfig).setOrigin(0, 0);
             this.level6.setInteractive({useHandCursor: true}).on('pointerdown', () => {
                 this.transition("first1");
-            }).on('pointerover', () => {
+            }).on('pointerover', () => { //set text to cyan when hovering
                 this.level6Text.setColor("#00FFFF");
                 this.sound.play('sfx_hover');
-            }).on('pointerout', ()  => {
+            }).on('pointerout', ()  => { //otherwise set it back to black
                 this.level6Text.setColor("#000000")
             });
         } else {
@@ -142,10 +145,10 @@ class LevelSelect extends Phaser.Scene {
             this.level7Text = this.add.text(576, 384, "7", unlockedConfig).setOrigin(0, 0);
             this.level7.setInteractive({useHandCursor: true}).on('pointerdown', () => {
                 this.transition("first2");
-            }).on('pointerover', () => {
+            }).on('pointerover', () => { //set text to cyan when hovering
                 this.level7Text.setColor("#00FFFF");
                 this.sound.play('sfx_hover');
-            }).on('pointerout', ()  => {
+            }).on('pointerout', ()  => { //otherwise set it back to black
                 this.level7Text.setColor("#000000")
             });
         } else {
@@ -156,10 +159,10 @@ class LevelSelect extends Phaser.Scene {
             this.level8Text = this.add.text(768, 384, "8", unlockedConfig).setOrigin(0, 0);
             this.level8.setInteractive({useHandCursor: true}).on('pointerdown', () => {
                 this.transition("first3");
-            }).on('pointerover', () => {
+            }).on('pointerover', () => { //set text to cyan when hovering
                 this.level8Text.setColor("#00FFFF");
                 this.sound.play('sfx_hover');
-            }).on('pointerout', ()  => {
+            }).on('pointerout', ()  => { //otherwise set it back to black
                 this.level8Text.setColor("#000000")
             });
         } else {
@@ -170,10 +173,10 @@ class LevelSelect extends Phaser.Scene {
             this.level9Text = this.add.text(192, 576, "9", unlockedConfig).setOrigin(0, 0);
             this.level9.setInteractive({useHandCursor: true}).on('pointerdown', () => {
                 this.transition("first4");
-            }).on('pointerover', () => {
+            }).on('pointerover', () => { //set text to cyan when hovering
                 this.level9Text.setColor("#00FFFF");
                 this.sound.play('sfx_hover');
-            }).on('pointerout', ()  => {
+            }).on('pointerout', ()  => { //otherwise set it back to black
                 this.level9Text.setColor("#000000")
             });
         } else {
@@ -184,10 +187,10 @@ class LevelSelect extends Phaser.Scene {
             this.level10Text = this.add.text(378, 576, "10", unlockedConfig).setOrigin(0, 0);
             this.level10.setInteractive({useHandCursor: true}).on('pointerdown', () => {
                 this.transition("first5");
-            }).on('pointerover', () => {
+            }).on('pointerover', () => { //set text to cyan when hovering
                 this.level10Text.setColor("#00FFFF");
                 this.sound.play('sfx_hover');
-            }).on('pointerout', ()  => {
+            }).on('pointerout', ()  => { //otherwise set it back to black
                 this.level10Text.setColor("#000000")
             });
         } else {
@@ -198,10 +201,10 @@ class LevelSelect extends Phaser.Scene {
             this.level11Text = this.add.text(570, 576, "11", unlockedConfig).setOrigin(0, 0);
             this.level11.setInteractive({useHandCursor: true}).on('pointerdown', () => {
                 this.transition("first6");
-            }).on('pointerover', () => {
+            }).on('pointerover', () => { //set text to cyan when hovering
                 this.level11Text.setColor("#00FFFF");
                 this.sound.play('sfx_hover');
-            }).on('pointerout', ()  => {
+            }).on('pointerout', ()  => { //otherwise set it back to black
                 this.level11Text.setColor("#000000")
             });
         } else {
@@ -212,10 +215,10 @@ class LevelSelect extends Phaser.Scene {
             this.level12Text = this.add.text(762, 576, "12", unlockedConfig).setOrigin(0, 0);
             this.level12.setInteractive({useHandCursor: true}).on('pointerdown', () => {
                 this.transition("first6");
-            }).on('pointerover', () => {
+            }).on('pointerover', () => { //set text to cyan when hovering
                 this.level12Text.setColor("#00FFFF");
                 this.sound.play('sfx_hover');
-            }).on('pointerout', ()  => {
+            }).on('pointerout', ()  => { //otherwise set it back to black
                 this.level12Text.setColor("#000000")
             });
         } else {
@@ -233,23 +236,37 @@ class LevelSelect extends Phaser.Scene {
 
 
     transition(sceneString) {
-        if (sceneString != 'menuScene') {
-            this.sound.play('sfx_select1');
-        }
-        this.time.addEvent({
-            delay: 0,
-            callback: () => {
-                this.cameras.main.fadeOut(transitionSpeed, 0, 0, 0);
-                this.cameras.main.on('camerafadeoutcomplete', () => {
-                    this.time.addEvent({
-                        delay: transitionSpeed,
-                        callback: () => {
-                            this.scene.start(sceneString);
-                        }
-                    })
-                });
+        if (!this.transitioning) {
+            this.transitioning = true;
+            if (sceneString != 'menuScene') {
+                this.sound.play('sfx_select1');
+                this.tweens.add({
+                    targets: bgm_menu,
+                    volume: 0,
+                    duration: transitionSpeed * 1.5,
+                    onComplete: () => {
+                        bgm_menu.stop();
+                        bgm_menu.setVolume(bgm_vol);
+                    }
+                })
+            } else {
+                this.sound.play('sfx_select2');
             }
-        });
+            this.time.addEvent({
+                delay: 0,
+                callback: () => {
+                    this.cameras.main.fadeOut(transitionSpeed, 0, 0, 0);
+                    this.cameras.main.on('camerafadeoutcomplete', () => {
+                        this.time.addEvent({
+                            delay: transitionSpeed,
+                            callback: () => {
+                                this.scene.start(sceneString);
+                            }
+                        })
+                    });
+                }
+            });
+        }
     }
     
 }
