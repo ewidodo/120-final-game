@@ -1,13 +1,13 @@
-class First6 extends Phaser.Scene {
+class First7 extends Phaser.Scene {
     constructor() {
-        super("first6");
+        super("first7");
         this.uiCamera = 0;
     }
 
     create() {
         this.cameras.main.fadeIn(transitionSpeed, 0, 0, 0);
         this.mapConfig = {
-            key: 'first6',
+            key: 'first7',
             tileWidth: 64,
             tileHeight: 64
         }
@@ -32,7 +32,7 @@ class First6 extends Phaser.Scene {
 
         //player
         spawnX = 96;
-        spawnY = game.config.height - 416;
+        spawnY = 224;
         this.player = new Player(this, spawnX, spawnY, 'player', 0);
         this.player.setSize(32, 64, true);
         this.gameOver = false;
@@ -40,6 +40,7 @@ class First6 extends Phaser.Scene {
 
         //physics
         this.physics.add.collider(this.player, this.layer);
+
 
         //keyboard input
         keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
@@ -69,8 +70,6 @@ class First6 extends Phaser.Scene {
         this.dialogue2Started = false;
         this.dialogue3Started = false;
         this.dialogue4Started = false;
-
-        this.transitioning = false;
 
         //music
         if (!bgm_lvl.isPlaying) {
@@ -104,9 +103,6 @@ class First6 extends Phaser.Scene {
 
         //exit level
         if (Phaser.Input.Keyboard.JustDown(keyESC)) {
-            if (!this.transitioning) {
-                this.sound.play('sfx_select2');
-            }
             this.transition("levelSelect");
         }
 
@@ -170,17 +166,12 @@ class First6 extends Phaser.Scene {
         this.dialogue2Started = false;
         this.dialogue3Started = false;
         this.dialogue4Started = false;
-        this.map.setCollisionBetween(16, 17, false, true, this.layer); //disable collision with the doors and slime
-        this.map.setCollisionBetween(26, 27, false, true, this.layer);
-        this.map.setTileIndexCallback(
-            [54, 55, 56, 57, 58, 62, 63, 64, 65, 66, 68, 72, 76, 77, 78, 82, 83, 84, 85],
-            () => {this.b = 1;}, this);
-        if (lastLevelCompleted < 11) {
-            lastLevelCompleted = 11;
+        if (lastLevelCompleted < 12) {
+            lastLevelCompleted = 12;
             localStorage.setItem('progress', lastLevelCompleted);
         }
         if(this.door == false){
-            this.transition("first7");
+            this.transition("levelSelect");
         }
         
         this.door = true;
@@ -188,33 +179,19 @@ class First6 extends Phaser.Scene {
 
     
     transition(sceneString) {
-        if (!this.transitioning) {
-            this.transitioning = true;
-            if (sceneString == "levelSelect") {
-                this.tweens.add({
-                    targets: bgm_lvl,
-                    volume: 0,
-                    duration: transitionSpeed * 1.5,
-                    onComplete: () => {
-                        bgm_lvl.stop();
-                        bgm_lvl.setVolume(bgm_vol);
-                    }
-                })
+        this.time.addEvent({
+            delay: 0,
+            callback: () => {
+                this.cameras.main.fadeOut(transitionSpeed, 0, 0, 0);
+                this.cameras.main.on('camerafadeoutcomplete', () => {
+                    this.time.addEvent({
+                        delay: transitionSpeed,
+                        callback: () => {
+                            this.scene.start(sceneString);
+                        }
+                    })
+                });
             }
-            this.time.addEvent({
-                delay: 0,
-                callback: () => {
-                    this.cameras.main.fadeOut(transitionSpeed, 0, 0, 0);
-                    this.cameras.main.on('camerafadeoutcomplete', () => {
-                        this.time.addEvent({
-                            delay: transitionSpeed,
-                            callback: () => {
-                                this.scene.start(sceneString);
-                            }
-                        })
-                    });
-                }
-            });
-        }
+        });
     }
 }

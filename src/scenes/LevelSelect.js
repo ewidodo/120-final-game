@@ -214,7 +214,7 @@ class LevelSelect extends Phaser.Scene {
         if(lastLevelCompleted  >= 11){
             this.level12Text = this.add.text(762, 576, "12", unlockedConfig).setOrigin(0, 0);
             this.level12.setInteractive({useHandCursor: true}).on('pointerdown', () => {
-                this.transition("first6");
+                this.transition("first7");
             }).on('pointerover', () => { //set text to cyan when hovering
                 this.level12Text.setColor("#00FFFF");
                 this.sound.play('sfx_hover');
