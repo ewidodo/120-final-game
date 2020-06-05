@@ -32,12 +32,12 @@ class First7 extends Phaser.Scene {
             this.nextLevel, this);
 
         //player
-        this.boye = this.add.sprite(game.config.width - 224, game.config.height - 299, 'boye');
+        this.boye = this.add.sprite(game.config.width - 192, game.config.height - 299, 'boye');
         this.boye.anims.play('boye');
         this.acquired = false;
         //spawnX = 96;
         //spawnY = 224;
-        spawnX = game.config.width - 192;
+        spawnX = game.config.width - 224;
         spawnY = game.config.height - 128;
         this.player = new Player(this, spawnX, spawnY, 'player', 0);
         this.player.setSize(32, 64, true);
