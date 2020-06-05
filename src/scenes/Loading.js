@@ -76,6 +76,7 @@ class Loading extends Phaser.Scene{
         this.load.audio('sfx_button', './assets/button.wav');
         this.load.audio('sfx_switch', './assets/switch.wav');
         this.load.audio('sfx_death', './assets/deth.wav');
+        this.load.audio('sfx_win', './assets/victory.wav');
         this.load.audio('speechfont1', './assets/speechfont1.wav');
         this.load.audio('speechfont1Completed', './assets/speechfont1Complete.wav');
         this.load.audio('walk1', './assets/walk1.wav');
