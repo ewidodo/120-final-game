@@ -32,7 +32,7 @@ class First7 extends Phaser.Scene {
             this.nextLevel, this);
 
         //player
-        this.boye = this.add.sprite(game.config.width - 192, game.config.height - 299, 'boye');
+        this.boye = this.add.sprite(game.config.width - 224, game.config.height - 299, 'boye');
         this.boye.anims.play('boye');
         this.acquired = false;
         //spawnX = 96;
@@ -319,8 +319,11 @@ class First7 extends Phaser.Scene {
             delay: 500,
             callback: () => {
                 this.gameOver = true;
-                this.player.setVelocityX(0);
-                this.player.setVelocityY(0);
+                if (this.player.gravityState % 2 == 0) {
+                    this.player.setVelocityX(0);
+                } else {
+                    this.player.setVelocityY(0);
+                }
                 this.boye.setAlpha(1);
                 this.dialogue2 = new Dialogue(this, 2012, 1564, 'player', 0, "I DID IT! I got the owl!", 10, 6, 4500);
                 this.dialogue2Started = true;
