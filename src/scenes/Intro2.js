@@ -6,6 +6,7 @@ class Intro2 extends Phaser.Scene {
 
     create() {
         this.cameras.main.fadeIn(transitionSpeed, 0, 0, 0);
+        this.cameras.main.setBackgroundColor("#2A2A2A");
         this.mapConfig = {
             key: 'introObst',
             tileWidth: 64,

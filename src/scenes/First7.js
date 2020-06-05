@@ -6,6 +6,7 @@ class First7 extends Phaser.Scene {
 
     create() {
         this.cameras.main.fadeIn(transitionSpeed, 0, 0, 0);
+        this.cameras.main.setBackgroundColor("#2A2A2A");
         this.mapConfig = {
             key: 'first7',
             tileWidth: 64,
@@ -199,7 +200,7 @@ class First7 extends Phaser.Scene {
                 this.time.addEvent({
                     delay: 200,
                     callback: () => {
-                        this.dialogue5 = new Dialogue(this, 2012, 1564, 'player', 0, "What? What do you mean they haven't build the rest of the\nwarehouse yet?", 20, 2, 3000);
+                        this.dialogue5 = new Dialogue(this, 2012, 1564, 'player', 0, "What? What do you mean they haven't built the rest of the\nwarehouse yet?", 20, 2, 3000);
                         this.dialogue5Started = true;
                     }
                 });
