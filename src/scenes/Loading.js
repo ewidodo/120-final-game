@@ -71,6 +71,7 @@ class Loading extends Phaser.Scene{
         this.load.atlas('ruth_idle', './assets/ruthIdle.png', './assets/ruthIdle.json');
         this.load.atlas('ruth_run', './assets/ruthRun.png', './assets/ruthRun.json');
         this.load.atlas('malarkey', './assets/MrMalarkey.png', './assets/MrMalarkey.json');
+        this.load.atlas('boye', './assets/boye.png', './assets/boye.json');
 
         //load audio
         this.load.audio('sfx_button', './assets/button.wav');
@@ -219,6 +220,13 @@ class Loading extends Phaser.Scene{
         this.anims.create({
             key: 'm_idle',
             frames: this.anims.generateFrameNames('malarkey'),
+            frameRate: 12,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'boye',
+            frames: this.anims.generateFrameNames('boye'),
             frameRate: 12,
             repeat: -1
         });

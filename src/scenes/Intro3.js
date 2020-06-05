@@ -239,6 +239,8 @@ class Intro3 extends Phaser.Scene {
                         bgm_lvl.setVolume(bgm_vol);
                     }
                 })
+            } else {
+                this.sound.play('sfx_win');
             }
             this.time.addEvent({
                 delay: 0,

@@ -8,7 +8,7 @@
     "duration": 100
    },
    "boye 1.png": {
-    "frame": { "x": 40, "y": 0, "w": 40, "h": 50 },
+    "frame": { "x": 41, "y": 0, "w": 40, "h": 50 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 40, "h": 50 },
@@ -16,7 +16,7 @@
     "duration": 100
    },
    "boye 2.png": {
-    "frame": { "x": 80, "y": 0, "w": 40, "h": 50 },
+    "frame": { "x": 82, "y": 0, "w": 40, "h": 50 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 40, "h": 50 },
@@ -24,7 +24,7 @@
     "duration": 100
    },
    "boye 3.png": {
-    "frame": { "x": 120, "y": 0, "w": 40, "h": 50 },
+    "frame": { "x": 123, "y": 0, "w": 40, "h": 50 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 40, "h": 50 },
@@ -32,7 +32,7 @@
     "duration": 100
    },
    "boye 4.png": {
-    "frame": { "x": 160, "y": 0, "w": 40, "h": 50 },
+    "frame": { "x": 164, "y": 0, "w": 40, "h": 50 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 40, "h": 50 },
@@ -40,7 +40,7 @@
     "duration": 100
    },
    "boye 5.png": {
-    "frame": { "x": 200, "y": 0, "w": 40, "h": 50 },
+    "frame": { "x": 205, "y": 0, "w": 40, "h": 50 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 40, "h": 50 },
@@ -48,7 +48,7 @@
     "duration": 100
    },
    "boye 6.png": {
-    "frame": { "x": 240, "y": 0, "w": 40, "h": 50 },
+    "frame": { "x": 246, "y": 0, "w": 40, "h": 50 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 40, "h": 50 },
@@ -56,7 +56,7 @@
     "duration": 100
    },
    "boye 7.png": {
-    "frame": { "x": 280, "y": 0, "w": 40, "h": 50 },
+    "frame": { "x": 287, "y": 0, "w": 40, "h": 50 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 40, "h": 50 },
@@ -68,7 +68,7 @@
   "app": "http://www.aseprite.org/",
   "version": "1.2.19.2-x64",
   "format": "RGBA8888",
-  "size": { "w": 320, "h": 50 },
+  "size": { "w": 327, "h": 50 },
   "scale": "1",
   "frameTags": [
   ],

@@ -48,7 +48,7 @@ class Intro5 extends Phaser.Scene {
         this.player.setSize(32, 64, true);
         this.gameOver = false;
         this.door = false;
-        
+
         //physics
         this.physics.add.collider(this.player, this.layer);
 
@@ -201,6 +201,8 @@ class Intro5 extends Phaser.Scene {
                         bgm_lvl.setVolume(bgm_vol);
                     }
                 })
+            } else {
+                this.sound.play('sfx_win');
             }
             this.time.addEvent({
                 delay: 0,
