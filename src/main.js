@@ -28,7 +28,7 @@ let config = {
         target: 60,
         forceSetTimeOut: true
     },
-    scene: [Loading, Menu, LevelSelect, Introduction, Intro1, Intro2, Intro3, Intro4, Intro5, First1, First2, First3, First4, First5, First6],
+    scene: [Loading, Menu, LevelSelect, Introduction, Intro1, Intro2, Intro3, Intro4, Intro5, First1, First2, First3, First4, First5, First6, First7],
 };
 
 let game = new Phaser.Game(config);

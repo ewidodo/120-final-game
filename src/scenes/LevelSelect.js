@@ -156,7 +156,7 @@ class LevelSelect extends Phaser.Scene {
         if(lastLevelCompleted  >= 11){
             this.level12Text = this.add.text(762, 576, "12", unlockedConfig).setOrigin(0, 0);
             this.level12.setInteractive({useHandCursor: true}).on('pointerdown', () => {
-                this.transition("first6");
+                this.transition("first7");
             });
         } else {
             this.level12Text = this.add.text(762, 576, "12", lockedConfig).setOrigin(0, 0);
