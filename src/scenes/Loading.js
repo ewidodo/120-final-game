@@ -4,7 +4,7 @@ class Loading extends Phaser.Scene{
     }
 
     preload() {
-        this.cameras.main.setBackgroundColor("#555555");
+        this.cameras.main.setBackgroundColor("#2A2A2A");
         let tipConfig = {
             fontFamily: 'Times New Roman',
             fontSize: '48px',
@@ -17,7 +17,7 @@ class Loading extends Phaser.Scene{
                 right: 15
             },
         }
-        this.loading = this.add.text(game.config.width / 2, game.config.height / 2 - 256, "Loading", tipConfig).setOrigin(0.5);
+        this.loading = this.add.text(game.config.width / 2, game.config.height / 2 - 144, "Loading", tipConfig).setOrigin(0.5);
         tipConfig.fontSize = '26px';
         this.tipText = this.add.text(game.config.width / 2, game.config.height / 2 + 144, "TIP", tipConfig).setOrigin(0.5);
         tipConfig.fontSize = '20px';
@@ -33,13 +33,15 @@ class Loading extends Phaser.Scene{
             "When your Gravity skill reaches 39, you can report this unintended feature to the developers.",
             "The Out-Of-This-World Whiskey Soda provides a lot of stat boosts that allow you to perform better in menu browsing.",
             "This game is best experienced in a low-light environment as lights hurt my eyes.",
-            "To give a service provider extra currency as a way to thank them.",
-            "Holding A allows your character to run into a wall and ponder the meaning of life."
+            "To give a service provider extra money as a way to thank them for their excellent service",
+            "Holding A allows your character to run into a wall and ponder the meaning of life.",
+            "Having an SSD does not speed up the loading of this game as it does not speed up the walking sequence.",
+            "Don't cry, don't lose your mind. It's only teenage wasteland.",
         ]
         this.randomTing = this.rnd.pick(this.randomThings);
         this.randomTip = this.add.text(game.config.width / 2, game.config.height / 2 + 192, this.randomTing, tipConfig).setOrigin(0.5);
 
-        //load images
+        //load images 
         this.load.image('ruth_jump', './assets/ruthJump.png');
         this.load.image('ruth_fall', './assets/ruthFall.png');
         this.load.image('ruth_deth', './assets/ruthDeth.png');
@@ -102,10 +104,16 @@ class Loading extends Phaser.Scene{
         this.load.tilemapCSV('first5', './tilemaps/first5.csv');
         this.load.tilemapCSV('first6', './tilemaps/first6.csv');
         this.load.tilemapCSV('first7', './tilemaps/first7.csv');
+
+        //misc
+        this.done = false;
+        this.walk1 = true;
+        this.walk2 = false;
+        this.volume = 0.2;
     }
 
     create() {
-        this.ruth = this.add.sprite(game.config.width / 2, game.config.height / 2, 'ruth_idle').setOrigin(0.5).setScale(2);
+        this.ruth = this.add.sprite(-96, game.config.height / 2, 'ruth_idle').setOrigin(0.5).setScale(2);
 
         //set music
         bgm_menu = this.sound.add('bgm_menu');
@@ -116,6 +124,11 @@ class Loading extends Phaser.Scene{
         bgm_lvl.setVolume(bgm_vol);
 
         thud = this.sound.add('thud');
+
+        this.walk1sound = this.sound.add('walk1');
+        this.walk1sound.setVolume(this.volume);
+        this.walk2sound = this.sound.add('walk2');
+        this.walk2sound.setVolume(this.volume);
         
         //define animations
         this.anims.create({
@@ -213,7 +226,7 @@ class Loading extends Phaser.Scene{
 
         //done loading
         this.time.addEvent({
-            delay: 4000,
+            delay: 5000,
             callback: () => {
                 this.cameras.main.fadeOut(400, 0, 0, 0);
                 this.cameras.main.on('camerafadeoutcomplete', () => {
@@ -226,5 +239,36 @@ class Loading extends Phaser.Scene{
                 });
             }
         });
+    }
+
+    update() {
+        if (this.ruth.x != game.config.width / 2) {
+            this.ruth.x += 4;
+            if(this.ruth.anims.currentFrame.index == 2 && this.walk1) {
+                this.walk1 = false;
+                this.walk2 = true;
+                this.walk1sound.play();
+
+                //get louder as she walks in
+                this.volume += 0.1;
+                this.walk1sound.setVolume(this.volume);
+                this.walk2sound.setVolume(this.volume);
+            }
+            if(this.ruth.anims.currentFrame.index == 6 && this.walk2) {
+                this.walk1 = true;
+                this.walk2 = false;
+                this.walk2sound.play();
+
+                //get louder as she walks in
+                this.volume += 0.1;
+                this.walk1sound.setVolume(this.volume);
+                this.walk2sound.setVolume(this.volume);
+            }
+        } else {
+            if (!this.done) {
+                this.done = true;
+                this.ruth.anims.play('r_idle');
+            }
+        }
     }
 }

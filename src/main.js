@@ -1,11 +1,18 @@
+/*
+Ruth Rutherford, Mr Malarkey, and the Woodenickel Warehouse, by Jameson Danning, Colin Watterson, Enrico Widodo
+
+Credits
+-------
+Jameson Danning - Art, Design, Coding
+Colin Watterson - Level Design, Coding
+Enrico Widodo - Coding, Sound Design, Art
+*/
+
 let config = {
     type: Phaser.CANVAS,
     width: 1024,
     height: 1024,
-    //pixelArt: true,
-    //antialias: false,
     scale: {
-        //mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH
     },
     resolution: window.devicePixelRatio,

@@ -14,6 +14,7 @@ class Introduction extends Phaser.Scene {
 
         //dummy player
         this.player = new Player(this, game.config.width * 10, game.config.height * 10, 'ruth_idle', 0);
+        this.gameOver = true;
 
         this.dialogue = new Dialogue(this, 512, 96, 'player', 0, "So the big cheese has asked me to glaum a whole buncha\nstuff from this kooky place...", 20, 11, 3000);
         this.dialogue1Finished = false;
@@ -25,7 +26,10 @@ class Introduction extends Phaser.Scene {
         this.dialogue7Started = false;
         this.dialogue8Started = false;
 
+        this.transitioning = false;
+
         keyESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
+
         if (lastLevelCompleted > 0) {
             let instructionConfig = {
                 fontFamily: 'Times New Roman',
@@ -51,6 +55,9 @@ class Introduction extends Phaser.Scene {
     update() {
         //skip intro
         if (Phaser.Input.Keyboard.JustDown(keyESC)) {
+            if (!this.transitioning) {
+                this.sound.play('sfx_select2');
+            }
             this.transition();
         }
 
@@ -163,23 +170,35 @@ class Introduction extends Phaser.Scene {
     }
 
     transition() {
-        if (lastLevelCompleted < 1) {
-            lastLevelCompleted = 0.1;
-            localStorage.setItem('progress', lastLevelCompleted);
-        }
-        this.time.addEvent({
-            delay: 0,
-            callback: () => {
-                this.cameras.main.fadeOut(transitionSpeed, 0, 0, 0);
-                this.cameras.main.on('camerafadeoutcomplete', () => {
-                    this.time.addEvent({
-                        delay: transitionSpeed,
-                        callback: () => {
-                            this.scene.start("intro1");
-                        }
-                    })
-                });
+        if (!this.transitioning) {
+            this.transitioning = true;
+            this.tweens.add({
+                targets: bgm_menu,
+                volume: 0,
+                duration: transitionSpeed * 1.5,
+                onComplete: () => {
+                    bgm_menu.stop();
+                    bgm_menu.setVolume(bgm_vol);
+                }
+            })
+            if (lastLevelCompleted < 1) {
+                lastLevelCompleted = 0.1;
+                localStorage.setItem('progress', lastLevelCompleted);
             }
-        });
+            this.time.addEvent({
+                delay: 0,
+                callback: () => {
+                    this.cameras.main.fadeOut(transitionSpeed, 0, 0, 0);
+                    this.cameras.main.on('camerafadeoutcomplete', () => {
+                        this.time.addEvent({
+                            delay: transitionSpeed,
+                            callback: () => {
+                                this.scene.start("intro1");
+                            }
+                        })
+                    });
+                }
+            });
+        }
     }
 }

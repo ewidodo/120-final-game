@@ -44,6 +44,7 @@ class Intro2 extends Phaser.Scene {
         this.player.setSize(32, 64);
         this.gameOver = false;
         this.door = false;
+        
         //physics
         this.physics.add.collider(this.player, this.layer);
 
@@ -63,6 +64,8 @@ class Intro2 extends Phaser.Scene {
         this.dialogue2Started = false;
         this.dialogue3Started = false;
         this.dialogue4Started = false;
+
+        this.transitioning = false;
 
         //music
         if (!bgm_lvl.isPlaying) {
@@ -84,6 +87,9 @@ class Intro2 extends Phaser.Scene {
 
         //exit level
         if (Phaser.Input.Keyboard.JustDown(keyESC)) {
+            if (!this.transitioning) {
+                this.sound.play('sfx_select2');
+            }
             this.transition("levelSelect");
         }
 
@@ -171,6 +177,11 @@ class Intro2 extends Phaser.Scene {
         this.dialogue2Started = false;
         this.dialogue3Started = false;
         this.dialogue4Started = false;
+        this.map.setCollisionBetween(16, 17, false, true, this.layer); //disable collision with the doors and slime
+        this.map.setCollisionBetween(26, 27, false, true, this.layer);
+        this.map.setTileIndexCallback(
+            [54, 55, 56, 57, 58, 62, 63, 64, 65, 66, 68, 72, 76, 77, 78, 82, 83, 84, 85],
+            () => {this.b = 1;}, this);
         if (lastLevelCompleted < 2) {
             lastLevelCompleted = 2;
             localStorage.setItem('progress', lastLevelCompleted);
@@ -185,19 +196,33 @@ class Intro2 extends Phaser.Scene {
 
     
     transition(sceneString) {
-        this.time.addEvent({
-            delay: 0,
-            callback: () => {
-                this.cameras.main.fadeOut(transitionSpeed, 0, 0, 0);
-                this.cameras.main.on('camerafadeoutcomplete', () => {
-                    this.time.addEvent({
-                        delay: transitionSpeed,
-                        callback: () => {
-                            this.scene.start(sceneString);
-                        }
-                    })
-                });
+        if (!this.transitioning) {
+            this.transitioning = true;
+            if (sceneString == "levelSelect") {
+                this.tweens.add({
+                    targets: bgm_lvl,
+                    volume: 0,
+                    duration: transitionSpeed * 1.5,
+                    onComplete: () => {
+                        bgm_lvl.stop();
+                        bgm_lvl.setVolume(bgm_vol);
+                    }
+                })
             }
-        });
+            this.time.addEvent({
+                delay: 0,
+                callback: () => {
+                    this.cameras.main.fadeOut(transitionSpeed, 0, 0, 0);
+                    this.cameras.main.on('camerafadeoutcomplete', () => {
+                        this.time.addEvent({
+                            delay: transitionSpeed,
+                            callback: () => {
+                                this.scene.start(sceneString);
+                            }
+                        })
+                    });
+                }
+            });
+        }
     }
 }
