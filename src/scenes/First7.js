@@ -289,6 +289,7 @@ class First7 extends Phaser.Scene {
             if (this.dialogue11.finished) {
                 this.dialogue11Started = false;
                 //do ending stuff here
+                this.transition('finalScreen');
             }
         }
     }
