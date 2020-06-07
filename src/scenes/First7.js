@@ -37,8 +37,8 @@ class First7 extends Phaser.Scene {
         this.acquired = false;
         //spawnX = 96;
         //spawnY = 224;
-        spawnX = game.config.width - 224;
-        spawnY = game.config.height - 128;
+        spawnX = 96;
+        spawnY = 224;
         this.player = new Player(this, spawnX, spawnY, 'player', 0);
         this.player.setSize(32, 64, true);
         this.gameOver = false;
@@ -289,6 +289,7 @@ class First7 extends Phaser.Scene {
             if (this.dialogue11.finished) {
                 this.dialogue11Started = false;
                 //do ending stuff here
+                this.transition('finalScreen');
             }
         }
     }
