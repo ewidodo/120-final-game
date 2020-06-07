@@ -55,6 +55,7 @@ class Intro2 extends Phaser.Scene {
         this.cameras.main.setRotation(rotationValue);
         this.player.setRotation(playerRotationValue);
         this.switching = false;
+        this.rotator = new RotationManager(this, 0, 0 , 'player', 0);
 
         //ui
         this.uiCamera = this.cameras.add(0, 0, game.config.width, game.config.height);
@@ -146,31 +147,7 @@ class Intro2 extends Phaser.Scene {
     }
 
     resetScene() {
-        if (!this.gameOver) {
-            this.gameOver = true;
-            this.player.setVelocityX(0);
-            this.player.setVelocityY(0);
-            this.sound.play('sfx_death');
-            this.tweens.add({
-                targets: this.player,
-                scale: 0,
-                duration: rotationSpeed,
-                ease: 'Power',
-                repeat: 0,
-                yoyo: false,
-                completeDelay: 100,
-                onComplete: function() {
-                    //reset player
-                    this.player.x = spawnX;
-                    this.player.y = spawnY;
-                    this.player.scale = 1;
-
-                    //undo gameOver flag
-                    this.gameOver = false;
-                },
-                onCompleteScope: this,
-            });
-        }
+        this.rotator.resetScene();
     }
 
     nextLevel() {
