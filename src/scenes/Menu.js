@@ -12,6 +12,10 @@ class Menu extends Phaser.Scene {
         this.levelSelect = this.add.image(game.config.width - 318, 512, 'level-select').setOrigin(0, 0);
 
         this.transitioning = false;
+
+        this.musicIcon = this.add.image(77,740,'musicIcon').setOrigin(0,0);
+        this.down = this.add.image(65,795,'musicDown').setOrigin(0,0);
+        this.up = this.add.image(115,795,'musicUp').setOrigin(0,0);
     }
 
     create() {
@@ -90,7 +94,31 @@ class Menu extends Phaser.Scene {
             this.levelSelect.setScale(1,1);
         });
 
-       
+       //music controls
+       this.down.setInteractive({useHandCursor: true})
+        .on('pointerdown', () => {
+            if (bgm_vol > 0.05) {
+                bgm_vol -= 0.1;
+            } else {
+                bgm_vol = 0;
+            }
+            localStorage.setItem('bgm_volume', bgm_vol);
+            bgm_menu.setVolume(bgm_vol);
+            bgm_lvl.setVolume(bgm_vol);
+            this.sound.play('sfx_select1');
+        });
+
+        this.up.setInteractive({useHandCursor: true})
+        .on('pointerdown', () => {
+            if (bgm_vol < 1) {
+                bgm_vol += 0.1;
+                localStorage.setItem('bgm_volume', bgm_vol);
+                bgm_menu.setVolume(bgm_vol);
+                bgm_lvl.setVolume(bgm_vol);
+                this.sound.play('sfx_select1');
+            }
+        });
+        
     }
 
     update() {

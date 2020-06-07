@@ -55,6 +55,9 @@ class Loading extends Phaser.Scene{
         this.load.image('lstext', './assets/lstext.png');
         this.load.image('door', './assets/door.png');
         this.load.image('exit', './assets/exitInstruc.png');
+        this.load.image('musicIcon', './assets/musicIcon.png');
+        this.load.image('musicDown', './assets/down.png');
+        this.load.image('musicUp', './assets/up.png');
 
         //load atlases
         this.load.atlas('ruth_normal', './assets/ruth_normal.png', './assets/dialogue.json');
