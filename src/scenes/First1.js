@@ -74,6 +74,7 @@ class First1 extends Phaser.Scene {
         this.dialogue5Started = false;
 
         this.transitioning = false;
+        this.win = false;
 
         //music
         if (!bgm_lvl.isPlaying) {
