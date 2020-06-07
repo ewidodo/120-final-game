@@ -43,8 +43,8 @@ class Intro5 extends Phaser.Scene {
         keyESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
 
         //player
-        spawnX = game.config.width/2 + 269;
-        spawnY = 292;
+        spawnX = game.config.width/2 + 288;
+        spawnY = 224;
         this.player = new Player(this, spawnX, spawnY, 'player', 0);
         this.player.setSize(32, 64, true);
         this.gameOver = false;

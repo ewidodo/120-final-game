@@ -49,6 +49,7 @@ class Intro3 extends Phaser.Scene {
         this.player = new Player(this, spawnX, spawnY, 'player', 0);
         this.player.setSize(32, 64, true);
         this.button = this.physics.add.sprite(game.config.width / 2, game.config.height - 416, 'button');
+        this.gameOver = false;
         this.door = false;
 
         //physics

@@ -43,6 +43,7 @@ class Intro1 extends Phaser.Scene {
         spawnY = game.config.height - 416;
         this.player = new Player(this, spawnX, spawnY, 'player', 0);
         this.player.setSize(32, 64, true);
+        this.gameOver = false;
         this.door = false;
 
         //physics
