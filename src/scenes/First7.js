@@ -278,7 +278,7 @@ class First7 extends Phaser.Scene {
                 this.time.addEvent({
                     delay: 200,
                     callback: () => {
-                        this.dialogue11 = new Dialogue(this, 2012, 1564, 'player', 0, "Can we get out of this room? My arms are getting tired now.", 2, 3, 2000);
+                        this.dialogue11 = new Dialogue(this, 2012, 1564, 'player', 0, "Can we get out of this room? My arms are getting tired now.", 2, 3, 3000);
                         this.dialogue11Started = true;
                     }
                 });
@@ -320,6 +320,7 @@ class First7 extends Phaser.Scene {
             delay: 500,
             callback: () => {
                 this.gameOver = true;
+                this.door = true;
                 if (this.player.gravityState % 2 == 0) {
                     this.player.setVelocityX(0);
                 } else {

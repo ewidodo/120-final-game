@@ -181,7 +181,10 @@ class Player extends Phaser.Physics.Arcade.Sprite {
 
         if (this.scene.gameOver) {
             if (this.scene.door) {
-                this.anims.play('r_win');
+                if (!this.winning) {
+                    this.winning = true;
+                    this.anims.play('r_win');
+                }
             } else {
                 this.anims.stop();
                 this.setTexture('ruth_deth', 0);

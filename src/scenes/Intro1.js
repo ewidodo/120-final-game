@@ -67,7 +67,6 @@ class Intro1 extends Phaser.Scene {
         this.dialogue3Finished = false;
 
         this.transitioning = false;
-        this.win = false;
 
         //music
         if (!bgm_lvl.isPlaying) {
@@ -172,19 +171,21 @@ class Intro1 extends Phaser.Scene {
             lastLevelCompleted = 1;
             localStorage.setItem('progress', lastLevelCompleted);
         }
-        if(this.door == false){
-            this.transition("intro2");  
-        }
 
-        if (this.player.gravityState % 2 == 0) {
-            this.player.setVelocityX(0);
-        } else {
-            this.player.setVelocityY(0);
-        }
-        
-        this.gameOver = true;
-        this.win = true;
-        this.door = true;
+        this.time.delayedCall(150, () => {
+            if(this.door == false){
+                this.transition("intro2");  
+            }
+    
+            if (this.player.gravityState % 2 == 0) {
+                this.player.setVelocityX(0);
+            } else {
+                this.player.setVelocityY(0);
+            }
+            
+            this.gameOver = true;
+            this.door = true;
+        });
     }
     
     transition(sceneString) {
@@ -204,7 +205,7 @@ class Intro1 extends Phaser.Scene {
                 this.sound.play('sfx_win');
             }
             this.time.addEvent({
-                delay: 0,
+                delay: 500,
                 callback: () => {
                     this.cameras.main.fadeOut(transitionSpeed, 0, 0, 0);
                     this.cameras.main.on('camerafadeoutcomplete', () => {

@@ -221,7 +221,8 @@ class Loading extends Phaser.Scene{
         this.anims.create({
             key: 'r_win',
             frames: this.anims.generateFrameNames('ruth_win'),
-            frameRate: 12,
+            frameRate: 5,
+            repeat: 0
         });
 
         this.anims.create({
