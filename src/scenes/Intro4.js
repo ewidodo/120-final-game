@@ -73,6 +73,33 @@ class Intro4 extends Phaser.Scene {
 
         this.transitioning = false;
 
+        let numConfig = {
+            fontFamily: 'Times New Roman',
+            fontSize: '26px',
+            color: '#000000',
+            align: 'center',
+        }
+        this.numOutline = this.add.rectangle(game.config.width + 1372, game.config.height + 1436, 128, 64, 0x00000).setOrigin(0, 0).setAlpha(0);
+        this.numBox = this.add.rectangle(game.config.width +1376, game.config.height + 1440, 120, 56, 0xFFFFFF).setOrigin(0, 0).setAlpha(0);
+        this.numText = this.add.text(game.config.width + 1398, game.config.height + 1456, "Level 4", numConfig).setOrigin(0, 0).setAlpha(0);
+        this.tweens.add({
+            targets: [this.numOutline, this.numBox, this.numText],
+            alpha: 1,
+            duration: 500,
+            repeat: 0,
+            yoyo: 0,
+            completeDelay: 1000,
+            onComplete: () => {
+                this.tweens.add({
+                    targets: [this.numOutline, this.numBox, this.numText],
+                    alpha: 0,
+                    duration: 500,
+                    repeat: 0,
+                    yoyo: 0,
+                });
+            }
+        });
+
         //music
         if (!bgm_lvl.isPlaying) {
             bgm_lvl.play();

@@ -36,7 +36,7 @@ class Loading extends Phaser.Scene{
             "To give a service provider extra money as a way to thank them for their excellent service",
             "Holding A allows your character to run into a wall and ponder the meaning of life.",
             "Having an SSD does not speed up the loading of this game as it does not speed up the walking sequence.",
-            "Don't cry, don't lose your mind. It's only teenage wasteland.",
+            "Don't cry, don't raise your eye. It's only teenage wasteland.",
         ]
         this.randomTing = this.rnd.pick(this.randomThings);
         this.randomTip = this.add.text(game.config.width / 2, game.config.height / 2 + 192, this.randomTing, tipConfig).setOrigin(0.5);
