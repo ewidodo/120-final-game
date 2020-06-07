@@ -97,13 +97,14 @@ class Menu extends Phaser.Scene {
         .on('pointerdown', () => {
             if (bgm_vol > 0.05) {
                 bgm_vol -= 0.1;
+                this.sound.play('sfx_select1');
             } else {
                 bgm_vol = 0;
+                this.sound.play('sfx_select1');
             }
             localStorage.setItem('bgm_volume', bgm_vol);
             bgm_menu.setVolume(bgm_vol);
             bgm_lvl.setVolume(bgm_vol);
-            this.sound.play('sfx_select1');
         });
 
         this.up.setInteractive({useHandCursor: true})
