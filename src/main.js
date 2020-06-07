@@ -12,11 +12,12 @@ let config = {
     type: Phaser.CANVAS,
     width: 1024,
     height: 1024,
+    
     scale: {
         autoCenter: Phaser.Scale.CENTER_BOTH
     },
     resolution: window.devicePixelRatio,
-
+    
     physics: {
         default: 'arcade',
         arcade: {
